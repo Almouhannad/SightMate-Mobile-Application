@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sight_mate/modules/shared/theme/domain/theme_repository.dart';
-import 'package:sight_mate/modules/shared/theme/presentation/theme_notifier.dart';
+import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 import 'theme_notifier_test.mocks.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'theme_notifier.dart';
+import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 /// widget to select theme mode
 class ThemeSettings extends StatelessWidget {

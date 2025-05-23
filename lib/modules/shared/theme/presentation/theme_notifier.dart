@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sight_mate/modules/shared/theme/domain/theme_repository.dart';
+import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 /// A ChangeNotifier that holds the current ThemeMode and notifies listeners on changes
 class ThemeNotifier extends ChangeNotifier {

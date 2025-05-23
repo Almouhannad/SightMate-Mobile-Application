@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sight_mate/modules/shared/theme/presentation/theme_settings_route.dart';
+import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
