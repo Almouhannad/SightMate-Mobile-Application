@@ -1,8 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../modules/theme/data/theme_repository_impl.dart';
-import '../modules/theme/domain/theme_repository.dart';
-import '../modules/theme/presentation/theme_notifier.dart';
+import '../modules/shared/theme/data/theme_repository_impl.dart';
+import '../modules/shared/theme/domain/theme_repository.dart';
+import '../modules/shared/theme/presentation/theme_notifier.dart';
 
 final GetIt getIt = GetIt.instance;
 

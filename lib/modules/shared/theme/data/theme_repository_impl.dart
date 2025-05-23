@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sight_mate/modules/theme/domain/theme_repository.dart';
+import 'package:sight_mate/modules/shared/theme/domain/theme_repository.dart';
 
 /// Key used for peristing theme select
 const _kThemeModeKey = 'user_theme_mode';

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
 import 'app/injection.dart';
-import 'modules/theme/presentation/theme_notifier.dart';
+import 'modules/shared/theme/presentation/theme_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
