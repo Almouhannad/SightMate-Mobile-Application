@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
               leading: const Icon(Icons.color_lens),
               title: const Text('Theme Settings'),
               onTap: () {
-                Navigator.of(context).pushNamed(ThemeSettingsRoute.name);
+                Navigator.of(context).popAndPushNamed(ThemeSettingsRoute.name);
               },
             ),
           ],
