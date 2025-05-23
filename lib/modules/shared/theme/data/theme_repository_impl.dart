@@ -40,26 +40,226 @@ class ThemeRepositoryImpl implements ThemeRepository {
   @override
   ThemeData get lightTheme {
     final base = ThemeData.light();
-    // TODO: Define theme data
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.white,
+      brightness: Brightness.light,
+    );
+
     return base.copyWith(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.green,
-        brightness: Brightness.light,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: colorScheme.surface,
+      splashFactory: InkRipple.splashFactory,
+
+      // AppBar
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 2,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: colorScheme.onPrimary,
+        ),
       ),
-      textTheme: base.textTheme.apply(fontFamily: 'Times New Roman'),
+
+      // Text
+      textTheme: base.textTheme.apply(
+        fontFamily: 'Roboto',
+        displayColor: colorScheme.onSurface,
+        bodyColor: colorScheme.onSurface,
+      ),
+
+      // Buttons
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          textStyle: TextStyle(fontFamily: 'Roboto'),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          side: BorderSide(color: colorScheme.primary),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+
+      // Floating Action Button
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.secondary,
+        foregroundColor: colorScheme.onSecondary,
+        elevation: 4,
+      ),
+
+      // Input fields
+      inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: TextStyle(color: colorScheme.primary),
+        filled: true,
+        fillColor: colorScheme.surfaceContainerHighest,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+      ),
+
+      // Cards
+      cardTheme: CardTheme(
+        color: colorScheme.surface,
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+
+      // Chips
+      chipTheme: base.chipTheme.copyWith(
+        backgroundColor: colorScheme.primaryContainer,
+        labelStyle: TextStyle(
+          color: colorScheme.onPrimaryContainer,
+          fontFamily: 'Roboto',
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
+      // Icons
+      iconTheme: IconThemeData(color: colorScheme.onSurface, size: 24),
+
+      // Progress Indicators
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.primary,
+      ),
+
+      // Bottom nav bar
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colorScheme.surface,
+        selectedItemColor: colorScheme.primary,
+        unselectedItemColor: colorScheme.onSurfaceVariant,
+      ),
     );
   }
 
   @override
   ThemeData get darkTheme {
     final base = ThemeData.dark();
-    // TODO: Define theme data
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: Colors.white,
+      brightness: Brightness.dark,
+    );
+
     return base.copyWith(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: Colors.blueGrey,
-        brightness: Brightness.dark,
+      colorScheme: colorScheme,
+      scaffoldBackgroundColor: colorScheme.surface,
+      splashFactory: InkRipple.splashFactory,
+
+      // AppBar
+      appBarTheme: AppBarTheme(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 2,
+        centerTitle: true,
+        titleTextStyle: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: colorScheme.onPrimary,
+        ),
       ),
-      textTheme: base.textTheme.apply(fontFamily: 'Times New Roman'),
+
+      // Text
+      textTheme: base.textTheme.apply(
+        fontFamily: 'Roboto',
+        displayColor: colorScheme.onSurface,
+        bodyColor: colorScheme.onSurface,
+      ),
+
+      // Buttons
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          textStyle: TextStyle(fontFamily: 'Roboto'),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          side: BorderSide(color: colorScheme.primary),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+
+      // Floating Action Button
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.secondary,
+        foregroundColor: colorScheme.onSecondary,
+        elevation: 4,
+      ),
+
+      // Input fields
+      inputDecorationTheme: InputDecorationTheme(
+        floatingLabelStyle: TextStyle(color: colorScheme.primary),
+        filled: true,
+        fillColor: colorScheme.surfaceContainerHighest,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+      ),
+
+      // Cards
+      cardTheme: CardTheme(
+        color: colorScheme.surface,
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+
+      // Chips
+      chipTheme: base.chipTheme.copyWith(
+        backgroundColor: colorScheme.primaryContainer,
+        labelStyle: TextStyle(
+          color: colorScheme.onPrimaryContainer,
+          fontFamily: 'Roboto',
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+
+      // Icons
+      iconTheme: IconThemeData(color: colorScheme.onSurface, size: 24),
+
+      // Progress Indicators
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: colorScheme.primary,
+      ),
+
+      // Bottom nav bar
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colorScheme.surface,
+        selectedItemColor: colorScheme.primary,
+        unselectedItemColor: colorScheme.onSurfaceVariant,
+      ),
     );
   }
 }
