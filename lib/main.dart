@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/app/routes.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
 import 'app/injection.dart';
 import 'modules/theme/presentation/theme_notifier.dart';
@@ -26,6 +27,7 @@ class SightMateApp extends StatelessWidget {
             return const SizedBox.shrink();
           }
           return MaterialApp(
+            onGenerateRoute: onGenerateRoute,
             debugShowCheckedModeBanner: false,
             theme: notifier.lightTheme,
             darkTheme: notifier.darkTheme,
