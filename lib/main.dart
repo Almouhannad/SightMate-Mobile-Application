@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
-import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'modules/shared/i18n/i18n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +19,17 @@ class SightMateApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = getIt<ThemeNotifier>();
+    final i18nNotifier = getIt<I18nNotifier>();
 
-    return ChangeNotifierProvider<ThemeNotifier>.value(
-      value: themeNotifier,
-      child: Consumer<ThemeNotifier>(
-        builder: (_, notifier, __) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeNotifier>.value(value: themeNotifier),
+        ChangeNotifierProvider<I18nNotifier>.value(value: i18nNotifier),
+      ],
+      child: Consumer2<ThemeNotifier, I18nNotifier>(
+        builder: (_, theme, i18n, __) {
           // Ensure we don't render before initial load completes
-          if (!notifier.initialized) {
+          if (!theme.initialized || !i18n.initialized) {
             return const SizedBox.shrink();
           }
           return MaterialApp(
@@ -34,9 +38,9 @@ class SightMateApp extends StatelessWidget {
             // Router settings
             onGenerateRoute: onGenerateRoute,
             // Theme management
-            theme: notifier.lightTheme,
-            darkTheme: notifier.darkTheme,
-            themeMode: notifier.mode,
+            theme: theme.lightTheme,
+            darkTheme: theme.darkTheme,
+            themeMode: theme.mode,
             // i18n config
             localizationsDelegates: [
               L10n.delegate,
@@ -44,8 +48,10 @@ class SightMateApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: L10n.delegate.supportedLocales,
-            locale: Locale('ar'),
+            supportedLocales: i18n.supportedLocales,
+            locale:
+                i18n.locale ??
+                L10n.delegate.supportedLocales.first, // 'en' default locale
             // Root
             home: const HomePage(),
           );
