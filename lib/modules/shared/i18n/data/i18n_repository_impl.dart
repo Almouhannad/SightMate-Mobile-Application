@@ -13,7 +13,7 @@ class I18nRepositoryImpl implements I18nRepository {
   Future<Locale?> loadLocale() async {
     final prefs = await _prefs;
     final stored = prefs.getString(_kLocaleKey);
-    if (stored == null) return null;
+    if (stored == null) return Locale("en");
 
     return Locale(stored);
   }
