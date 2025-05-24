@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sight_mate/modules/shared/i18n/domain/i18n_repository.dart';
-import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 
 /// Key used for persisting locale selection
 const _kLocaleKey = 'user_locale';
