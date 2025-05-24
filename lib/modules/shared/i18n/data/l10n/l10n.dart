@@ -59,6 +59,46 @@ class L10n {
     return Intl.message('Sight Mate', name: 'appName', desc: '', args: []);
   }
 
+  /// `Theme settings`
+  String get themeSettings {
+    return Intl.message(
+      'Theme settings',
+      name: 'themeSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language settings`
+  String get languageSettings {
+    return Intl.message(
+      'Language settings',
+      name: 'languageSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get lightMode {
+    return Intl.message('Light', name: 'lightMode', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get darkMode {
+    return Intl.message('Dark', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `System`
+  String get systemThemeMode {
+    return Intl.message('System', name: 'systemThemeMode', desc: '', args: []);
+  }
+
+  /// `App menu`
+  String get appMenu {
+    return Intl.message('App menu', name: 'appMenu', desc: '', args: []);
+  }
+
   /// `Hello, world!`
   String get helloWorld {
     return Intl.message(
