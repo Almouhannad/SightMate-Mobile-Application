@@ -40,6 +40,7 @@ dependencies:
   provider: ^6.1.5
   mockito: ^5.4.6
   build_runner: ^2.4.15
+  google_mlkit_text_recognition: ^0.15.0
 
 dev_dependencies:
   flutter_test:
