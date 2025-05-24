@@ -1,0 +1,7 @@
+{
+    "appName": "Sight Mate",
+    "@appName": {},
+
+    "helloWorld": "Hello, world!",
+    "@helloWorld": {}
+}

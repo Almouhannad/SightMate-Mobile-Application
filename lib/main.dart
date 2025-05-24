@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
+import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sight_mate/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +39,13 @@ class SightMateApp extends StatelessWidget {
             themeMode: notifier.mode,
             // i18n config
             localizationsDelegates: [
-              S.delegate,
+              L10n.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: L10n.delegate.supportedLocales,
+            locale: Locale('ar'),
             // Root
             home: const HomePage(),
           );

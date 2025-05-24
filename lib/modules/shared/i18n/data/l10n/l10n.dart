@@ -12,60 +12,78 @@ import 'intl/messages_all.dart';
 // ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
 // ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
 
-class S {
-  S();
+class L10n {
+  L10n();
 
-  static S? _current;
+  static L10n? _current;
 
-  static S get current {
+  static L10n get current {
     assert(
       _current != null,
-      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+      'No instance of L10n was loaded. Try to initialize the L10n delegate before accessing L10n.current.',
     );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
-  static Future<S> load(Locale locale) {
+  static Future<L10n> load(Locale locale) {
     final name = (locale.countryCode?.isEmpty ?? false)
         ? locale.languageCode
         : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = S();
-      S._current = instance;
+      final instance = L10n();
+      L10n._current = instance;
 
       return instance;
     });
   }
 
-  static S of(BuildContext context) {
-    final instance = S.maybeOf(context);
+  static L10n of(BuildContext context) {
+    final instance = L10n.maybeOf(context);
     assert(
       instance != null,
-      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+      'No instance of L10n present in the widget tree. Did you add L10n.delegate in localizationsDelegates?',
     );
     return instance!;
   }
 
-  static S? maybeOf(BuildContext context) {
-    return Localizations.of<S>(context, S);
+  static L10n? maybeOf(BuildContext context) {
+    return Localizations.of<L10n>(context, L10n);
+  }
+
+  /// `Sight Mate`
+  String get appName {
+    return Intl.message('Sight Mate', name: 'appName', desc: '', args: []);
+  }
+
+  /// `Hello, world!`
+  String get helloWorld {
+    return Intl.message(
+      'Hello, world!',
+      name: 'helloWorld',
+      desc: '',
+      args: [],
+    );
   }
 }
 
-class AppLocalizationDelegate extends LocalizationsDelegate<S> {
+class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
-    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
+    return const <Locale>[
+      Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
+    ];
   }
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
   @override
-  Future<S> load(Locale locale) => S.load(locale);
+  Future<L10n> load(Locale locale) => L10n.load(locale);
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

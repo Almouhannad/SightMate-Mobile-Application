@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sight_mate/modules/home/presentation/app_drawer.dart';
+import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
-      appBar: AppBar(title: Text('Sight Mate')),
+      appBar: AppBar(title: Text(L10n.of(context).appName)),
       body: HelloWorldWidget(),
     );
   }
@@ -24,7 +25,7 @@ class HelloWorldWidget extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text('Hello, world!', style: textStyle)],
+        children: [Text(L10n.of(context).helloWorld, style: textStyle)],
       ),
     );
   }
