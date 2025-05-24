@@ -1,0 +1,25 @@
+{
+    "appName": "Sight Mate",
+    "@appName": {},
+
+    "themeSettings": "Theme settings",
+    "@themeSettings": {},
+
+    "languageSettings": "Language settings",
+    "@languageSettings": {},
+
+    "lightMode": "Light",
+    "@lightMode": {},
+
+    "darkMode": "Dark",
+    "@darkMode": {},
+
+    "systemThemeMode": "System",
+    "@systemThemeMode": {},
+
+    "appMenu": "App menu",
+    "@appMenu": {},
+
+    "helloWorld": "Hello, world!",
+    "@helloWorld": {}
+}

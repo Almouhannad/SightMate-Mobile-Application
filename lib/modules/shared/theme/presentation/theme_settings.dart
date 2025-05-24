@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 /// widget to select theme mode
@@ -10,7 +11,7 @@ class ThemeSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     final notifier = context.watch<ThemeNotifier>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme Settings')),
+      appBar: AppBar(title: Text(L10n.current.themeSettings)),
       body:
           notifier.initialized
               ? ListView(
@@ -35,11 +36,11 @@ class ThemeSettings extends StatelessWidget {
   String _modeLabel(ThemeMode mode) {
     switch (mode) {
       case ThemeMode.light:
-        return 'Light';
+        return L10n.current.lightMode;
       case ThemeMode.dark:
-        return 'Dark';
+        return L10n.current.darkMode;
       case ThemeMode.system:
-        return 'System';
+        return L10n.current.systemThemeMode;
     }
   }
 }

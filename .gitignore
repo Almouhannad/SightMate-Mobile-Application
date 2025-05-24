@@ -46,3 +46,6 @@ app.*.map.json
 
 # Project organization
 /architecture.md
+
+# Dev tools stuff
+/devtools_options.yaml
