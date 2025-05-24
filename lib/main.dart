@@ -4,6 +4,8 @@ import 'package:sight_mate/app/routes.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sight_mate/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +29,24 @@ class SightMateApp extends StatelessWidget {
             return const SizedBox.shrink();
           }
           return MaterialApp(
-            onGenerateRoute: onGenerateRoute,
+            // Hide debug banner
             debugShowCheckedModeBanner: false,
+            // Router settings
+            onGenerateRoute: onGenerateRoute,
+            // Theme management
             theme: notifier.lightTheme,
             darkTheme: notifier.darkTheme,
             themeMode: notifier.mode,
-            home: const HomePage(), // Root widget
+            // i18n config
+            localizationsDelegates: [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            // Root
+            home: const HomePage(),
           );
         },
       ),
