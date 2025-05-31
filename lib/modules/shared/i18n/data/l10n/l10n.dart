@@ -108,6 +108,56 @@ class L10n {
       args: [],
     );
   }
+
+  /// `Preview`
+  String get preview {
+    return Intl.message('Preview', name: 'preview', desc: '', args: []);
+  }
+
+  /// `READ`
+  String get read {
+    return Intl.message('READ', name: 'read', desc: '', args: []);
+  }
+
+  /// `Incorrect selection!\nPlease try again`
+  String get incorrectSelection {
+    return Intl.message(
+      'Incorrect selection!\nPlease try again',
+      name: 'incorrectSelection',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An error occurred!\nPlease try again`
+  String get errorOccurred {
+    return Intl.message(
+      'An error occurred!\nPlease try again',
+      name: 'errorOccurred',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No text detected in selection`
+  String get noTextDetected {
+    return Intl.message(
+      'No text detected in selection',
+      name: 'noTextDetected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close`
+  String get close {
+    return Intl.message('Close', name: 'close', desc: '', args: []);
+  }
+
+  /// `Replay`
+  String get replay {
+    return Intl.message('Replay', name: 'replay', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

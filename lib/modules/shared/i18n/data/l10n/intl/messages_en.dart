@@ -24,12 +24,25 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
+    "errorOccurred": MessageLookupByLibrary.simpleMessage(
+      "An error occurred!\nPlease try again",
+    ),
     "helloWorld": MessageLookupByLibrary.simpleMessage("Hello, world!"),
+    "incorrectSelection": MessageLookupByLibrary.simpleMessage(
+      "Incorrect selection!\nPlease try again",
+    ),
     "languageSettings": MessageLookupByLibrary.simpleMessage(
       "Language settings",
     ),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
+    "noTextDetected": MessageLookupByLibrary.simpleMessage(
+      "No text detected in selection",
+    ),
+    "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+    "read": MessageLookupByLibrary.simpleMessage("READ"),
+    "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("System"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("Theme settings"),
   };

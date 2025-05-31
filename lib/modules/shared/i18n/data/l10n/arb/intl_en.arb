@@ -21,5 +21,26 @@
     "@appMenu": {},
 
     "helloWorld": "Hello, world!",
-    "@helloWorld": {}
+    "@helloWorld": {},
+
+    "preview": "Preview",
+    "@preview": {},
+
+    "read": "READ",
+    "@read": {},
+
+    "incorrectSelection": "Incorrect selection!\nPlease try again",
+    "@incorrectSelection": {},
+
+    "errorOccurred": "An error occurred!\nPlease try again",
+    "@errorOccurred": {},
+
+    "noTextDetected": "No text detected in selection",
+    "@noTextDetected": {},
+
+    "close": "Close",
+    "@close": {},
+
+    "replay": "Replay",
+    "@replay": {}
 }

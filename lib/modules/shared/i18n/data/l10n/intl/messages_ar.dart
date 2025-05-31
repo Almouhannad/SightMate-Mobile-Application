@@ -24,10 +24,23 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appMenu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
     "darkMode": MessageLookupByLibrary.simpleMessage("مظلم"),
+    "errorOccurred": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ!\nيرجى المحاولة مرة أخرى",
+    ),
     "helloWorld": MessageLookupByLibrary.simpleMessage("مرحباً"),
+    "incorrectSelection": MessageLookupByLibrary.simpleMessage(
+      "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
+    ),
     "languageSettings": MessageLookupByLibrary.simpleMessage("إعدادات اللغة"),
     "lightMode": MessageLookupByLibrary.simpleMessage("مضيء"),
+    "noTextDetected": MessageLookupByLibrary.simpleMessage(
+      "لم يتم اكتشاف نص في الاختيار",
+    ),
+    "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
+    "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
+    "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
   };
