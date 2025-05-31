@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "حدث خطأ!\nيرجى المحاولة مرة أخرى",
     ),
     "helloWorld": MessageLookupByLibrary.simpleMessage("مرحباً"),
+    "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
     ),

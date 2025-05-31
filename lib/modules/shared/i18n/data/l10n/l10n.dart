@@ -163,6 +163,11 @@ class L10n {
   String get textMode {
     return Intl.message('Text Mode', name: 'textMode', desc: '', args: []);
   }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

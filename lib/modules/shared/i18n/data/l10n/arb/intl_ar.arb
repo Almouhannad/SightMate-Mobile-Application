@@ -45,5 +45,8 @@
     "@replay": {},
 
     "textMode": "وضع النص",
-    "@textMode": {}
+    "@textMode": {},
+
+    "home": "الصفحة الرئيسية",
+    "@home": {}
 }
