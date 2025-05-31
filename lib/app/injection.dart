@@ -4,6 +4,8 @@ import 'package:sight_mate/modules/ocr/data/ocr_data.dart';
 import 'package:sight_mate/modules/ocr/domain/providers/ocr_provider.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
+import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
+import 'package:sight_mate/modules/shared/tts/data/tts_data.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -37,5 +39,11 @@ Future<void> configureDependencies() async {
     () => OcrProviderOfflineImpl(),
     instanceName: 'offline',
     dispose: disposeOcrProvider,
+  );
+
+  // TTS
+  getIt.registerLazySingleton<TtsProvider>(
+    () => TtsProviderImpl(),
+    dispose: (provider) => provider.dispose(),
   );
 }
