@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "read": MessageLookupByLibrary.simpleMessage("READ"),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("System"),
+    "textMode": MessageLookupByLibrary.simpleMessage("Text Mode"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("Theme settings"),
   };
 }

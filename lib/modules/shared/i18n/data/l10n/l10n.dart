@@ -158,6 +158,11 @@ class L10n {
   String get replay {
     return Intl.message('Replay', name: 'replay', desc: '', args: []);
   }
+
+  /// `Text Mode`
+  String get textMode {
+    return Intl.message('Text Mode', name: 'textMode', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

@@ -42,5 +42,8 @@
     "@close": {},
 
     "replay": "Replay",
-    "@replay": {}
+    "@replay": {},
+
+    "textMode": "Text Mode",
+    "@textMode": {}
 }

@@ -5,6 +5,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
+import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 
 class CropTextDetectScreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class CropTextDetectScreenState extends State<CropTextDetectScreen> {
   }
 
   Future<void> _initializeTts() async {
-    await _ttsProvider.speak('Text Detection');
+    await _ttsProvider.speak(L10n.current.textMode);
   }
 
   Future<void> _captureFrame() async {

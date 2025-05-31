@@ -42,5 +42,8 @@
     "@close": {},
 
     "replay": "إعادة التشغيل",
-    "@replay": {}
+    "@replay": {},
+
+    "textMode": "وضع النص",
+    "@textMode": {}
 }

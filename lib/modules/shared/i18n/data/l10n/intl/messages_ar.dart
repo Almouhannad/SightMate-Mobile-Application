@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
+    "textMode": MessageLookupByLibrary.simpleMessage("وضع النص"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
   };
 }
