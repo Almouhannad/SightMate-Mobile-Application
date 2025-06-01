@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
-import 'package:sight_mate/modules/home/presentation/app_drawer.dart';
-import 'package:sight_mate/modules/home/presentation/home_page.dart';
+import 'package:sight_mate/modules/shared/home/presentation/home_presentation.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
