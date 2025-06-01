@@ -19,7 +19,7 @@ class CropTextDetectScreenState extends State<CropTextDetectScreen> {
   CameraController? _controller;
   Future<void>? _initFuture;
   final _ttsProvider = GetIt.I.get<TtsProvider>();
-  bool _isLoading = false;
+  bool _isLoadingCamera = false;
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,14 @@ class CropTextDetectScreenState extends State<CropTextDetectScreen> {
       ResolutionPreset.ultraHigh,
       enableAudio: false,
     );
-    _initFuture = _controller!.initialize();
+
+    _initFuture = _controller!.initialize().then((_) {
+      Future.wait([
+        _controller!.setFlashMode(FlashMode.auto),
+        _controller!.setFocusMode(FocusMode.auto),
+      ]);
+    });
+
     setState(() {});
   }
 
@@ -45,37 +52,31 @@ class CropTextDetectScreenState extends State<CropTextDetectScreen> {
 
   Future<void> _captureFrame() async {
     if (_controller == null || !_controller!.value.isInitialized) return;
-    if (_isLoading) return;
+    if (_isLoadingCamera) return;
     setState(() {
-      _isLoading = true;
+      _isLoadingCamera = true;
     });
-    try {
-      try {
-        await _controller?.setFlashMode(FlashMode.auto);
-        await _controller?.setFocusMode(FocusMode.auto);
-        await Future.delayed(const Duration(milliseconds: 200));
-      } catch (_) {}
 
-      final file = await _controller!.takePicture();
-      final bytes = await file.readAsBytes();
-      final codec = await ui.instantiateImageCodec(bytes);
-      final frame = await codec.getNextFrame();
+    final file = await _controller!.takePicture();
+    await _controller?.pausePreview();
 
-      if (mounted) {
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder:
-                (_) => PreviewWidget(uiImage: frame.image, imageBytes: bytes),
-          ),
-        );
-      }
+    final bytes = await file.readAsBytes();
+    final codec = await ui.instantiateImageCodec(bytes);
+    final frame = await codec.getNextFrame();
 
-      await _controller?.resumePreview();
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
+    if (mounted) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder:
+              (_) => PreviewWidget(uiImage: frame.image, imageBytes: bytes),
+        ),
+      );
     }
+    await _controller?.resumePreview();
+
+    setState(() {
+      _isLoadingCamera = false;
+    });
   }
 
   @override
@@ -98,7 +99,7 @@ class CropTextDetectScreenState extends State<CropTextDetectScreen> {
             fit: StackFit.expand,
             children: [
               CameraPreview(_controller!),
-              if (_isLoading)
+              if (_isLoadingCamera)
                 Positioned.fill(
                   child: Container(
                     color: Colors.black45,
