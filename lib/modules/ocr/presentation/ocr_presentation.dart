@@ -1,4 +1,4 @@
 library;
 
-export 'offline/screens/crop_text_detect_screen.dart';
+export 'offline/screens/ocr_home_screen.dart';
 export 'offline/widgets/preview_widget.dart';

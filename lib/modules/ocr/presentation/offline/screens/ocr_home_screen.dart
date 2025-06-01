@@ -8,14 +8,14 @@ import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 
-class CropTextDetectScreen extends StatefulWidget {
-  const CropTextDetectScreen({super.key});
+class OcrHomeScreen extends StatefulWidget {
+  const OcrHomeScreen({super.key});
 
   @override
-  CropTextDetectScreenState createState() => CropTextDetectScreenState();
+  OcrHomeScreenState createState() => OcrHomeScreenState();
 }
 
-class CropTextDetectScreenState extends State<CropTextDetectScreen> {
+class OcrHomeScreenState extends State<OcrHomeScreen> {
   CameraController? _controller;
   Future<void>? _initFuture;
   final _ttsProvider = GetIt.I.get<TtsProvider>();
