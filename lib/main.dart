@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
-import 'package:sight_mate/modules/home/presentation/home_page.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'modules/shared/i18n/i18n.dart';
+import 'modules/shared/widgets/shared_widgets.dart';
+import 'modules/shared/home/presentation/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,7 +54,7 @@ class SightMateApp extends StatelessWidget {
                 i18n.locale ??
                 L10n.delegate.supportedLocales.first, // 'en' default locale
             // Root
-            home: const HomePage(),
+            home: WidgetScaffold(body: HelloWorldWidget(), title: 'Sight Mate'),
           );
         },
       ),

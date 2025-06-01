@@ -24,13 +24,28 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
-    "helloWorld": MessageLookupByLibrary.simpleMessage("Hello, world!"),
+    "errorOccurred": MessageLookupByLibrary.simpleMessage(
+      "An error occurred!\nPlease try again",
+    ),
+    "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "incorrectSelection": MessageLookupByLibrary.simpleMessage(
+      "Incorrect selection!\nPlease try again",
+    ),
     "languageSettings": MessageLookupByLibrary.simpleMessage(
       "Language settings",
     ),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
+    "noTextDetected": MessageLookupByLibrary.simpleMessage(
+      "No text detected in selection",
+    ),
+    "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+    "read": MessageLookupByLibrary.simpleMessage("READ"),
+    "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("System"),
+    "textMode": MessageLookupByLibrary.simpleMessage("Text Mode"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("Theme settings"),
   };
 }

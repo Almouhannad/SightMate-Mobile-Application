@@ -20,6 +20,33 @@
     "appMenu": "القائمة",
     "@appMenu": {},
 
-    "helloWorld": "مرحباً",
-    "@helloWorld": {}
+    "helloWorld": "أهلاً بكم في\nSight Mate",
+    "@helloWorld": {},
+
+    "preview": "معاينة",
+    "@preview": {},
+
+    "read": "اقرأ",
+    "@read": {},
+
+    "incorrectSelection": "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
+    "@incorrectSelection": {},
+
+    "errorOccurred": "حدث خطأ!\nيرجى المحاولة مرة أخرى",
+    "@errorOccurred": {},
+
+    "noTextDetected": "لم يتم اكتشاف نص في الاختيار",
+    "@noTextDetected": {},
+
+    "close": "إغلاق",
+    "@close": {},
+
+    "replay": "إعادة التشغيل",
+    "@replay": {},
+
+    "textMode": "وضع النص",
+    "@textMode": {},
+
+    "home": "الصفحة الرئيسية",
+    "@home": {}
 }

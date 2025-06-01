@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 
 /// Key used for peristing theme select
@@ -8,7 +10,7 @@ const _kThemeModeKey = 'user_theme_mode';
 /// Concrete implementation of [ThemeRepository] using SharedPreferences (On-device)
 class ThemeRepositoryImpl implements ThemeRepository {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
+  final isArabic = GetIt.I.get<I18nNotifier>().locale == Locale('ar');
   @override
   Future<ThemeMode?> loadThemeMode() async {
     final prefs = await _prefs;
@@ -57,7 +59,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
         elevation: 2,
         centerTitle: true,
         titleTextStyle: TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Cairo',
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: colorScheme.onPrimary,
@@ -66,7 +68,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
 
       // Text
       textTheme: base.textTheme.apply(
-        fontFamily: 'Roboto',
+        fontFamily: 'Cairo',
         displayColor: colorScheme.onSurface,
         bodyColor: colorScheme.onSurface,
       ),
@@ -82,7 +84,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
-          textStyle: TextStyle(fontFamily: 'Roboto'),
+          textStyle: TextStyle(fontFamily: 'Cairo'),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -128,7 +130,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
         backgroundColor: colorScheme.primaryContainer,
         labelStyle: TextStyle(
           color: colorScheme.onPrimaryContainer,
-          fontFamily: 'Roboto',
+          fontFamily: 'Cairo',
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
@@ -170,7 +172,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
         elevation: 2,
         centerTitle: true,
         titleTextStyle: TextStyle(
-          fontFamily: 'Roboto',
+          fontFamily: 'Cairo',
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: colorScheme.onPrimary,
@@ -179,7 +181,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
 
       // Text
       textTheme: base.textTheme.apply(
-        fontFamily: 'Roboto',
+        fontFamily: 'Cairo',
         displayColor: colorScheme.onSurface,
         bodyColor: colorScheme.onSurface,
       ),
@@ -195,7 +197,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: colorScheme.primary,
-          textStyle: TextStyle(fontFamily: 'Roboto'),
+          textStyle: TextStyle(fontFamily: 'Cairo'),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -241,7 +243,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
         backgroundColor: colorScheme.primaryContainer,
         labelStyle: TextStyle(
           color: colorScheme.onPrimaryContainer,
-          fontFamily: 'Roboto',
+          fontFamily: 'Cairo',
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
