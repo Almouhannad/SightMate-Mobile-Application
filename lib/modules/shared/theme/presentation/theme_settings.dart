@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
+import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 /// widget to select theme mode
 class ThemeSettings extends StatelessWidget {
@@ -10,15 +11,19 @@ class ThemeSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<ThemeNotifier>();
-    return Scaffold(
-      appBar: AppBar(title: Text(L10n.current.themeSettings)),
+    final textStyle = Theme.of(
+      context,
+    ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold);
+    return WidgetScaffold(
+      title: L10n.current.themeSettings,
+      withDrawer: false,
       body:
           notifier.initialized
               ? ListView(
                 children:
                     ThemeMode.values.map((mode) {
                       return RadioListTile<ThemeMode>(
-                        title: Text(_modeLabel(mode)),
+                        title: Text(_modeLabel(mode), style: textStyle),
                         value: mode,
                         groupValue: notifier.mode,
                         onChanged: (newMode) {
