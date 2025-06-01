@@ -99,10 +99,10 @@ class L10n {
     return Intl.message('App menu', name: 'appMenu', desc: '', args: []);
   }
 
-  /// `Hello, world!`
+  /// `Welcome to Sight Mate`
   String get helloWorld {
     return Intl.message(
-      'Hello, world!',
+      'Welcome to Sight Mate',
       name: 'helloWorld',
       desc: '',
       args: [],
