@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
+import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 class PreviewWidget extends StatefulWidget {
   final ui.Image uiImage;
@@ -28,6 +29,8 @@ class _PreviewWidgetState extends State<PreviewWidget> {
   Offset? _current;
   Uint8List? _croppedBytes;
   List<String> _lastDetectedTexts = [];
+  bool _isProcessingImage = false;
+
   final _ocrProvider = GetIt.I.get<OcrProvider>(instanceName: 'offline');
   final _ttsProvider = GetIt.I.get<TtsProvider>();
   final double _confidenceThreshold = 0.2;
@@ -67,6 +70,9 @@ class _PreviewWidgetState extends State<PreviewWidget> {
   }
 
   Future<void> _cropAndDetect() async {
+    setState(() {
+      _isProcessingImage = true;
+    });
     if (_start == null || _current == null) return;
     final rect = _mapToImageRect();
 
@@ -100,6 +106,9 @@ class _PreviewWidgetState extends State<PreviewWidget> {
       await _speak([L10n.current.errorOccurred]);
       return;
     }
+    setState(() {
+      _isProcessingImage = false;
+    });
     _showResultDialog();
 
     _lastDetectedTexts =
@@ -142,21 +151,36 @@ class _PreviewWidgetState extends State<PreviewWidget> {
             onPopInvokedWithResult:
                 (didPop, result) async => await _ttsProvider.stop(),
             child: AlertDialog(
+              actionsAlignment: MainAxisAlignment.spaceBetween,
               content:
                   _croppedBytes != null
                       ? Image.memory(_croppedBytes!)
                       : const SizedBox(),
               actions: [
-                TextButton(
-                  onPressed: () async => await onCloseDialog(context),
-                  child: Text(L10n.current.close),
+                Semantics(
+                  label: L10n.current.close,
+                  button: true,
+                  child: IconButton(
+                    tooltip: L10n.current.close,
+                    onPressed: () async => await onCloseDialog(context),
+                    icon: Icon(Icons.close, semanticLabel: L10n.current.close),
+                  ),
                 ),
+
                 if (_lastDetectedTexts.isNotEmpty)
-                  TextButton(
-                    onPressed: () async {
-                      await _speak(_lastDetectedTexts);
-                    },
-                    child: Text(L10n.current.replay),
+                  Semantics(
+                    label: L10n.current.replay,
+                    button: true,
+                    child: IconButton(
+                      tooltip: L10n.current.replay,
+                      onPressed: () async {
+                        await _speak(_lastDetectedTexts);
+                      },
+                      icon: Icon(
+                        Icons.replay,
+                        semanticLabel: L10n.current.replay,
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -173,8 +197,9 @@ class _PreviewWidgetState extends State<PreviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(L10n.current.preview)),
+    return WidgetScaffold(
+      title: L10n.current.preview,
+      withDrawer: false,
       body: GestureDetector(
         onPanStart: _onPanStart,
         onPanUpdate: _onPanUpdate,
@@ -183,14 +208,22 @@ class _PreviewWidgetState extends State<PreviewWidget> {
             key: _imageKey,
             color: Colors.black,
             child: Stack(
+              fit: StackFit.expand,
               children: [
                 Positioned.fill(
-                  child: Image.memory(widget.imageBytes, fit: BoxFit.contain),
+                  child: Image.memory(widget.imageBytes, fit: BoxFit.cover),
                 ),
                 if (_start != null && _current != null)
                   Positioned.fill(
                     child: CustomPaint(
                       painter: _SelectionPainter(_start!, _current!),
+                    ),
+                  ),
+                if (_isProcessingImage)
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black45,
+                      child: const Center(child: CircularProgressIndicator()),
                     ),
                   ),
               ],

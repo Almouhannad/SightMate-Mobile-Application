@@ -3,10 +3,9 @@ import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
-import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
+import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 class OcrHomeScreen extends StatefulWidget {
   const OcrHomeScreen({super.key});
@@ -18,13 +17,11 @@ class OcrHomeScreen extends StatefulWidget {
 class OcrHomeScreenState extends State<OcrHomeScreen> {
   CameraController? _controller;
   Future<void>? _initFuture;
-  final _ttsProvider = GetIt.I.get<TtsProvider>();
   bool _isLoadingCamera = false;
   @override
   void initState() {
     super.initState();
     _setupCamera();
-    _initializeTts();
   }
 
   Future<void> _setupCamera() async {
@@ -44,10 +41,6 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
     });
 
     setState(() {});
-  }
-
-  Future<void> _initializeTts() async {
-    await _ttsProvider.speak(L10n.current.textMode);
   }
 
   Future<void> _captureFrame() async {
@@ -87,29 +80,32 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _initFuture,
-      builder: (context, snap) {
-        if (snap.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        return GestureDetector(
-          onTap: _captureFrame,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              CameraPreview(_controller!),
-              if (_isLoadingCamera)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black45,
-                    child: const Center(child: CircularProgressIndicator()),
+    return WidgetScaffold(
+      title: L10n.current.textMode,
+      body: FutureBuilder<void>(
+        future: _initFuture,
+        builder: (context, snap) {
+          if (snap.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return GestureDetector(
+            onTap: _captureFrame,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                CameraPreview(_controller!),
+                if (_isLoadingCamera)
+                  Positioned.fill(
+                    child: Container(
+                      color: Colors.black45,
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
                   ),
-                ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
