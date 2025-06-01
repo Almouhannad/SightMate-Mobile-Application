@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/routes.dart';
+import 'package:sight_mate/modules/home/presentation/app_drawer.dart';
 import 'package:sight_mate/modules/home/presentation/home_page.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
@@ -53,7 +54,11 @@ class SightMateApp extends StatelessWidget {
                 i18n.locale ??
                 L10n.delegate.supportedLocales.first, // 'en' default locale
             // Root
-            home: const HomePage(),
+            home: Scaffold(
+              drawer: AppDrawer(),
+              body: HelloWorldWidget(),
+              appBar: AppBar(title: Text('Sight Mate')),
+            ),
           );
         },
       ),
