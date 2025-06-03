@@ -31,4 +31,9 @@ class TtsProviderImpl extends TtsProvider {
     // Clean up by stopping any ongoing speech before disposal
     await _tts.stop();
   }
+
+  @override
+  Future<void> waitToEnd() async {
+    await _tts.awaitSpeakCompletion(true);
+  }
 }
