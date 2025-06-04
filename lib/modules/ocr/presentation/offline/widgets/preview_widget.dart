@@ -50,17 +50,24 @@ class _PreviewWidgetState extends State<PreviewWidget> {
     setState(() => _current = local);
   }
 
+  /// Map the user drag rectangle (in widget coordinates) into the underlying
+  /// image's pixel coordinates ((accounting for a BoxFit.cover transform))
   Rect _mapToImageRect() {
     final box = _imageKey.currentContext!.findRenderObject() as RenderBox;
     final dispSize = box.size;
     final imgW = widget.uiImage.width.toDouble();
     final imgH = widget.uiImage.height.toDouble();
-    final scale = min(dispSize.width / imgW, dispSize.height / imgH);
+
+    // Because the Image is drawn with BoxFit.cover =>
+    //   scale = max(dispW / imgW, dispH / imgH)
+    final scale = max(dispSize.width / imgW, dispSize.height / imgH);
     final fittedW = imgW * scale;
     final fittedH = imgH * scale;
+
     final dx = (dispSize.width - fittedW) / 2;
     final dy = (dispSize.height - fittedH) / 2;
 
+    // Convert both the start and current drag points into image-space
     final x1 = ((_start!.dx - dx) / scale).clamp(0.0, imgW);
     final y1 = ((_start!.dy - dy) / scale).clamp(0.0, imgH);
     final x2 = ((_current!.dx - dx) / scale).clamp(0.0, imgW);
@@ -74,7 +81,13 @@ class _PreviewWidgetState extends State<PreviewWidget> {
       _isProcessingImage = true;
     });
     if (_start == null || _current == null) return;
+
     final rect = _mapToImageRect();
+    if (rect.width == 0 || rect.height == 0) {
+      setState(() => _isProcessingImage = false);
+      await _speak([L10n.current.incorrectSelection]);
+      return;
+    }
 
     final recorder = ui.PictureRecorder();
     final canvas = Canvas(recorder);
@@ -85,10 +98,7 @@ class _PreviewWidgetState extends State<PreviewWidget> {
       Paint(),
     );
     final picture = recorder.endRecording();
-    if (rect.width == 0 || rect.height == 0) {
-      await _speak([L10n.current.incorrectSelection]);
-      return;
-    }
+
     final croppedImg = await picture.toImage(
       rect.width.toInt(),
       rect.height.toInt(),
@@ -97,15 +107,18 @@ class _PreviewWidgetState extends State<PreviewWidget> {
       format: ui.ImageByteFormat.png,
     );
     _croppedBytes = byteData!.buffer.asUint8List();
+
     List<OcrResult> recognized = [];
     try {
       recognized = await _ocrProvider.processImage(
         OcrInput(bytes: _croppedBytes as List<int>),
       );
     } catch (e) {
+      setState(() => _isProcessingImage = false);
       await _speak([L10n.current.errorOccurred]);
       return;
     }
+
     setState(() {
       _isProcessingImage = false;
     });
@@ -132,8 +145,7 @@ class _PreviewWidgetState extends State<PreviewWidget> {
     if (texts.isEmpty) return;
     var textToSpeak = '';
     for (final t in texts) {
-      textToSpeak += t;
-      textToSpeak += '\n';
+      textToSpeak += '$t\n';
     }
     await _ttsProvider.speak(textToSpeak);
   }
@@ -166,7 +178,6 @@ class _PreviewWidgetState extends State<PreviewWidget> {
                     icon: Icon(Icons.close, semanticLabel: L10n.current.close),
                   ),
                 ),
-
                 if (_lastDetectedTexts.isNotEmpty)
                   Semantics(
                     label: L10n.current.replay,
