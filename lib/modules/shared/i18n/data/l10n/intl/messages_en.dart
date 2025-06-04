@@ -20,10 +20,14 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(mode) => "${mode} activated";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "activated": m0,
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
     "errorOccurred": MessageLookupByLibrary.simpleMessage(
@@ -38,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Language settings",
     ),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
+    "liveMode": MessageLookupByLibrary.simpleMessage("Live Mode"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "No text detected in selection",
     ),

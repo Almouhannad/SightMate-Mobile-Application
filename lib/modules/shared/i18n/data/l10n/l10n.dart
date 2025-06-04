@@ -168,6 +168,31 @@ class L10n {
   String get home {
     return Intl.message('Home', name: 'home', desc: '', args: []);
   }
+
+  /// `Live Mode`
+  String get liveMode {
+    return Intl.message('Live Mode', name: 'liveMode', desc: '', args: []);
+  }
+
+  /// `Capture Mode`
+  String get captureMode {
+    return Intl.message(
+      'Capture Mode',
+      name: 'captureMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{mode} activated`
+  String activated(String mode) {
+    return Intl.message(
+      '$mode activated',
+      name: 'activated',
+      desc: '',
+      args: [mode],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
