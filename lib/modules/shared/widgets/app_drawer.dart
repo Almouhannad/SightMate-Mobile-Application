@@ -36,6 +36,7 @@ class AppDrawer extends StatelessWidget {
           }
 
           // push the new page
+          Navigator.of(context).popUntil(ModalRoute.withName('/'));
           Navigator.of(context).pushNamed(pageRouteSettings.link);
           _ttsProvider.speak(pageRouteSettings.name);
         },
