@@ -119,7 +119,6 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   void dispose() {
-    _ttsProvider.stop();
     _frameTimer?.cancel();
     _controller?.dispose();
     _controller = null;

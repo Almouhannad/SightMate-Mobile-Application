@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/app/pop_observer.dart';
 import 'package:sight_mate/app/routes.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
@@ -38,6 +39,7 @@ class SightMateApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // Router settings
             onGenerateRoute: onGenerateRoute,
+            navigatorObservers: [PopObserver()],
             // Theme management
             theme: theme.lightTheme,
             darkTheme: theme.darkTheme,
