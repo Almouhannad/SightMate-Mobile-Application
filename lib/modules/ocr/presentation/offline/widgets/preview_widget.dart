@@ -200,13 +200,6 @@ class _PreviewWidgetState extends State<PreviewWidget> {
   }
 
   @override
-  void dispose() {
-    GetIt.I.resetLazySingleton(instance: _ocrProvider);
-    GetIt.I.resetLazySingleton(instance: _ttsProvider);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return WidgetScaffold(
       title: L10n.current.preview,

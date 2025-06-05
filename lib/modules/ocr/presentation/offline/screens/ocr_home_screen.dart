@@ -4,6 +4,8 @@ import 'dart:ui' as ui;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sight_mate/app/injection.dart';
+import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 import 'package:sight_mate/modules/ocr/domain/usecases/live_ocr_usecase.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
@@ -119,6 +121,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   void dispose() {
+    getIt.resetLazySingleton<OcrProvider>(instanceName: 'offline');
     _frameTimer?.cancel();
     _controller?.dispose();
     _controller = null;
