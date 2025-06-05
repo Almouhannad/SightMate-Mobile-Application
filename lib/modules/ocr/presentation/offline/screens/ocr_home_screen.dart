@@ -3,8 +3,11 @@ import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sight_mate/modules/ocr/domain/usecases/live_ocr_usecase.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
-import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
+import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 class OcrHomeScreen extends StatefulWidget {
@@ -15,9 +18,21 @@ class OcrHomeScreen extends StatefulWidget {
 }
 
 class OcrHomeScreenState extends State<OcrHomeScreen> {
+  // Camera
   CameraController? _controller;
-  Future<void>? _initFuture;
-  bool _isLoadingCamera = false;
+  Future<void>? _isCameraInitialized;
+
+  // TTS
+  final _ttsProvider = GetIt.I.get<TtsProvider>();
+
+  // Live ocr
+  final _liveOcrUsecase = LiveOcrUsecase();
+  Timer? _frameTimer;
+  bool _isProcessingFrame = false, _isLiveMode = true;
+
+  // Capture mode
+  bool _isCameraLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -29,29 +44,60 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
     final cameras = await availableCameras();
     _controller = CameraController(
       cameras.first,
-      ResolutionPreset.ultraHigh,
+      ResolutionPreset.max,
+      imageFormatGroup: ImageFormatGroup.jpeg,
       enableAudio: false,
     );
 
-    _initFuture = _controller!.initialize().then((_) {
-      Future.wait([
-        _controller!.setFlashMode(FlashMode.auto),
-        _controller!.setFocusMode(FocusMode.auto),
-      ]);
+    setState(() {
+      // Initialize the controller
+      _isCameraInitialized = _controller!.initialize().then((_) {
+        _startPeriodicFrameCapture();
+      });
     });
+  }
 
-    setState(() {});
+  void _startPeriodicFrameCapture() {
+    _frameTimer = Timer.periodic(_liveOcrUsecase.frameInterval, (_) async {
+      if (_isProcessingFrame) return;
+      _isProcessingFrame = true;
+      await _processLiveFrame().then((_) {
+        _isProcessingFrame = false;
+      });
+    });
+  }
+
+  Future<void> _processLiveFrame() async {
+    // If camera isn't ready
+    if (_controller == null || !_controller!.value.isInitialized) {
+      return;
+    }
+    final frame = await _controller!.takePicture();
+    final bytes = await frame.readAsBytes();
+    final textToSpeak = await _liveOcrUsecase.processFrameBytes(bytes);
+    await _ttsProvider.speak(textToSpeak);
+    await _ttsProvider.waitToEnd();
   }
 
   Future<void> _captureFrame() async {
-    if (_controller == null || !_controller!.value.isInitialized) return;
-    if (_isLoadingCamera) return;
+    if (_controller == null ||
+        !_controller!.value.isInitialized ||
+        _isLiveMode) {
+      return;
+    }
+    if (_isCameraLoading) return;
     setState(() {
-      _isLoadingCamera = true;
+      _isCameraLoading = true;
     });
 
-    final file = await _controller!.takePicture();
-    await _controller?.pausePreview();
+    late XFile? file;
+    // To handle capturing issues
+    try {
+      file = await _controller!.takePicture();
+    } catch (_) {
+      _captureFrame();
+      return; // BTW: I'm stupidly genius
+    }
 
     final bytes = await file.readAsBytes();
     final codec = await ui.instantiateImageCodec(bytes);
@@ -65,16 +111,18 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
         ),
       );
     }
-    await _controller?.resumePreview();
 
     setState(() {
-      _isLoadingCamera = false;
+      _isCameraLoading = false;
     });
   }
 
   @override
   void dispose() {
+    _ttsProvider.stop();
+    _frameTimer?.cancel();
     _controller?.dispose();
+    _controller = null;
     super.dispose();
   }
 
@@ -82,8 +130,30 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   Widget build(BuildContext context) {
     return WidgetScaffold(
       title: L10n.current.textMode,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          setState(() {
+            _isLiveMode = !_isLiveMode;
+          });
+
+          if (_isLiveMode) {
+            _startPeriodicFrameCapture();
+            await _ttsProvider.stop();
+            await _ttsProvider.speak(
+              L10n.current.activated(L10n.current.liveMode),
+            );
+          } else {
+            _frameTimer!.cancel();
+            await _ttsProvider.stop();
+            await _ttsProvider.speak(
+              L10n.current.activated(L10n.current.captureMode),
+            );
+          }
+        },
+        child: Icon(_isLiveMode ? Icons.pause : Icons.play_arrow),
+      ),
       body: FutureBuilder<void>(
-        future: _initFuture,
+        future: _isCameraInitialized,
         builder: (context, snap) {
           if (snap.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
@@ -94,7 +164,31 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
               fit: StackFit.expand,
               children: [
                 CameraPreview(_controller!),
-                if (_isLoadingCamera)
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.6),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      _isLiveMode
+                          ? L10n.current.liveMode
+                          : L10n.current.captureMode,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+
+                if (_isCameraLoading)
                   Positioned.fill(
                     child: Container(
                       color: Colors.black45,
