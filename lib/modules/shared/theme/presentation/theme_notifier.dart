@@ -8,8 +8,10 @@ class ThemeNotifier extends ChangeNotifier {
   ThemeMode _mode = ThemeMode.system;
   bool _initialized = false;
 
-  ThemeNotifier(this._repository) {
-    _loadInitialMode();
+  ThemeNotifier(this._repository);
+
+  Future<void> initilize() async {
+    await _loadInitialMode();
   }
 
   /// The current theme mode exposed to the UI

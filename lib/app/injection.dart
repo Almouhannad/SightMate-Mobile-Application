@@ -13,23 +13,29 @@ Future<void> configureDependencies() async {
   final prefs = await SharedPreferences.getInstance();
   getIt.registerSingleton<SharedPreferences>(prefs);
 
-  // ThemeRepository: concrete implementation
-  getIt.registerLazySingleton<ThemeRepository>(() => ThemeRepositoryImpl());
-
-  // ThemeNotifier: depends on ThemeRepository
-  getIt.registerLazySingleton<ThemeNotifier>(
-    () => ThemeNotifier(getIt<ThemeRepository>()),
-  );
-
   // I18nRepository: concrete implementation
   getIt.registerLazySingleton<I18nRepository>(() => I18nRepositoryImpl());
 
   // I18nNotifier: depends on I18nRepository
-  getIt.registerLazySingleton<I18nNotifier>(
-    () => I18nNotifier(getIt<I18nRepository>()),
-  );
+  getIt.registerSingletonAsync<I18nNotifier>(() async {
+    final notifier = I18nNotifier(getIt<I18nRepository>());
+    await notifier.initilize();
+    return notifier;
+  });
+  await getIt.isReady<I18nNotifier>();
 
-  // OCR
+  // ThemeRepository: concrete implementation
+  getIt.registerLazySingleton<ThemeRepository>(() => ThemeRepositoryImpl());
+
+  // ThemeNotifier: depends on ThemeRepository
+  getIt.registerSingletonAsync<ThemeNotifier>(() async {
+    final notifier = ThemeNotifier(getIt<ThemeRepository>());
+    await notifier.initilize();
+    return notifier;
+  });
+  await getIt.isReady<ThemeNotifier>();
+
+  // OCR ((LAZY))
   void disposeOcrProvider(OcrProvider provider) {
     provider.dispose();
   }
@@ -42,8 +48,10 @@ Future<void> configureDependencies() async {
   );
 
   // TTS
-  getIt.registerLazySingleton<TtsProvider>(
-    () => TtsProviderImpl(),
-    dispose: (provider) => provider.dispose(),
-  );
+  getIt.registerSingletonAsync<TtsProvider>(() async {
+    final provider = TtsProviderImpl();
+    await provider.initilize();
+    return provider;
+  }, dispose: (provider) => provider.dispose());
+  await getIt.isReady<TtsProvider>();
 }
