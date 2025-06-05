@@ -3,6 +3,9 @@
 /// This provider handles the core text-to-speech operations like speaking text,
 /// stopping speech, and cleaning up resources.
 abstract class TtsProvider {
+  /// initilize provider
+  Future<void> initilize();
+
   /// Converts the given text to speech and plays it.
   ///
   /// [textToSpeak] is the text that will be converted to speech.

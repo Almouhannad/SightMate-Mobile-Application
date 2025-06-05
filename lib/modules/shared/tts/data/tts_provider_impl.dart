@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 
 /// Implementation of [TtsProvider] using the flutter_tts package.
@@ -6,9 +10,20 @@ class TtsProviderImpl extends TtsProvider {
   // Instance of FlutterTts that handles the actual text-to-speech functionality
   late FlutterTts _tts;
 
-  /// Creates a new instance of TtsProviderImpl and initializes the FlutterTts engine.
-  TtsProviderImpl() {
+  @override
+  Future<void> initilize() async {
+    final locale =
+        GetIt.I.get<I18nNotifier>().locale ??
+        L10n.delegate.supportedLocales.first;
     _tts = FlutterTts();
+    if (Platform.isAndroid) {
+      // Force Google’s TTS engine on Android
+      await _tts.setEngine('com.google.android.tts');
+    } else if (Platform.isIOS) {
+      // Use the shared AVSpeechSynthesizer on iOS 13+
+      await _tts.setSharedInstance(true);
+    }
+    await _tts.setLanguage(locale.languageCode);
   }
 
   @override
