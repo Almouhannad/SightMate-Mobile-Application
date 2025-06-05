@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restart_app/restart_app.dart';
-import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
-import 'package:sight_mate/modules/shared/tts/domain/tts_provider.dart';
 
 /// A ChangeNotifier that holds the current Locale and notifies listeners on changes
 class I18nNotifier extends ChangeNotifier {
