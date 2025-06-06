@@ -63,5 +63,11 @@
                 "type": "String"
             }
         }
-    }
+    },
+
+    "pleaseWait": "جاري المعالجة، يرجى الانتظار",
+    "@pleaseWait": {},
+
+    "describe": "توصيف",
+    "@describe": {}
 }

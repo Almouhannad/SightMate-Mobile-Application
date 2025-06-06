@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "captureMode": MessageLookupByLibrary.simpleMessage("وضع الالتقاط"),
     "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
     "darkMode": MessageLookupByLibrary.simpleMessage("مظلم"),
+    "describe": MessageLookupByLibrary.simpleMessage("توصيف"),
     "errorOccurred": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ!\nيرجى المحاولة مرة أخرى",
     ),
@@ -45,6 +46,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "liveMode": MessageLookupByLibrary.simpleMessage("الوضع الحي"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "لم يتم اكتشاف نص في الاختيار",
+    ),
+    "pleaseWait": MessageLookupByLibrary.simpleMessage(
+      "جاري المعالجة، يرجى الانتظار",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),

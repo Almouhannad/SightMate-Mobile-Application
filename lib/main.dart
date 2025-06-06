@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:sight_mate/app/pop_observer.dart';
 import 'package:sight_mate/app/routes.dart';
@@ -12,6 +13,7 @@ import 'modules/shared/home/presentation/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies(); // Initialize GetIt registrations
+  await dotenv.load();
   runApp(const SightMateApp());
 }
 

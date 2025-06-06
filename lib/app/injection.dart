@@ -47,6 +47,18 @@ Future<void> configureDependencies() async {
     dispose: disposeOcrProvider,
   );
 
+  // Online
+  DI.registerLazySingleton<OcrProvider>(
+    () => OcrProviderOnlineImpl(),
+    instanceName: OcrProviderModes.ONLINE,
+    dispose: disposeOcrProvider,
+  );
+
+  // Online connectivity provider
+  DI.registerLazySingleton<OcrConnectivityProvider>(
+    () => OcrConnectivityProviderImpl(),
+  );
+
   // TTS
   DI.registerSingletonAsync<TtsProvider>(() async {
     final provider = TtsProviderImpl();
