@@ -9,21 +9,21 @@ import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
-class PreviewWidget extends StatefulWidget {
+class OcrCaptureScreen extends StatefulWidget {
   final ui.Image uiImage;
   final Uint8List imageBytes;
 
-  const PreviewWidget({
+  const OcrCaptureScreen({
     required this.uiImage,
     required this.imageBytes,
     super.key,
   });
 
   @override
-  State<PreviewWidget> createState() => _PreviewWidgetState();
+  State<OcrCaptureScreen> createState() => _OcrCaptureScreenState();
 }
 
-class _PreviewWidgetState extends State<PreviewWidget> {
+class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   final GlobalKey _imageKey = GlobalKey();
   Offset? _start;
   Offset? _current;

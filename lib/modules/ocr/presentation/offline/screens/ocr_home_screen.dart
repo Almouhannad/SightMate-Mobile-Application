@@ -109,7 +109,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder:
-              (_) => PreviewWidget(uiImage: frame.image, imageBytes: bytes),
+              (_) => OcrCaptureScreen(uiImage: frame.image, imageBytes: bytes),
         ),
       );
     }
