@@ -49,3 +49,6 @@ app.*.map.json
 
 # Dev tools stuff
 /devtools_options.yaml
+
+# My secrets :D
+.env
