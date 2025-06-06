@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sight_mate/modules/ocr/domain/usecases/capture_ocr_usecase.dart';
+import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
@@ -189,7 +190,7 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
                 if (_start != null && _current != null)
                   Positioned.fill(
                     child: CustomPaint(
-                      painter: _SelectionPainter(_start!, _current!),
+                      painter: SelectionPainter(_start!, _current!),
                     ),
                   ),
                 if (_isProcessingImage)
@@ -211,27 +212,5 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-}
-
-class _SelectionPainter extends CustomPainter {
-  final Offset start;
-  final Offset end;
-
-  const _SelectionPainter(this.start, this.end);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = Colors.yellow;
-    canvas.drawRect(Rect.fromPoints(start, end), paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _SelectionPainter old) {
-    return old.start != start || old.end != end;
   }
 }
