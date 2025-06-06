@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sight_mate/modules/ocr/data/ocr_data.dart';
+import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 import 'package:sight_mate/modules/ocr/domain/providers/ocr_provider.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
@@ -43,7 +44,7 @@ Future<void> configureDependencies() async {
   // Offline
   getIt.registerLazySingleton<OcrProvider>(
     () => OcrProviderOfflineImpl(),
-    instanceName: 'offline',
+    instanceName: OcrProviderModes.OFFLINE,
     dispose: disposeOcrProvider,
   );
 

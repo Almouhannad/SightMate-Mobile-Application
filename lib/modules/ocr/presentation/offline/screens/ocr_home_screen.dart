@@ -107,7 +107,9 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   void dispose() {
-    getIt.resetLazySingleton<OcrProvider>(instanceName: 'offline');
+    getIt.resetLazySingleton<OcrProvider>(
+      instanceName: OcrProviderModes.OFFLINE,
+    );
     _frameTimer?.cancel();
     _cameraHelper.dispose();
     super.dispose();

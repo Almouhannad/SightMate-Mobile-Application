@@ -11,7 +11,9 @@ class CaptureOcrUsecaseConfig {
 }
 
 class CaptureOcrUsecase {
-  final _ocrProvider = getIt.get<OcrProvider>(instanceName: 'offline');
+  final _ocrProvider = getIt.get<OcrProvider>(
+    instanceName: OcrProviderModes.OFFLINE,
+  );
 
   Future<String> processCapture(Uint8List bytes) async {
     List<OcrResult> recognized = [];

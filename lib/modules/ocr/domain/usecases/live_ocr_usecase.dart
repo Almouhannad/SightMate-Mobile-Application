@@ -15,7 +15,9 @@ class LiveOcrUsecase {
   Duration get frameInterval => LiveOcrUsecaseConfig.frameInterval;
 
   Future<String> processFrameBytes(List<int> bytes) async {
-    _ocrProvider = GetIt.I.get<OcrProvider>(instanceName: 'offline');
+    _ocrProvider = GetIt.I.get<OcrProvider>(
+      instanceName: OcrProviderModes.OFFLINE,
+    );
 
     final results = await _ocrProvider.processImage(OcrInput(bytes: bytes));
 
