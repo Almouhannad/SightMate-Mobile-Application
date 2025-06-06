@@ -120,11 +120,6 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
     await _ttsProvider.speak(_lastDetectedTexts);
   }
 
-  Future<void> onCloseDialog(BuildContext context) async {
-    Navigator.of(context).pop();
-    await _ttsProvider.stop();
-  }
-
   void _showResultDialog() {
     showDialog(
       context: context,
@@ -132,38 +127,9 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
           (_) => PopScope(
             onPopInvokedWithResult:
                 (didPop, result) async => await _ttsProvider.stop(),
-            child: AlertDialog(
-              actionsAlignment: MainAxisAlignment.spaceBetween,
-              content:
-                  _croppedBytes != null
-                      ? Image.memory(_croppedBytes!)
-                      : const SizedBox(),
-              actions: [
-                Semantics(
-                  label: L10n.current.close,
-                  button: true,
-                  child: IconButton(
-                    tooltip: L10n.current.close,
-                    onPressed: () async => await onCloseDialog(context),
-                    icon: Icon(Icons.close, semanticLabel: L10n.current.close),
-                  ),
-                ),
-                if (_lastDetectedTexts.isNotEmpty)
-                  Semantics(
-                    label: L10n.current.replay,
-                    button: true,
-                    child: IconButton(
-                      tooltip: L10n.current.replay,
-                      onPressed: () async {
-                        await _ttsProvider.speak(_lastDetectedTexts);
-                      },
-                      icon: Icon(
-                        Icons.replay,
-                        semanticLabel: L10n.current.replay,
-                      ),
-                    ),
-                  ),
-              ],
+            child: ResultDialog(
+              captureBytes: _croppedBytes!,
+              text: _lastDetectedTexts,
             ),
           ),
     );
