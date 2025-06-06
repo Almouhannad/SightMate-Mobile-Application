@@ -158,8 +158,19 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed:
             _rectangleMapper.mapToImageRect() != null ? _cropAndDetect : null,
-        icon: const Icon(Icons.text_snippet),
-        label: Text(L10n.current.read),
+        icon: const Icon(Icons.text_snippet, size: 28),
+        label: Text(
+          L10n.current.read,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        tooltip: L10n.current.read,
+        heroTag: L10n.current.read,
+        elevation: 8.0,
+        isExtended: true,
+        extendedPadding: const EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 16,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

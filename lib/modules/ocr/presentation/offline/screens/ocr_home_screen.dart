@@ -65,8 +65,10 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
     final bytes = await frame.readAsBytes();
     final textToSpeak = await _liveOcrUsecase.processFrameBytes(bytes);
-    await _ttsProvider.speak(textToSpeak);
-    await _ttsProvider.waitToEnd();
+    if (_isLiveMode) {
+      await _ttsProvider.speak(textToSpeak);
+      await _ttsProvider.waitToEnd();
+    }
   }
 
   Future<void> _captureFrame() async {
@@ -116,7 +118,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   Widget build(BuildContext context) {
     return WidgetScaffold(
       title: L10n.current.textMode,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           setState(() {
             _isLiveMode = !_isLiveMode;
@@ -136,7 +138,19 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
             );
           }
         },
-        child: Icon(_isLiveMode ? Icons.pause : Icons.play_arrow),
+        icon: const Icon(Icons.cameraswitch, size: 28),
+        label: Text(
+          _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        tooltip: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
+        heroTag: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
+        elevation: 8.0,
+        isExtended: true,
+        extendedPadding: const EdgeInsets.symmetric(
+          horizontal: 32,
+          vertical: 16,
+        ),
       ),
       body: ListenableBuilder(
         listenable: _cameraHelper,
