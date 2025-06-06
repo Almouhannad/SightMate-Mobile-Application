@@ -19,7 +19,9 @@ class CaptureOcrUsecase {
     List<OcrResult> recognized = [];
 
     try {
-      recognized = await _ocrProvider.processImage(OcrInput(bytes: bytes));
+      await _ocrProvider
+          .processImage(OcrInput(bytes: bytes))
+          .then((value) => recognized = value.texts);
     } catch (e) {
       return L10n.current.errorOccurred;
     }

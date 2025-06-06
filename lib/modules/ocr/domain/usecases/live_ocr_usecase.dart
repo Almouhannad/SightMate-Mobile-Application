@@ -17,7 +17,10 @@ class LiveOcrUsecase {
   Future<String> processFrameBytes(List<int> bytes) async {
     _ocrProvider = DI.get<OcrProvider>(instanceName: OcrProviderModes.OFFLINE);
 
-    final results = await _ocrProvider.processImage(OcrInput(bytes: bytes));
+    List<OcrResult> results = [];
+    await _ocrProvider
+        .processImage(OcrInput(bytes: bytes))
+        .then((value) => results = value.texts);
 
     String textToSpeak = '';
     final DateTime now = DateTime.now();

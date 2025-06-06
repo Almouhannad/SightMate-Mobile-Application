@@ -8,7 +8,7 @@ class OcrProviderOfflineImpl extends OcrProvider {
   final _textRecognizer = TextRecognizer();
 
   @override
-  Future<List<OcrResult>> processImage(OcrInput input) async {
+  Future<OcrOutput> processImage(OcrInput input) async {
     // Create tmp. directory to store image before processing
     final dir = await getTemporaryDirectory();
     final outFile = File('${dir.path}/temp_for_ocr.png');
@@ -31,7 +31,7 @@ class OcrProviderOfflineImpl extends OcrProvider {
         ),
       );
     });
-    return results;
+    return OcrOutput(texts: results);
   }
 
   @override
