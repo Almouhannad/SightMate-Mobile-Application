@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
+import 'package:sight_mate/modules/ocr/domain/usecases/capture_ocr_usecase.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
@@ -28,12 +28,11 @@ class _PreviewWidgetState extends State<PreviewWidget> {
   Offset? _start;
   Offset? _current;
   Uint8List? _croppedBytes;
-  List<String> _lastDetectedTexts = [];
+  String _lastDetectedTexts = '';
   bool _isProcessingImage = false;
 
-  final _ocrProvider = GetIt.I.get<OcrProvider>(instanceName: 'offline');
+  final captureOcrUsecase = CaptureOcrUsecase();
   final _ttsProvider = GetIt.I.get<TtsProvider>();
-  final double _confidenceThreshold = 0.2;
 
   void _onPanStart(DragStartDetails details) {
     final box = _imageKey.currentContext!.findRenderObject() as RenderBox;
@@ -83,9 +82,10 @@ class _PreviewWidgetState extends State<PreviewWidget> {
     if (_start == null || _current == null) return;
 
     final rect = _mapToImageRect();
-    if (rect.width == 0 || rect.height == 0) {
+    if (rect.width <= CaptureOcrUsecaseConfig.minWidth ||
+        rect.height <= CaptureOcrUsecaseConfig.minHeight) {
       setState(() => _isProcessingImage = false);
-      await _speak([L10n.current.incorrectSelection]);
+      await _ttsProvider.speak(L10n.current.incorrectSelection);
       return;
     }
 
@@ -108,46 +108,15 @@ class _PreviewWidgetState extends State<PreviewWidget> {
     );
     _croppedBytes = byteData!.buffer.asUint8List();
 
-    List<OcrResult> recognized = [];
-    try {
-      recognized = await _ocrProvider.processImage(
-        OcrInput(bytes: _croppedBytes as List<int>),
-      );
-    } catch (e) {
-      setState(() => _isProcessingImage = false);
-      await _speak([L10n.current.errorOccurred]);
-      return;
-    }
-
-    setState(() {
-      _isProcessingImage = false;
+    await captureOcrUsecase.processCapture(_croppedBytes!).then((value) {
+      setState(() {
+        _lastDetectedTexts = value;
+        _isProcessingImage = false;
+      });
     });
+
     _showResultDialog();
-
-    _lastDetectedTexts =
-        recognized
-            .where(
-              (l) =>
-                  (l.confidence ?? 0) >= _confidenceThreshold &&
-                  l.text.trim().isNotEmpty,
-            )
-            .map((l) => l.text.trim())
-            .toList();
-
-    if (_lastDetectedTexts.isEmpty) {
-      await _speak([L10n.current.noTextDetected]);
-    } else {
-      await _speak(_lastDetectedTexts);
-    }
-  }
-
-  Future<void> _speak(List<String> texts) async {
-    if (texts.isEmpty) return;
-    var textToSpeak = '';
-    for (final t in texts) {
-      textToSpeak += '$t\n';
-    }
-    await _ttsProvider.speak(textToSpeak);
+    await _ttsProvider.speak(_lastDetectedTexts);
   }
 
   Future<void> onCloseDialog(BuildContext context) async {
@@ -185,7 +154,7 @@ class _PreviewWidgetState extends State<PreviewWidget> {
                     child: IconButton(
                       tooltip: L10n.current.replay,
                       onPressed: () async {
-                        await _speak(_lastDetectedTexts);
+                        await _ttsProvider.speak(_lastDetectedTexts);
                       },
                       icon: Icon(
                         Icons.replay,
