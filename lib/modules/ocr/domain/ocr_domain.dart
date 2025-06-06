@@ -7,3 +7,6 @@ export 'entities/ocr_result.dart';
 export 'providers/ocr_provider.dart';
 export 'providers/ocr_provider_modes.dart';
 export 'errors/ocr_exception.dart';
+export 'usecases/capture_ocr_usecase.dart';
+export 'usecases/describe_ocr_usecase.dart';
+export 'usecases/live_ocr_usecase.dart';
