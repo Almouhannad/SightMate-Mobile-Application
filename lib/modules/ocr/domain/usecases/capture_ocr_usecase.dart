@@ -25,7 +25,7 @@ class CaptureOcrUsecase {
     String textToSpeak = '';
     for (var ocrResult in recognized) {
       if (shouldSpeak(ocrResult)) {
-        textToSpeak += '${ocrResult.text}\n';
+        textToSpeak += '${ocrResult.text.toLowerCase()}\n';
       }
     }
 

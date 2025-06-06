@@ -23,7 +23,7 @@ class LiveOcrUsecase {
     final DateTime now = DateTime.now();
     for (var result in results) {
       if (shouldSpeak(result, now)) {
-        textToSpeak += '${result.text}\n';
+        textToSpeak += '${result.text.toLowerCase()}\n';
         _lastDetectedIn[result.text.toLowerCase()] = now;
       }
     }
