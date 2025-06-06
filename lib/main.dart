@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/app/pop_observer.dart';
 import 'package:sight_mate/app/routes.dart';
 import 'app/injection.dart';
 import 'modules/shared/theme/theme.dart';
@@ -19,8 +20,8 @@ class SightMateApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = getIt<ThemeNotifier>();
-    final i18nNotifier = getIt<I18nNotifier>();
+    final themeNotifier = DI<ThemeNotifier>();
+    final i18nNotifier = DI<I18nNotifier>();
 
     return MultiProvider(
       providers: [
@@ -38,6 +39,7 @@ class SightMateApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             // Router settings
             onGenerateRoute: onGenerateRoute,
+            navigatorObservers: [PopObserver()],
             // Theme management
             theme: theme.lightTheme,
             darkTheme: theme.darkTheme,

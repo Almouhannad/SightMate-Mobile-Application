@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 
 /// A ChangeNotifier that holds the current Locale and notifies listeners on changes
@@ -8,8 +9,10 @@ class I18nNotifier extends ChangeNotifier {
   Locale? _locale;
   bool _initialized = false;
 
-  I18nNotifier(this._repository) {
-    _loadInitialLocale();
+  I18nNotifier(this._repository);
+
+  Future<void> initilize() async {
+    await _loadInitialLocale();
   }
 
   /// The current locale exposed to the UI
@@ -35,6 +38,7 @@ class I18nNotifier extends ChangeNotifier {
   Future<void> updateLocale(Locale newLocale) async {
     if (newLocale == _locale) return;
     _locale = newLocale;
+    Restart.restartApp();
     notifyListeners();
     await _repository.saveLocale(newLocale);
   }

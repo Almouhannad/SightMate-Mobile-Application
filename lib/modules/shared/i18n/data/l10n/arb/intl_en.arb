@@ -48,5 +48,20 @@
     "@textMode": {},
 
     "home": "Home",
-    "@home": {}
+    "@home": {},
+
+    "liveMode": "Live Mode",
+    "@liveMode": {},
+
+    "captureMode": "Capture Mode",
+    "@captureMode": {},
+
+    "activated": "{mode} activated",
+    "@activated": {
+        "placeholders": {
+            "mode": {
+                "type": "String"
+            }
+        }
+    }
 }

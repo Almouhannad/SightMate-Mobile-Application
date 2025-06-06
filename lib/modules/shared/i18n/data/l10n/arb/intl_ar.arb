@@ -48,5 +48,20 @@
     "@textMode": {},
 
     "home": "الصفحة الرئيسية",
-    "@home": {}
+    "@home": {},
+
+    "liveMode": "الوضع الحي",
+    "@liveMode": {},
+
+    "captureMode": "وضع الالتقاط",
+    "@captureMode": {},
+
+    "activated": "تم تفعيل {mode}",
+    "@activated": {
+        "placeholders": {
+            "mode": {
+                "type": "String"
+            }
+        }
+    }
 }
