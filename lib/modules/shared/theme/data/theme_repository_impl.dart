@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 
@@ -10,7 +10,7 @@ const _kThemeModeKey = 'user_theme_mode';
 /// Concrete implementation of [ThemeRepository] using SharedPreferences (On-device)
 class ThemeRepositoryImpl implements ThemeRepository {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  final isArabic = GetIt.I.get<I18nNotifier>().locale == Locale('ar');
+  final isArabic = DI.get<I18nNotifier>().locale == Locale('ar');
   @override
   Future<ThemeMode?> loadThemeMode() async {
     final prefs = await _prefs;

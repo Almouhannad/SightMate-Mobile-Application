@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 import 'package:sight_mate/modules/ocr/domain/usecases/live_ocr_usecase.dart';
@@ -24,7 +23,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   final _cameraHelper = CameraHelper();
 
   // TTS
-  final _ttsProvider = GetIt.I.get<TtsProvider>();
+  final _ttsProvider = DI.get<TtsProvider>();
 
   // Live ocr
   final _liveOcrUsecase = LiveOcrUsecase();
@@ -107,9 +106,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   void dispose() {
-    getIt.resetLazySingleton<OcrProvider>(
-      instanceName: OcrProviderModes.OFFLINE,
-    );
+    DI.resetLazySingleton<OcrProvider>(instanceName: OcrProviderModes.OFFLINE);
     _frameTimer?.cancel();
     _cameraHelper.dispose();
     super.dispose();

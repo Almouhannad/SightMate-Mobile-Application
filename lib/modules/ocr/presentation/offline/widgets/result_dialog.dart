@@ -8,7 +8,7 @@ import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 class ResultDialog extends StatelessWidget {
   final Uint8List captureBytes;
   final String text;
-  final _ttsProvider = getIt.get<TtsProvider>();
+  final _ttsProvider = DI.get<TtsProvider>();
 
   ResultDialog({super.key, required this.captureBytes, required this.text});
 

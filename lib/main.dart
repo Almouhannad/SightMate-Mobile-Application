@@ -20,8 +20,8 @@ class SightMateApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = getIt<ThemeNotifier>();
-    final i18nNotifier = getIt<I18nNotifier>();
+    final themeNotifier = DI<ThemeNotifier>();
+    final i18nNotifier = DI<I18nNotifier>();
 
     return MultiProvider(
       providers: [

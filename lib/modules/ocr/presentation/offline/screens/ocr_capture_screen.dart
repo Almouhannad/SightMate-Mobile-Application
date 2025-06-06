@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/ocr/domain/usecases/capture_ocr_usecase.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
@@ -31,7 +31,7 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   bool _isProcessingImage = false;
 
   final captureOcrUsecase = CaptureOcrUsecase();
-  final _ttsProvider = GetIt.I.get<TtsProvider>();
+  final _ttsProvider = DI.get<TtsProvider>();
 
   @override
   void initState() {

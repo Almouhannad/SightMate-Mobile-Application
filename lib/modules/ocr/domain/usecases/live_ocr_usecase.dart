@@ -1,4 +1,4 @@
-import 'package:get_it/get_it.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 
 class LiveOcrUsecaseConfig {
@@ -15,9 +15,7 @@ class LiveOcrUsecase {
   Duration get frameInterval => LiveOcrUsecaseConfig.frameInterval;
 
   Future<String> processFrameBytes(List<int> bytes) async {
-    _ocrProvider = GetIt.I.get<OcrProvider>(
-      instanceName: OcrProviderModes.OFFLINE,
-    );
+    _ocrProvider = DI.get<OcrProvider>(instanceName: OcrProviderModes.OFFLINE);
 
     final results = await _ocrProvider.processImage(OcrInput(bytes: bytes));
 

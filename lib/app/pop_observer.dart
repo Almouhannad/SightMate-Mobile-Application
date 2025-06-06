@@ -6,6 +6,6 @@ class PopObserver extends NavigatorObserver {
   @override
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
-    getIt.get<TtsProvider>().stop();
+    DI.get<TtsProvider>().stop();
   }
 }

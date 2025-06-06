@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/core/page_route_settings.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
@@ -8,7 +8,7 @@ import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 
 class AppDrawer extends StatelessWidget {
   AppDrawer({super.key});
-  final _ttsProvider = GetIt.I.get<TtsProvider>();
+  final _ttsProvider = DI.get<TtsProvider>();
 
   @override
   Widget build(BuildContext context) {

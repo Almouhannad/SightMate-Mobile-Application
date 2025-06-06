@@ -2,39 +2,38 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sight_mate/modules/ocr/data/ocr_data.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
-import 'package:sight_mate/modules/ocr/domain/providers/ocr_provider.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/tts/data/tts_data.dart';
 
-final GetIt getIt = GetIt.instance;
+final GetIt DI = GetIt.instance;
 
 Future<void> configureDependencies() async {
   final prefs = await SharedPreferences.getInstance();
-  getIt.registerSingleton<SharedPreferences>(prefs);
+  DI.registerSingleton<SharedPreferences>(prefs);
 
   // I18nRepository: concrete implementation
-  getIt.registerLazySingleton<I18nRepository>(() => I18nRepositoryImpl());
+  DI.registerLazySingleton<I18nRepository>(() => I18nRepositoryImpl());
 
   // I18nNotifier: depends on I18nRepository
-  getIt.registerSingletonAsync<I18nNotifier>(() async {
-    final notifier = I18nNotifier(getIt<I18nRepository>());
+  DI.registerSingletonAsync<I18nNotifier>(() async {
+    final notifier = I18nNotifier(DI<I18nRepository>());
     await notifier.initilize();
     return notifier;
   });
-  await getIt.isReady<I18nNotifier>();
+  await DI.isReady<I18nNotifier>();
 
   // ThemeRepository: concrete implementation
-  getIt.registerLazySingleton<ThemeRepository>(() => ThemeRepositoryImpl());
+  DI.registerLazySingleton<ThemeRepository>(() => ThemeRepositoryImpl());
 
   // ThemeNotifier: depends on ThemeRepository
-  getIt.registerSingletonAsync<ThemeNotifier>(() async {
-    final notifier = ThemeNotifier(getIt<ThemeRepository>());
+  DI.registerSingletonAsync<ThemeNotifier>(() async {
+    final notifier = ThemeNotifier(DI<ThemeRepository>());
     await notifier.initilize();
     return notifier;
   });
-  await getIt.isReady<ThemeNotifier>();
+  await DI.isReady<ThemeNotifier>();
 
   // OCR ((LAZY))
   void disposeOcrProvider(OcrProvider provider) {
@@ -42,17 +41,17 @@ Future<void> configureDependencies() async {
   }
 
   // Offline
-  getIt.registerLazySingleton<OcrProvider>(
+  DI.registerLazySingleton<OcrProvider>(
     () => OcrProviderOfflineImpl(),
     instanceName: OcrProviderModes.OFFLINE,
     dispose: disposeOcrProvider,
   );
 
   // TTS
-  getIt.registerSingletonAsync<TtsProvider>(() async {
+  DI.registerSingletonAsync<TtsProvider>(() async {
     final provider = TtsProviderImpl();
     await provider.initilize();
     return provider;
   }, dispose: (provider) => provider.dispose());
-  await getIt.isReady<TtsProvider>();
+  await DI.isReady<TtsProvider>();
 }

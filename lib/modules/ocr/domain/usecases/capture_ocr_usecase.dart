@@ -11,7 +11,7 @@ class CaptureOcrUsecaseConfig {
 }
 
 class CaptureOcrUsecase {
-  final _ocrProvider = getIt.get<OcrProvider>(
+  final _ocrProvider = DI.get<OcrProvider>(
     instanceName: OcrProviderModes.OFFLINE,
   );
 
