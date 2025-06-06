@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -26,8 +25,7 @@ class OcrCaptureScreen extends StatefulWidget {
 
 class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   final GlobalKey _imageKey = GlobalKey();
-  Offset? _start;
-  Offset? _current;
+  late final ImageRectangleMapper _rectangleMapper;
   Uint8List? _croppedBytes;
   String _lastDetectedTexts = '';
   bool _isProcessingImage = false;
@@ -35,54 +33,37 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   final captureOcrUsecase = CaptureOcrUsecase();
   final _ttsProvider = GetIt.I.get<TtsProvider>();
 
+  @override
+  void initState() {
+    super.initState();
+    _rectangleMapper = ImageRectangleMapper(
+      imageKey: _imageKey,
+      imageSize: Size(
+        widget.uiImage.width.toDouble(),
+        widget.uiImage.height.toDouble(),
+      ),
+    );
+  }
+
   void _onPanStart(DragStartDetails details) {
-    final box = _imageKey.currentContext!.findRenderObject() as RenderBox;
-    final local = box.globalToLocal(details.globalPosition);
     setState(() {
-      _start = local;
-      _current = local;
+      _rectangleMapper.onPanStart(details);
     });
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
-    final box = _imageKey.currentContext!.findRenderObject() as RenderBox;
-    final local = box.globalToLocal(details.globalPosition);
-    setState(() => _current = local);
-  }
-
-  /// Map the user drag rectangle (in widget coordinates) into the underlying
-  /// image's pixel coordinates ((accounting for a BoxFit.cover transform))
-  Rect _mapToImageRect() {
-    final box = _imageKey.currentContext!.findRenderObject() as RenderBox;
-    final dispSize = box.size;
-    final imgW = widget.uiImage.width.toDouble();
-    final imgH = widget.uiImage.height.toDouble();
-
-    // Because the Image is drawn with BoxFit.cover =>
-    //   scale = max(dispW / imgW, dispH / imgH)
-    final scale = max(dispSize.width / imgW, dispSize.height / imgH);
-    final fittedW = imgW * scale;
-    final fittedH = imgH * scale;
-
-    final dx = (dispSize.width - fittedW) / 2;
-    final dy = (dispSize.height - fittedH) / 2;
-
-    // Convert both the start and current drag points into image-space
-    final x1 = ((_start!.dx - dx) / scale).clamp(0.0, imgW);
-    final y1 = ((_start!.dy - dy) / scale).clamp(0.0, imgH);
-    final x2 = ((_current!.dx - dx) / scale).clamp(0.0, imgW);
-    final y2 = ((_current!.dy - dy) / scale).clamp(0.0, imgH);
-
-    return Rect.fromLTRB(min(x1, x2), min(y1, y2), max(x1, x2), max(y1, y2));
+    setState(() {
+      _rectangleMapper.onPanUpdate(details);
+    });
   }
 
   Future<void> _cropAndDetect() async {
     setState(() {
       _isProcessingImage = true;
     });
-    if (_start == null || _current == null) return;
+    if (_rectangleMapper.mapToImageRect() == null) return;
 
-    final rect = _mapToImageRect();
+    final rect = _rectangleMapper.mapToImageRect()!;
     if (rect.width <= CaptureOcrUsecaseConfig.minWidth ||
         rect.height <= CaptureOcrUsecaseConfig.minHeight) {
       setState(() => _isProcessingImage = false);
@@ -153,10 +134,13 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
                 Positioned.fill(
                   child: Image.memory(widget.imageBytes, fit: BoxFit.cover),
                 ),
-                if (_start != null && _current != null)
+                if (_rectangleMapper.mapToImageRect() != null)
                   Positioned.fill(
                     child: CustomPaint(
-                      painter: SelectionPainter(_start!, _current!),
+                      painter: SelectionPainter(
+                        _rectangleMapper.getScreenRect()!.topLeft,
+                        _rectangleMapper.getScreenRect()!.bottomRight,
+                      ),
                     ),
                   ),
                 if (_isProcessingImage)
@@ -172,7 +156,8 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (_start != null && _current != null) ? _cropAndDetect : null,
+        onPressed:
+            _rectangleMapper.mapToImageRect() != null ? _cropAndDetect : null,
         icon: const Icon(Icons.text_snippet),
         label: Text(L10n.current.read),
       ),
