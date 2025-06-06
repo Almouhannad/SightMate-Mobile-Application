@@ -21,8 +21,7 @@ class OcrHomeScreen extends StatefulWidget {
 
 class OcrHomeScreenState extends State<OcrHomeScreen> {
   // Camera
-  CameraController? _controller;
-  Future<void>? _isCameraInitialized;
+  final _cameraHelper = CameraHelper();
 
   // TTS
   final _ttsProvider = GetIt.I.get<TtsProvider>();
@@ -38,25 +37,14 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _setupCamera();
+    _initializeCamera();
   }
 
-  Future<void> _setupCamera() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    final cameras = await availableCameras();
-    _controller = CameraController(
-      cameras.first,
-      ResolutionPreset.max,
-      imageFormatGroup: ImageFormatGroup.jpeg,
-      enableAudio: false,
-    );
-
-    setState(() {
-      // Initialize the controller
-      _isCameraInitialized = _controller!.initialize().then((_) {
-        _startPeriodicFrameCapture();
-      });
-    });
+  Future<void> _initializeCamera() async {
+    await _cameraHelper.setupCamera();
+    if (_isLiveMode) {
+      _startPeriodicFrameCapture();
+    }
   }
 
   void _startPeriodicFrameCapture() {
@@ -70,11 +58,12 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   }
 
   Future<void> _processLiveFrame() async {
-    // If camera isn't ready
-    if (_controller == null || !_controller!.value.isInitialized) {
+    if (!_cameraHelper.isInitialized) {
       return;
     }
-    final frame = await _controller!.takePicture();
+    final frame = await _cameraHelper.captureFrame();
+    if (frame == null) return;
+
     final bytes = await frame.readAsBytes();
     final textToSpeak = await _liveOcrUsecase.processFrameBytes(bytes);
     await _ttsProvider.speak(textToSpeak);
@@ -82,9 +71,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   }
 
   Future<void> _captureFrame() async {
-    if (_controller == null ||
-        !_controller!.value.isInitialized ||
-        _isLiveMode) {
+    if (!_cameraHelper.isInitialized || _isLiveMode) {
       return;
     }
     if (_isCameraLoading) return;
@@ -92,13 +79,12 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
       _isCameraLoading = true;
     });
 
-    late XFile? file;
-    // To handle capturing issues
-    try {
-      file = await _controller!.takePicture();
-    } catch (_) {
-      _captureFrame();
-      return; // BTW: I'm stupidly genius
+    final file = await _cameraHelper.captureFrame();
+    if (file == null) {
+      setState(() {
+        _isCameraLoading = false;
+      });
+      return;
     }
 
     final bytes = await file.readAsBytes();
@@ -123,8 +109,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   void dispose() {
     getIt.resetLazySingleton<OcrProvider>(instanceName: 'offline');
     _frameTimer?.cancel();
-    _controller?.dispose();
-    _controller = null;
+    _cameraHelper.dispose();
     super.dispose();
   }
 
@@ -154,10 +139,10 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
         },
         child: Icon(_isLiveMode ? Icons.pause : Icons.play_arrow),
       ),
-      body: FutureBuilder<void>(
-        future: _isCameraInitialized,
-        builder: (context, snap) {
-          if (snap.connectionState != ConnectionState.done) {
+      body: ListenableBuilder(
+        listenable: _cameraHelper,
+        builder: (context, _) {
+          if (!_cameraHelper.isInitialized) {
             return const Center(child: CircularProgressIndicator());
           }
           return GestureDetector(
@@ -165,7 +150,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                CameraPreview(_controller!),
+                CameraPreview(_cameraHelper.controller!),
                 Positioned(
                   top: 16,
                   left: 16,
