@@ -193,6 +193,21 @@ class L10n {
       args: [mode],
     );
   }
+
+  /// `Processing, please wait`
+  String get pleaseWait {
+    return Intl.message(
+      'Processing, please wait',
+      name: 'pleaseWait',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Describe`
+  String get describe {
+    return Intl.message('Describe', name: 'describe', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

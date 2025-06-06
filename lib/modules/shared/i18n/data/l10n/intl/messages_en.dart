@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
+    "describe": MessageLookupByLibrary.simpleMessage("Describe"),
     "errorOccurred": MessageLookupByLibrary.simpleMessage(
       "An error occurred!\nPlease try again",
     ),
@@ -45,6 +46,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "liveMode": MessageLookupByLibrary.simpleMessage("Live Mode"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "No text detected in selection",
+    ),
+    "pleaseWait": MessageLookupByLibrary.simpleMessage(
+      "Processing, please wait",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("Preview"),
     "read": MessageLookupByLibrary.simpleMessage("READ"),

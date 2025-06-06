@@ -63,5 +63,11 @@
                 "type": "String"
             }
         }
-    }
+    },
+
+    "pleaseWait": "Processing, please wait",
+    "@pleaseWait": {},
+
+    "describe": "Describe",
+    "@describe": {}
 }
