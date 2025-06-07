@@ -60,7 +60,7 @@ class AppDrawer extends StatelessWidget {
             buildRouteListTile(OcrHomeScreenRoute(), Icons.translate),
             buildRouteListTile(
               ObjectRecognitionHomeScreenRoute(),
-              Icons.data_object,
+              Icons.chair_rounded,
             ),
             buildRouteListTile(ThemeSettingsRoute(), Icons.color_lens),
             buildRouteListTile(LanguageSettingsRoute(), Icons.language),
