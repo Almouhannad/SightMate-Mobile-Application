@@ -44,7 +44,7 @@
     "replay": "إعادة التشغيل",
     "@replay": {},
 
-    "textMode": "وضع النص",
+    "textMode": "وضع النصوص",
     "@textMode": {},
 
     "home": "الصفحة الرئيسية",
@@ -69,5 +69,8 @@
     "@pleaseWait": {},
 
     "describe": "توصيف",
-    "@describe": {}
+    "@describe": {},
+
+    "objectMode": "وضع الأغراض",
+    "@objectMode":{}
 }
