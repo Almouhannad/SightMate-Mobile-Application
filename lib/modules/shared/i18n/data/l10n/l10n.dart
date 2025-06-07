@@ -208,6 +208,11 @@ class L10n {
   String get describe {
     return Intl.message('Describe', name: 'describe', desc: '', args: []);
   }
+
+  /// `Object Mode`
+  String get objectMode {
+    return Intl.message('Object Mode', name: 'objectMode', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

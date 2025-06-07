@@ -69,5 +69,8 @@
     "@pleaseWait": {},
 
     "describe": "Describe",
-    "@describe": {}
+    "@describe": {},
+
+    "objectMode": "Object Mode",
+    "@objectMode":{}
 }

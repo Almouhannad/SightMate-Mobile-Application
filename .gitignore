@@ -52,3 +52,6 @@ app.*.map.json
 
 # My secrets :D
 .env
+
+# YOLO model(s)
+android/app/src/main/assets/yolo11n.tflite

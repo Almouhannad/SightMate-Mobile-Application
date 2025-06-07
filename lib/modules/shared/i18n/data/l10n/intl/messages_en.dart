@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "No text detected in selection",
     ),
+    "objectMode": MessageLookupByLibrary.simpleMessage("Object Mode"),
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "Processing, please wait",
     ),

@@ -47,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "لم يتم اكتشاف نص في الاختيار",
     ),
+    "objectMode": MessageLookupByLibrary.simpleMessage("وضع الأغراض"),
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "جاري المعالجة، يرجى الانتظار",
     ),
@@ -54,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
-    "textMode": MessageLookupByLibrary.simpleMessage("وضع النص"),
+    "textMode": MessageLookupByLibrary.simpleMessage("وضع النصوص"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
   };
 }

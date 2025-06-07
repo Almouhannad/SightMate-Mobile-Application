@@ -5,6 +5,7 @@ import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
+import 'package:sight_mate/modules/yolo_object_recognition/yolo_object_recognition.dart';
 
 class AppDrawer extends StatelessWidget {
   AppDrawer({super.key});
@@ -57,6 +58,10 @@ class AppDrawer extends StatelessWidget {
             const Divider(),
 
             buildRouteListTile(OcrHomeScreenRoute(), Icons.translate),
+            buildRouteListTile(
+              ObjectRecognitionHomeScreenRoute(),
+              Icons.data_object,
+            ),
             buildRouteListTile(ThemeSettingsRoute(), Icons.color_lens),
             buildRouteListTile(LanguageSettingsRoute(), Icons.language),
           ],
