@@ -874,6 +874,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  ultralytics_yolo:
+    dependency: "direct main"
+    description:
+      name: ultralytics_yolo
+      sha256: d9ea7dfa3e4634eea284aaf91aef6f218d23097d2a33bd1124dbd6ef8e9c70b7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.19"
   vector_math:
     dependency: transitive
     description:
