@@ -30,12 +30,11 @@ class ThemeRepositoryImpl implements ThemeRepository {
   @override
   Future<void> saveThemeMode(ThemeMode mode) async {
     final prefs = await _prefs;
-    final value =
-        mode == ThemeMode.light
-            ? 'light'
-            : mode == ThemeMode.dark
-            ? 'dark'
-            : 'system';
+    final value = mode == ThemeMode.light
+        ? 'light'
+        : mode == ThemeMode.dark
+        ? 'dark'
+        : 'system';
     await prefs.setString(_kThemeModeKey, value);
   }
 
@@ -118,7 +117,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
       ),
 
       // Cards
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: colorScheme.surface,
         elevation: 2,
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
@@ -231,7 +230,7 @@ class ThemeRepositoryImpl implements ThemeRepository {
       ),
 
       // Cards
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: colorScheme.surface,
         elevation: 2,
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
