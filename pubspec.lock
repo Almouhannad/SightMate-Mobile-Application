@@ -877,10 +877,11 @@ packages:
   ultralytics_yolo:
     dependency: "direct main"
     description:
-      name: ultralytics_yolo
-      sha256: f7dcb84e6b771da71f2512e76ebdf6b1b4b89fd9bf4b00080a416b3865a0aaa2
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "fix/YOLOView-camera-disposal-android"
+      resolved-ref: ab29428eb983d8cb54d2106fcaefb8cad159ea80
+      url: "https://github.com/Almouhannad/yolo-flutter-app.git"
+    source: git
     version: "0.1.21"
   vector_math:
     dependency: transitive
