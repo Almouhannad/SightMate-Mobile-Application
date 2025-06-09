@@ -123,7 +123,9 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
               L10n.current.activated(L10n.current.liveMode),
             );
           } else {
-            _frameTimer!.cancel();
+            if (_frameTimer != null) {
+              _frameTimer!.cancel();
+            }
             await _ttsProvider.stop();
             await _ttsProvider.speak(
               L10n.current.activated(L10n.current.captureMode),

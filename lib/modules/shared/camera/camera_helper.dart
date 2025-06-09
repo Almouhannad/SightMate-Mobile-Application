@@ -23,6 +23,11 @@ class CameraHelper {
     try {
       await Future.delayed(Duration(milliseconds: 1000));
       await _controller!.initialize();
+      // Warm-up the camera by taking a dummy picture and discarding it
+      // This will make feature page loading slower, but first call for the feature will be much faster
+      final file = await _controller!.takePicture();
+      await file.readAsBytes(); // Trigger JPEG decoding
+
       _isInitialized = true;
       return true;
     } catch (e) {
