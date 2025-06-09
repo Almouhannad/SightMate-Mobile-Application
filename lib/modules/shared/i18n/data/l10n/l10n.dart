@@ -213,6 +213,16 @@ class L10n {
   String get objectMode {
     return Intl.message('Object Mode', name: 'objectMode', desc: '', args: []);
   }
+
+  /// `Image Mode`
+  String get imageMode {
+    return Intl.message('Image Mode', name: 'imageMode', desc: '', args: []);
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

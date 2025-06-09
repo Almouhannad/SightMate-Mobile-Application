@@ -72,5 +72,11 @@
     "@describe": {},
 
     "objectMode": "وضع الأغراض",
-    "@objectMode":{}
+    "@objectMode":{},
+
+    "imageMode": "وضع الصور",
+    "@imageMode":{},
+
+    "settings": "إعدادات",
+    "@settings": {}    
 }

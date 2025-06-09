@@ -72,5 +72,11 @@
     "@describe": {},
 
     "objectMode": "Object Mode",
-    "@objectMode":{}
+    "@objectMode":{},
+
+    "imageMode": "Image Mode",
+    "@imageMode":{},
+
+    "settings": "Settings",
+    "@settings": {}
 }

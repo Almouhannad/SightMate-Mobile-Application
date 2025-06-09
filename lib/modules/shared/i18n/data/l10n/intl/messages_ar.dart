@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "أهلاً بكم في\nSight Mate",
     ),
     "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
+    "imageMode": MessageLookupByLibrary.simpleMessage("وضع الصور"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
     ),
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
+    "settings": MessageLookupByLibrary.simpleMessage("إعدادات"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
     "textMode": MessageLookupByLibrary.simpleMessage("وضع النصوص"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
