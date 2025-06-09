@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:ui' as ui;
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -56,11 +56,9 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   }
 
   Future<void> _processLiveFrame() async {
-    final frame = await _cameraHelper.getFrame();
-    if (frame == null) return;
-
-    final bytes = await frame.readAsBytes();
-    final textToSpeak = await _liveOcrUsecase.processFrameBytes(bytes);
+    final frameBytes = await _cameraHelper.getFrameBytes();
+    if (frameBytes == null) return;
+    final textToSpeak = await _liveOcrUsecase.processFrameBytes(frameBytes);
     if (_isLiveMode) {
       await _ttsProvider.speak(textToSpeak);
       await _ttsProvider.waitToEnd();
@@ -76,23 +74,20 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
       _isCameraLoading = true;
     });
 
-    final file = await _cameraHelper.getFrame();
-    if (file == null) {
+    final frameBytesAndImage = await _cameraHelper.getFrameBytesAndImage();
+    if (frameBytesAndImage == null) {
       setState(() {
         _isCameraLoading = false;
       });
       return;
     }
-
-    final bytes = await file.readAsBytes();
-    final codec = await ui.instantiateImageCodec(bytes);
-    final frame = await codec.getNextFrame();
-
     if (mounted) {
       await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) =>
-              OcrCaptureScreen(uiImage: frame.image, imageBytes: bytes),
+          builder: (_) => OcrCaptureScreen(
+            uiImage: frameBytesAndImage.image,
+            imageBytes: frameBytesAndImage.bytes as Uint8List,
+          ),
         ),
       );
     }

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -37,19 +39,46 @@ class CameraHelper {
     return _controller!;
   }
 
-  Future<XFile?> getFrame() async {
+  // Don't reuse this in next one to make sure that `_isCapturingFrame` is set correctly
+  Future<List<int>?> getFrameBytes() {
     if (!_isInitialized) {
-      throw _notInitilizedException;
+      return Future.error(_notInitilizedException);
     }
     if (_isCapturingFrame) {
-      return null;
+      return Future.value(null);
     }
+
     _isCapturingFrame = true;
-    final frame = await _controller!.takePicture().then((value) {
-      _isCapturingFrame = false;
-      return value;
-    });
-    return frame;
+
+    return _controller!
+        .takePicture()
+        .then((frame) => frame.readAsBytes())
+        .whenComplete(() => _isCapturingFrame = false);
+  }
+
+  Future<({List<int> bytes, ui.Image image})?> getFrameBytesAndImage() {
+    if (!_isInitialized) {
+      return Future.error(_notInitilizedException);
+    }
+    if (_isCapturingFrame) {
+      return Future.value(null);
+    }
+
+    _isCapturingFrame = true;
+
+    return _controller!
+        .takePicture()
+        .then((file) => file.readAsBytes())
+        .then((bytes) {
+          return ui
+              .instantiateImageCodec(bytes)
+              .then(
+                (codec) => codec.getNextFrame().then(
+                  (frame) => (bytes: bytes, image: frame.image),
+                ),
+              );
+        })
+        .whenComplete(() => _isCapturingFrame = false);
   }
 
   Future<void> dispose() async {
