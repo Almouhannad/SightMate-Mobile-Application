@@ -53,6 +53,7 @@ dependencies:
     git:
       url: https://github.com/Almouhannad/yolo-flutter-app.git
       ref: fix/YOLOView-camera-disposal-android
+  speech_to_text: ^7.0.0
 
 dev_dependencies:
   flutter_test:
