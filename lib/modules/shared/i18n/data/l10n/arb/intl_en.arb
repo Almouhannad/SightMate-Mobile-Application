@@ -78,5 +78,8 @@
     "@imageMode":{},
 
     "settings": "Settings",
-    "@settings": {}
+    "@settings": {},
+
+    "history": "History",
+    "@history": {}
 }

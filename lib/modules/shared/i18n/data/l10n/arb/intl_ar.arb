@@ -78,5 +78,8 @@
     "@imageMode":{},
 
     "settings": "إعدادات",
-    "@settings": {}    
+    "@settings": {},
+
+    "history": "السجل",
+    "@history": {}
 }

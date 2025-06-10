@@ -35,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred!\nPlease try again",
     ),
     "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
+    "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "imageMode": MessageLookupByLibrary.simpleMessage("Image Mode"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(

@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "helloWorld": MessageLookupByLibrary.simpleMessage(
       "أهلاً بكم في\nSight Mate",
     ),
+    "history": MessageLookupByLibrary.simpleMessage("السجل"),
     "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
     "imageMode": MessageLookupByLibrary.simpleMessage("وضع الصور"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
