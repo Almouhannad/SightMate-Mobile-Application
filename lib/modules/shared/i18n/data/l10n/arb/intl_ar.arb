@@ -86,6 +86,9 @@
     "imageCaption": "وصف الصورة",
     "@imageCaption": {},
 
-    "question": "سؤال",
-    "@question": {}    
+    "question": "السؤال",
+    "@question": {},
+
+    "answer": "الجواب",
+    "@answer": {}
 }

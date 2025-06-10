@@ -243,6 +243,11 @@ class L10n {
   String get question {
     return Intl.message('Question', name: 'question', desc: '', args: []);
   }
+
+  /// `Answer`
+  String get answer {
+    return Intl.message('Answer', name: 'answer', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

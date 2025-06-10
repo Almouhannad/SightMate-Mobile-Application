@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
+    "answer": MessageLookupByLibrary.simpleMessage("الجواب"),
     "appMenu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
     "captureMode": MessageLookupByLibrary.simpleMessage("وضع الالتقاط"),
@@ -55,7 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "جاري المعالجة، يرجى الانتظار",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
-    "question": MessageLookupByLibrary.simpleMessage("سؤال"),
+    "question": MessageLookupByLibrary.simpleMessage("السؤال"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "settings": MessageLookupByLibrary.simpleMessage("إعدادات"),

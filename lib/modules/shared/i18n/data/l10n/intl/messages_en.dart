@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
+    "answer": MessageLookupByLibrary.simpleMessage("Answer"),
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),

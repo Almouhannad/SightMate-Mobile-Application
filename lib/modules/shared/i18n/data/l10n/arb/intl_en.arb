@@ -87,5 +87,8 @@
     "@imageCaption": {},
 
     "question": "Question",
-    "@question": {}
+    "@question": {},
+
+    "answer": "Answer",
+    "@answer": {}
 }
