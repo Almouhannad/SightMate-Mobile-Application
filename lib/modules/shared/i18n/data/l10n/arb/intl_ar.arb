@@ -90,5 +90,8 @@
     "@question": {},
 
     "answer": "الجواب",
-    "@answer": {}
+    "@answer": {},
+
+    "askQuestion": "اطرح سؤالاً",
+    "@askQuestion": {}    
 }

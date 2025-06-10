@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "answer": MessageLookupByLibrary.simpleMessage("Answer"),
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "askQuestion": MessageLookupByLibrary.simpleMessage("Ask a question"),
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),

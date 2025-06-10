@@ -90,5 +90,8 @@
     "@question": {},
 
     "answer": "Answer",
-    "@answer": {}
+    "@answer": {},
+
+    "askQuestion": "Ask a question",
+    "@askQuestion": {}
 }
