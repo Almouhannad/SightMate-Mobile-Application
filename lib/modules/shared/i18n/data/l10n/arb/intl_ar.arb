@@ -81,5 +81,11 @@
     "@settings": {},
 
     "history": "السجل",
-    "@history": {}
+    "@history": {},
+
+    "imageCaption": "وصف الصورة",
+    "@imageCaption": {},
+
+    "question": "سؤال",
+    "@question": {}    
 }

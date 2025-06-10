@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "imageCaption": MessageLookupByLibrary.simpleMessage("Image Caption"),
     "imageMode": MessageLookupByLibrary.simpleMessage("Image Mode"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "Incorrect selection!\nPlease try again",
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Processing, please wait",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+    "question": MessageLookupByLibrary.simpleMessage("Question"),
     "read": MessageLookupByLibrary.simpleMessage("READ"),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),

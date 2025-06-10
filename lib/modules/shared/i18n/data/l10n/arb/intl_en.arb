@@ -81,5 +81,11 @@
     "@settings": {},
 
     "history": "History",
-    "@history": {}
+    "@history": {},
+
+    "imageCaption": "Image Caption",
+    "@imageCaption": {},
+
+    "question": "Question",
+    "@question": {}
 }

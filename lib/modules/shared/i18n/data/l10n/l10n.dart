@@ -228,6 +228,21 @@ class L10n {
   String get history {
     return Intl.message('History', name: 'history', desc: '', args: []);
   }
+
+  /// `Image Caption`
+  String get imageCaption {
+    return Intl.message(
+      'Image Caption',
+      name: 'imageCaption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Question`
+  String get question {
+    return Intl.message('Question', name: 'question', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

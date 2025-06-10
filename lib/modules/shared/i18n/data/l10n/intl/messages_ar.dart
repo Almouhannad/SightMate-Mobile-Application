@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "history": MessageLookupByLibrary.simpleMessage("السجل"),
     "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
+    "imageCaption": MessageLookupByLibrary.simpleMessage("وصف الصورة"),
     "imageMode": MessageLookupByLibrary.simpleMessage("وضع الصور"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
@@ -54,6 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "جاري المعالجة، يرجى الانتظار",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
+    "question": MessageLookupByLibrary.simpleMessage("سؤال"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "settings": MessageLookupByLibrary.simpleMessage("إعدادات"),
