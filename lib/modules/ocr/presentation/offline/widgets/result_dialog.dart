@@ -52,42 +52,46 @@ class _ResultDialogState extends State<ResultDialog> {
           ),
         ),
 
-        // Describe button: only shows when isOnlineFuture is done and true
-        FutureBuilder<bool>(
-          future: isOnlineFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done &&
-                snapshot.data == true) {
-              // If we're in the middle of describing, show spinner
-              if (isDescribing) {
-                return const SizedBox(
-                  width: 48,
-                  height: 48, // match IconButton size
-                  child: Center(
-                    child: CircularProgressIndicator(strokeWidth: 2),
+        if (widget.text != L10n.current.noTextDetected)
+          // Describe button: only shows when isOnlineFuture is done and true
+          FutureBuilder<bool>(
+            future: isOnlineFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.data == true) {
+                // If we're in the middle of describing, show spinner
+                if (isDescribing) {
+                  return const SizedBox(
+                    width: 48,
+                    height: 48, // match IconButton size
+                    child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  );
+                }
+
+                // Otherwise show the normal Describe IconButton
+                return Semantics(
+                  label: L10n.current.describe,
+                  button: true,
+                  child: IconButton(
+                    tooltip: L10n.current.describe,
+                    onPressed: () async => onDescribe(),
+                    icon: Icon(
+                      Icons.info,
+                      semanticLabel: L10n.current.describe,
+                    ),
                   ),
                 );
               }
 
-              // Otherwise show the normal Describe IconButton
-              return Semantics(
-                label: L10n.current.describe,
-                button: true,
-                child: IconButton(
-                  tooltip: L10n.current.describe,
-                  onPressed: () async => onDescribe(),
-                  icon: Icon(Icons.info, semanticLabel: L10n.current.describe),
-                ),
-              );
-            }
-
-            // Not online or still checking:
-            return const SizedBox.shrink();
-          },
-        ),
+              // Not online or still checking:
+              return const SizedBox.shrink();
+            },
+          ),
 
         // Replay button
-        if (widget.text.isNotEmpty)
+        if (widget.text != L10n.current.noTextDetected)
           Semantics(
             label: L10n.current.replay,
             button: true,

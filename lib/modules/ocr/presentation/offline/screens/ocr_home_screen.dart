@@ -107,69 +107,81 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetScaffold(
-      title:
-          '${L10n.current.textMode} - ${_isLiveMode ? L10n.current.liveMode : L10n.current.captureMode}',
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          setState(() {
-            _isLiveMode = !_isLiveMode;
-          });
+    return FutureBuilder(
+      future: _isCameraReady,
+      builder: (context, snapshot) {
+        final isReady = snapshot.connectionState == ConnectionState.done;
 
-          if (_isLiveMode) {
-            _startPeriodicFrameCapture();
-            await _ttsProvider.stop();
-            await _ttsProvider.speak(
-              L10n.current.activated(L10n.current.liveMode),
-            );
-          } else {
-            if (_frameTimer != null) {
-              _frameTimer!.cancel();
-            }
-            await _ttsProvider.stop();
-            await _ttsProvider.speak(
-              L10n.current.activated(L10n.current.captureMode),
-            );
-          }
-        },
-        icon: const Icon(Icons.cameraswitch, size: 28),
-        label: Text(
-          _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        tooltip: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-        heroTag: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-        elevation: 8.0,
-        isExtended: true,
-        extendedPadding: const EdgeInsets.symmetric(
-          horizontal: 32,
-          vertical: 16,
-        ),
-      ),
-      body: FutureBuilder(
-        future: _isCameraReady,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return GestureDetector(
-            onTap: _captureFrame,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                CameraPreview(_cameraHelper.controller),
-                if (_isCameraLoading)
-                  Positioned.fill(
-                    child: Container(
-                      color: Colors.black45,
-                      child: const Center(child: CircularProgressIndicator()),
+        return WidgetScaffold(
+          title:
+              '${L10n.current.textMode} - ${_isLiveMode ? L10n.current.liveMode : L10n.current.captureMode}',
+          floatingActionButton: isReady
+              ? FloatingActionButton.extended(
+                  onPressed: () async {
+                    setState(() {
+                      _isLiveMode = !_isLiveMode;
+                    });
+
+                    if (_isLiveMode) {
+                      _startPeriodicFrameCapture();
+                      await _ttsProvider.stop();
+                      await _ttsProvider.speak(
+                        L10n.current.activated(L10n.current.liveMode),
+                      );
+                    } else {
+                      _frameTimer?.cancel();
+                      await _ttsProvider.stop();
+                      await _ttsProvider.speak(
+                        L10n.current.activated(L10n.current.captureMode),
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.cameraswitch, size: 28),
+                  label: Text(
+                    _isLiveMode
+                        ? L10n.current.liveMode
+                        : L10n.current.captureMode,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-              ],
-            ),
-          );
-        },
-      ),
+                  tooltip: _isLiveMode
+                      ? L10n.current.liveMode
+                      : L10n.current.captureMode,
+                  heroTag: _isLiveMode
+                      ? L10n.current.liveMode
+                      : L10n.current.captureMode,
+                  elevation: 8.0,
+                  isExtended: true,
+                  extendedPadding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
+                  ),
+                )
+              : null,
+          body: isReady
+              ? GestureDetector(
+                  onTap: _captureFrame,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CameraPreview(_cameraHelper.controller),
+                      if (_isCameraLoading)
+                        Positioned.fill(
+                          child: Container(
+                            color: Colors.black45,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                )
+              : const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }
