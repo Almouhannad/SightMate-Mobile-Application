@@ -40,6 +40,7 @@ class VqaUsecase {
         VqaHistoryItem(
           title: '${L10n.current.question} ${lastIndex + 2}',
           text: vqaResult.text,
+          question: question,
         ),
       );
       return vqaResult.text;
