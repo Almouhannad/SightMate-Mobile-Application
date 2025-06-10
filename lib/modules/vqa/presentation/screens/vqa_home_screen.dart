@@ -79,7 +79,7 @@ class _VqaHomeScreenState extends State<VqaHomeScreen> {
     if (mounted) {
       await Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => VqaPreviewScreen(
+          builder: (_) => VqaCaptureScreen(
             image: frameBytesAndImage.image,
             imageBytes: frameBytesAndImage.bytes,
           ),
