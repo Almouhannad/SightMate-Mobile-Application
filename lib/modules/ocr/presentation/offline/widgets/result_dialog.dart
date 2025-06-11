@@ -117,17 +117,23 @@ class _ResultDialogState extends State<ResultDialog> {
 
     try {
       if (descriptionText.isEmpty) {
-        setState(() => isDescribing = true);
+        if (mounted) {
+          setState(() => isDescribing = true);
+        }
         await _ttsProvider.speak(L10n.current.pleaseWait);
         descriptionText = await describeOcrUsecase.processCapture(
           widget.captureBytes,
         );
       }
       // After we have text, stop spinner and speak
-      setState(() => isDescribing = false);
+      if (mounted) {
+        setState(() => isDescribing = false);
+      }
       await _ttsProvider.speak(descriptionText);
     } catch (e) {
-      setState(() => isDescribing = false);
+      if (mounted) {
+        setState(() => isDescribing = false);
+      }
     }
   }
 }

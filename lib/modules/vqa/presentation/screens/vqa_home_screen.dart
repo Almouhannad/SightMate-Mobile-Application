@@ -61,15 +61,20 @@ class _VqaHomeScreenState extends State<VqaHomeScreen> {
     if (_isCapturing) {
       return;
     }
-    setState(() {
-      _isCapturing = true;
-    });
+    if (mounted) {
+      setState(() {
+        _isCapturing = true;
+      });
+    }
     _ttsProvider.speak(L10n.current.pleaseWait);
     final frameBytesAndImage = await _cameraHelper.getFrameBytesAndImage().then(
       (value) {
-        setState(() {
-          _isCapturing = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isCapturing = false;
+          });
+        }
+
         return value;
       },
     );

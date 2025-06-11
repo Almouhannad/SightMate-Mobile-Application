@@ -70,15 +70,19 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
       return;
     }
     if (_isCameraLoading) return;
-    setState(() {
-      _isCameraLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        _isCameraLoading = true;
+      });
+    }
 
     final frameBytesAndImage = await _cameraHelper.getFrameBytesAndImage();
     if (frameBytesAndImage == null) {
-      setState(() {
-        _isCameraLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isCameraLoading = false;
+        });
+      }
       return;
     }
     if (mounted) {
@@ -91,10 +95,11 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
         ),
       );
     }
-
-    setState(() {
-      _isCameraLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        _isCameraLoading = false;
+      });
+    }
   }
 
   @override
@@ -118,9 +123,11 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
           floatingActionButton: isReady
               ? FloatingActionButton.extended(
                   onPressed: () async {
-                    setState(() {
-                      _isLiveMode = !_isLiveMode;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        _isLiveMode = !_isLiveMode;
+                      });
+                    }
 
                     if (_isLiveMode) {
                       _startPeriodicFrameCapture();

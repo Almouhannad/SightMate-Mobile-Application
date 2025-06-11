@@ -46,27 +46,35 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   }
 
   void _onPanStart(DragStartDetails details) {
-    setState(() {
-      _rectangleMapper.onPanStart(details);
-    });
+    if (mounted) {
+      setState(() {
+        _rectangleMapper.onPanStart(details);
+      });
+    }
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
-    setState(() {
-      _rectangleMapper.onPanUpdate(details);
-    });
+    if (mounted) {
+      setState(() {
+        _rectangleMapper.onPanUpdate(details);
+      });
+    }
   }
 
   Future<void> _cropAndDetect() async {
-    setState(() {
-      _isProcessingImage = true;
-    });
+    if (mounted) {
+      setState(() {
+        _isProcessingImage = true;
+      });
+    }
     if (_rectangleMapper.mapToImageRect() == null) return;
 
     final rect = _rectangleMapper.mapToImageRect()!;
     if (rect.width <= CaptureOcrUsecaseConfig.minWidth ||
         rect.height <= CaptureOcrUsecaseConfig.minHeight) {
-      setState(() => _isProcessingImage = false);
+      if (mounted) {
+        setState(() => _isProcessingImage = false);
+      }
       await _ttsProvider.speak(L10n.current.incorrectSelection);
       return;
     }
@@ -91,10 +99,12 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
     _croppedBytes = byteData!.buffer.asUint8List();
 
     await captureOcrUsecase.processCapture(_croppedBytes!).then((value) {
-      setState(() {
-        _lastDetectedTexts = value;
-        _isProcessingImage = false;
-      });
+      if (mounted) {
+        setState(() {
+          _lastDetectedTexts = value;
+          _isProcessingImage = false;
+        });
+      }
     });
 
     _showResultDialog();
@@ -104,15 +114,14 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
   void _showResultDialog() {
     showDialog(
       context: context,
-      builder:
-          (_) => PopScope(
-            onPopInvokedWithResult:
-                (didPop, result) async => await _ttsProvider.stop(),
-            child: ResultDialog(
-              captureBytes: _croppedBytes!,
-              text: _lastDetectedTexts,
-            ),
-          ),
+      builder: (_) => PopScope(
+        onPopInvokedWithResult: (didPop, result) async =>
+            await _ttsProvider.stop(),
+        child: ResultDialog(
+          captureBytes: _croppedBytes!,
+          text: _lastDetectedTexts,
+        ),
+      ),
     );
   }
 
@@ -156,8 +165,9 @@ class _OcrCaptureScreenState extends State<OcrCaptureScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed:
-            _rectangleMapper.mapToImageRect() != null ? _cropAndDetect : null,
+        onPressed: _rectangleMapper.mapToImageRect() != null
+            ? _cropAndDetect
+            : null,
         icon: const Icon(Icons.text_snippet, size: 28),
         label: Text(
           L10n.current.read,
