@@ -42,15 +42,8 @@ class _VqaHistoryItemWidgetState extends State<VqaHistoryItemWidget> {
 
   // replay the question and answer using TTS
   Future<void> _onReplay() async {
-    String textToSpeak = '';
-    if (_isQuestion) {
-      textToSpeak += "${L10n.current.question}: ${widget.item.question}\n";
-      textToSpeak += "${L10n.current.answer}: ${widget.item.text}";
-    } else {
-      textToSpeak += widget.item.text;
-    }
     await _ttsProvider.stop();
-    await _ttsProvider.speak(textToSpeak);
+    await _ttsProvider.speak(widget.item.textToSpeak);
   }
 
   @override

@@ -38,7 +38,7 @@ class VqaUsecase {
       final lastIndex = _historyItems.length;
       _historyItems.add(
         VqaHistoryItem(
-          title: '${L10n.current.question} ${lastIndex + 2}',
+          title: '${L10n.current.question} $lastIndex',
           text: vqaResult.text,
           question: question,
         ),
