@@ -27,7 +27,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   final _vqaUsecase = VqaUsecase();
   final _ttsProvider = DI.get<TtsProvider>();
 
-  late String _caption;
+  late String _lastSpokenText;
   late TabController _tabController;
   final _numberOfTabs = 2;
   late Future<void> readyFuture;
@@ -45,8 +45,8 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
     ) {
       if (mounted) {
         setState(() {
-          _caption = value;
-          _ttsProvider.speak(_caption);
+          _lastSpokenText = value;
+          _ttsProvider.speak(_lastSpokenText);
           _historyItems = _vqaUsecase.historyItems;
         });
       }
@@ -57,6 +57,23 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Future<void> onQuestion(String question) async {
+    await _ttsProvider.stop();
+    await _ttsProvider.speak(L10n.current.pleaseWait);
+    await _vqaUsecase
+        .answerQuestionFromImageBytees(widget.imageBytes, question)
+        .then((value) async {
+          await _ttsProvider.stop();
+          if (mounted) {
+            setState(() {
+              _lastSpokenText = value;
+              _ttsProvider.speak(_lastSpokenText);
+              _historyItems = _vqaUsecase.historyItems;
+            });
+          }
+        });
   }
 
   @override
@@ -82,12 +99,17 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
                     image: widget.image,
                   ),
                   isDone
-                      ? VqaHistoryWidget(historyItems: _historyItems)
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: kFabSize + kFabMargin * 2,
+                          ),
+                          child: VqaHistoryWidget(historyItems: _historyItems),
+                        )
                       : const Center(child: CircularProgressIndicator()),
                 ],
               ),
 
-              // replay FAB
+              // Replay FAB
               if (isDone)
                 Positioned(
                   bottom: kFabMargin,
@@ -103,7 +125,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
                         tooltip: L10n.current.replay,
                         onPressed: () async {
                           await _ttsProvider.stop();
-                          _ttsProvider.speak(_caption);
+                          _ttsProvider.speak(_lastSpokenText);
                         },
                         child: Icon(
                           Icons.replay,
@@ -130,7 +152,15 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
                         heroTag: 'ask_fab',
                         tooltip: L10n.current.askQuestion,
                         onPressed: () async {
-                          // TODO: Handle the asking logic
+                          _ttsProvider.stop();
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return VqaQuestionDialog(
+                                handleSubmit: onQuestion,
+                              );
+                            },
+                          );
                         },
                         child: Icon(
                           Icons.question_answer,
