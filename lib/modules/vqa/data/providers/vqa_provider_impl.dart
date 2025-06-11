@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:sight_mate/app/config.dart';
 import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 
+/// Implementation of VQA provider using HTTP REST API (Microservice)
+/// Handles communication with the VQA service for image captioning and question answering
 class VqaProviderImpl extends VqaProvider {
   final _captioningUri = Uri.parse(
     '${Config.vqaServiceApiBaseUrl}/vqa/captioning',
@@ -11,6 +13,8 @@ class VqaProviderImpl extends VqaProvider {
   final _headers = {'Content-Type': 'application/json'};
 
   @override
+  /// Process an image to generate a caption using the VQA service
+  /// Sends image data and options to the captioning endpoint
   Future<VqaResult> processCaptioning(
     VqaCaptioningInput captioningInput,
   ) async {
@@ -31,6 +35,8 @@ class VqaProviderImpl extends VqaProvider {
   }
 
   @override
+  /// Process an image and question using the VQA service
+  /// Sends image data question and options to the question endpoint
   Future<VqaResult> processQuestion(VqaQuestionInput questionInput) async {
     final response = await http.post(
       _questionUri,

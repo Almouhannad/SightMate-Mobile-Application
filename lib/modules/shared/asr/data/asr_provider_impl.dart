@@ -2,6 +2,8 @@ import 'package:sight_mate/modules/shared/asr/domain/asr_domin.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
+/// Implementation of ASR provider using speech_to_text package
+/// Handles speech recognition operations using the device's native capabilities
 class AsrProviderImpl extends AsrProvider {
   final SpeechToText _speechToText = SpeechToText();
 
@@ -22,6 +24,8 @@ class AsrProviderImpl extends AsrProvider {
     return _speechToText.stop();
   }
 
+  /// Convert speech recognition result to our domain model
+  /// Maps confidence scores and recognized text to ASR result format
   AsrResult convertResult(SpeechRecognitionResult modelResult) {
     return AsrResult(
       text: modelResult.recognizedWords,
