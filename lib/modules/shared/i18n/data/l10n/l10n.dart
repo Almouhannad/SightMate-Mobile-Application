@@ -278,6 +278,36 @@ class L10n {
   String get submit {
     return Intl.message('Submit', name: 'submit', desc: '', args: []);
   }
+
+  /// `Select a mode from app menu or speak to select mode`
+  String get selectMode {
+    return Intl.message(
+      'Select a mode from app menu or speak to select mode',
+      name: 'selectMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unrecognized mode. Plaese try again`
+  String get unrecognizedMode {
+    return Intl.message(
+      'Unrecognized mode. Plaese try again',
+      name: 'unrecognizedMode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected mode is not available now. Please try again later`
+  String get unavailableMode {
+    return Intl.message(
+      'Selected mode is not available now. Please try again later',
+      name: 'unavailableMode',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

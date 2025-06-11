@@ -102,5 +102,14 @@
     "@record": {},
 
     "submit": "Submit",
-    "@submit": {}
+    "@submit": {},
+
+    "selectMode": "Select a mode from app menu or speak to select mode",
+    "@selectMode": {},
+
+    "unrecognizedMode": "Unrecognized mode. Plaese try again",
+    "@unrecognizedMode": {},
+
+    "unavailableMode": "Selected mode is not available now. Please try again later",
+    "@unavailableMode": {}
 }

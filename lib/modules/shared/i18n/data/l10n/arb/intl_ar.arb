@@ -102,5 +102,14 @@
     "@record": {},
 
     "submit": "إرسال",
-    "@submit": {}    
+    "@submit": {},
+
+    "selectMode": "اختر الوضع من قائمة التطبيق، أو قم بالتحدث لاختيار الوضع",
+    "@selectMode": {},
+
+    "unrecognizedMode": "لم يتم التعرف على الوضع المطلوب. يرجى إعادة المحاولة",
+    "@unrecognizedMode": {},
+
+    "unavailableMode": "الوضع المطلوب غير متوفر حالياً. يرجى المحاولة لاحقاً",
+    "@unavailableMode": {}    
 }
