@@ -8,6 +8,8 @@ import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/tts/data/tts_data.dart';
+import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
+import 'package:sight_mate/modules/vqa/data/vqa_data.dart';
 
 final GetIt DI = GetIt.instance;
 
@@ -76,4 +78,10 @@ Future<void> configureDependencies() async {
     return provider;
   });
   await DI.isReady<AsrProvider>();
+
+  // VQA
+  DI.registerLazySingleton<VqaProvider>(() => VqaProviderImpl());
+  DI.registerLazySingleton<VqaConnectivityProvider>(
+    () => VqaConnectivityProviderImpl(),
+  );
 }

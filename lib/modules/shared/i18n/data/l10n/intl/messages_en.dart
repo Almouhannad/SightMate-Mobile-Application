@@ -25,8 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
+    "answer": MessageLookupByLibrary.simpleMessage("Answer"),
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "askQuestion": MessageLookupByLibrary.simpleMessage("Ask a question"),
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
@@ -35,7 +37,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred!\nPlease try again",
     ),
     "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
+    "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "imageCaption": MessageLookupByLibrary.simpleMessage("Image Caption"),
+    "imageMode": MessageLookupByLibrary.simpleMessage("Image Mode"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "Incorrect selection!\nPlease try again",
     ),
@@ -52,10 +57,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Processing, please wait",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+    "question": MessageLookupByLibrary.simpleMessage("Question"),
     "read": MessageLookupByLibrary.simpleMessage("READ"),
+    "record": MessageLookupByLibrary.simpleMessage("Record"),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("System"),
     "textMode": MessageLookupByLibrary.simpleMessage("Text Mode"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("Theme settings"),
+    "typeOrSpeak": MessageLookupByLibrary.simpleMessage("Type or speak"),
   };
 }

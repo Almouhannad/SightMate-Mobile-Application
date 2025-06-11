@@ -25,8 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
+    "answer": MessageLookupByLibrary.simpleMessage("الجواب"),
     "appMenu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "askQuestion": MessageLookupByLibrary.simpleMessage("اطرح سؤالاً"),
     "captureMode": MessageLookupByLibrary.simpleMessage("وضع الالتقاط"),
     "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
     "darkMode": MessageLookupByLibrary.simpleMessage("مظلم"),
@@ -37,7 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "helloWorld": MessageLookupByLibrary.simpleMessage(
       "أهلاً بكم في\nSight Mate",
     ),
+    "history": MessageLookupByLibrary.simpleMessage("السجل"),
     "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
+    "imageCaption": MessageLookupByLibrary.simpleMessage("وصف الصورة"),
+    "imageMode": MessageLookupByLibrary.simpleMessage("وضع الصور"),
     "incorrectSelection": MessageLookupByLibrary.simpleMessage(
       "اختيار غير صحيح!\nيرجى المحاولة مرة أخرى",
     ),
@@ -52,10 +57,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "جاري المعالجة، يرجى الانتظار",
     ),
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
+    "question": MessageLookupByLibrary.simpleMessage("السؤال"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
+    "record": MessageLookupByLibrary.simpleMessage("تسجيل"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
+    "settings": MessageLookupByLibrary.simpleMessage("إعدادات"),
+    "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
     "textMode": MessageLookupByLibrary.simpleMessage("وضع النصوص"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
+    "typeOrSpeak": MessageLookupByLibrary.simpleMessage("اكتب أو تحدث"),
   };
 }

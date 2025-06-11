@@ -72,5 +72,35 @@
     "@describe": {},
 
     "objectMode": "وضع الأغراض",
-    "@objectMode":{}
+    "@objectMode":{},
+
+    "imageMode": "وضع الصور",
+    "@imageMode":{},
+
+    "settings": "إعدادات",
+    "@settings": {},
+
+    "history": "السجل",
+    "@history": {},
+
+    "imageCaption": "وصف الصورة",
+    "@imageCaption": {},
+
+    "question": "السؤال",
+    "@question": {},
+
+    "answer": "الجواب",
+    "@answer": {},
+
+    "askQuestion": "اطرح سؤالاً",
+    "@askQuestion": {},
+
+    "typeOrSpeak": "اكتب أو تحدث",
+    "@typeOrSpeak": {},
+
+    "record": "تسجيل",
+    "@record": {},
+
+    "submit": "إرسال",
+    "@submit": {}    
 }

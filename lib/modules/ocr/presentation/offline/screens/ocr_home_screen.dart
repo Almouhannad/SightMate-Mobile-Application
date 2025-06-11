@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'dart:ui' as ui;
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
-import 'package:sight_mate/modules/ocr/domain/usecases/live_ocr_usecase.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
+import 'package:sight_mate/modules/shared/camera/camera_helper.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
@@ -21,6 +21,7 @@ class OcrHomeScreen extends StatefulWidget {
 class OcrHomeScreenState extends State<OcrHomeScreen> {
   // Camera
   final _cameraHelper = CameraHelper();
+  late Future<bool> _isCameraReady;
 
   // TTS
   final _ttsProvider = DI.get<TtsProvider>();
@@ -36,14 +37,12 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
-  }
-
-  Future<void> _initializeCamera() async {
-    await _cameraHelper.setupCamera();
-    if (_isLiveMode) {
-      _startPeriodicFrameCapture();
-    }
+    _isCameraReady = _cameraHelper.isCameraReady.then((value) {
+      if (_isLiveMode) {
+        _startPeriodicFrameCapture();
+      }
+      return value;
+    });
   }
 
   void _startPeriodicFrameCapture() {
@@ -57,14 +56,9 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   }
 
   Future<void> _processLiveFrame() async {
-    if (!_cameraHelper.isInitialized) {
-      return;
-    }
-    final frame = await _cameraHelper.captureFrame();
-    if (frame == null) return;
-
-    final bytes = await frame.readAsBytes();
-    final textToSpeak = await _liveOcrUsecase.processFrameBytes(bytes);
+    final frameBytes = await _cameraHelper.getFrameBytes();
+    if (frameBytes == null) return;
+    final textToSpeak = await _liveOcrUsecase.processFrameBytes(frameBytes);
     if (_isLiveMode) {
       await _ttsProvider.speak(textToSpeak);
       await _ttsProvider.waitToEnd();
@@ -72,7 +66,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   }
 
   Future<void> _captureFrame() async {
-    if (!_cameraHelper.isInitialized || _isLiveMode) {
+    if (_isLiveMode) {
       return;
     }
     if (_isCameraLoading) return;
@@ -80,23 +74,20 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
       _isCameraLoading = true;
     });
 
-    final file = await _cameraHelper.captureFrame();
-    if (file == null) {
+    final frameBytesAndImage = await _cameraHelper.getFrameBytesAndImage();
+    if (frameBytesAndImage == null) {
       setState(() {
         _isCameraLoading = false;
       });
       return;
     }
-
-    final bytes = await file.readAsBytes();
-    final codec = await ui.instantiateImageCodec(bytes);
-    final frame = await codec.getNextFrame();
-
     if (mounted) {
       await Navigator.of(context).push(
         MaterialPageRoute(
-          builder:
-              (_) => OcrCaptureScreen(uiImage: frame.image, imageBytes: bytes),
+          builder: (_) => OcrCaptureScreen(
+            uiImage: frameBytesAndImage.image,
+            imageBytes: frameBytesAndImage.bytes as Uint8List,
+          ),
         ),
       );
     }
@@ -116,90 +107,81 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetScaffold(
-      title: L10n.current.textMode,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          setState(() {
-            _isLiveMode = !_isLiveMode;
-          });
+    return FutureBuilder(
+      future: _isCameraReady,
+      builder: (context, snapshot) {
+        final isReady = snapshot.connectionState == ConnectionState.done;
 
-          if (_isLiveMode) {
-            _startPeriodicFrameCapture();
-            await _ttsProvider.stop();
-            await _ttsProvider.speak(
-              L10n.current.activated(L10n.current.liveMode),
-            );
-          } else {
-            _frameTimer!.cancel();
-            await _ttsProvider.stop();
-            await _ttsProvider.speak(
-              L10n.current.activated(L10n.current.captureMode),
-            );
-          }
-        },
-        icon: const Icon(Icons.cameraswitch, size: 28),
-        label: Text(
-          _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        tooltip: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-        heroTag: _isLiveMode ? L10n.current.liveMode : L10n.current.captureMode,
-        elevation: 8.0,
-        isExtended: true,
-        extendedPadding: const EdgeInsets.symmetric(
-          horizontal: 32,
-          vertical: 16,
-        ),
-      ),
-      body: ListenableBuilder(
-        listenable: _cameraHelper,
-        builder: (context, _) {
-          if (!_cameraHelper.isInitialized) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return GestureDetector(
-            onTap: _captureFrame,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                CameraPreview(_cameraHelper.controller!),
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  right: 16,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.6),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      _isLiveMode
-                          ? L10n.current.liveMode
-                          : L10n.current.captureMode,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+        return WidgetScaffold(
+          title:
+              '${L10n.current.textMode} - ${_isLiveMode ? L10n.current.liveMode : L10n.current.captureMode}',
+          floatingActionButton: isReady
+              ? FloatingActionButton.extended(
+                  onPressed: () async {
+                    setState(() {
+                      _isLiveMode = !_isLiveMode;
+                    });
+
+                    if (_isLiveMode) {
+                      _startPeriodicFrameCapture();
+                      await _ttsProvider.stop();
+                      await _ttsProvider.speak(
+                        L10n.current.activated(L10n.current.liveMode),
+                      );
+                    } else {
+                      _frameTimer?.cancel();
+                      await _ttsProvider.stop();
+                      await _ttsProvider.speak(
+                        L10n.current.activated(L10n.current.captureMode),
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.cameraswitch, size: 28),
+                  label: Text(
+                    _isLiveMode
+                        ? L10n.current.liveMode
+                        : L10n.current.captureMode,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-
-                if (_isCameraLoading)
-                  Positioned.fill(
-                    child: Container(
-                      color: Colors.black45,
-                      child: const Center(child: CircularProgressIndicator()),
-                    ),
+                  tooltip: _isLiveMode
+                      ? L10n.current.liveMode
+                      : L10n.current.captureMode,
+                  heroTag: _isLiveMode
+                      ? L10n.current.liveMode
+                      : L10n.current.captureMode,
+                  elevation: 8.0,
+                  isExtended: true,
+                  extendedPadding: const EdgeInsets.symmetric(
+                    horizontal: 32,
+                    vertical: 16,
                   ),
-              ],
-            ),
-          );
-        },
-      ),
+                )
+              : null,
+          body: isReady
+              ? GestureDetector(
+                  onTap: _captureFrame,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CameraPreview(_cameraHelper.controller),
+                      if (_isCameraLoading)
+                        Positioned.fill(
+                          child: Container(
+                            color: Colors.black45,
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                )
+              : const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }

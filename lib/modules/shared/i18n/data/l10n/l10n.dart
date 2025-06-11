@@ -213,6 +213,71 @@ class L10n {
   String get objectMode {
     return Intl.message('Object Mode', name: 'objectMode', desc: '', args: []);
   }
+
+  /// `Image Mode`
+  String get imageMode {
+    return Intl.message('Image Mode', name: 'imageMode', desc: '', args: []);
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `History`
+  String get history {
+    return Intl.message('History', name: 'history', desc: '', args: []);
+  }
+
+  /// `Image Caption`
+  String get imageCaption {
+    return Intl.message(
+      'Image Caption',
+      name: 'imageCaption',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Question`
+  String get question {
+    return Intl.message('Question', name: 'question', desc: '', args: []);
+  }
+
+  /// `Answer`
+  String get answer {
+    return Intl.message('Answer', name: 'answer', desc: '', args: []);
+  }
+
+  /// `Ask a question`
+  String get askQuestion {
+    return Intl.message(
+      'Ask a question',
+      name: 'askQuestion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type or speak`
+  String get typeOrSpeak {
+    return Intl.message(
+      'Type or speak',
+      name: 'typeOrSpeak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record`
+  String get record {
+    return Intl.message('Record', name: 'record', desc: '', args: []);
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

@@ -14,4 +14,12 @@ class Config {
     }
     return value;
   }
+
+  static String get vqaServiceApiBaseUrl {
+    final value = dotenv.env['VQA_SERVICE_API_BASE_URL'];
+    if (value == null || value.isEmpty) {
+      throw Exception('VQA_SERVICE_API_BASE_URL is not set in .env');
+    }
+    return value;
+  }
 }

@@ -72,5 +72,35 @@
     "@describe": {},
 
     "objectMode": "Object Mode",
-    "@objectMode":{}
+    "@objectMode":{},
+
+    "imageMode": "Image Mode",
+    "@imageMode":{},
+
+    "settings": "Settings",
+    "@settings": {},
+
+    "history": "History",
+    "@history": {},
+
+    "imageCaption": "Image Caption",
+    "@imageCaption": {},
+
+    "question": "Question",
+    "@question": {},
+
+    "answer": "Answer",
+    "@answer": {},
+
+    "askQuestion": "Ask a question",
+    "@askQuestion": {},
+
+    "typeOrSpeak": "Type or speak",
+    "@typeOrSpeak": {},
+
+    "record": "Record",
+    "@record": {},
+
+    "submit": "Submit",
+    "@submit": {}
 }
