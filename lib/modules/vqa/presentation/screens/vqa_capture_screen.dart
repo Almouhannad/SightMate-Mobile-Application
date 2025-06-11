@@ -27,10 +27,12 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   final _vqaUsecase = VqaUsecase();
   final _ttsProvider = DI.get<TtsProvider>();
 
+  bool _isProcessingQuestion = false;
+
   late String _lastSpokenText;
   late TabController _tabController;
   final _numberOfTabs = 2;
-  late Future<void> readyFuture;
+  late Future<void> _readyFuture;
 
   late List<VqaHistoryItem> _historyItems;
 
@@ -40,11 +42,12 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
 
     // Initialize tabs and begin captioning task
     _tabController = TabController(length: _numberOfTabs, vsync: this);
-    readyFuture = _vqaUsecase.captionImageBytes(widget.imageBytes).then((
+    _readyFuture = _vqaUsecase.captionImageBytes(widget.imageBytes).then((
       value,
     ) {
       if (mounted) {
         setState(() {
+          _isProcessingQuestion = false;
           _lastSpokenText = value;
           _ttsProvider.speak(_lastSpokenText);
           _historyItems = _vqaUsecase.historyItems;
@@ -60,6 +63,11 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   }
 
   Future<void> onQuestion(String question) async {
+    if (mounted) {
+      setState(() {
+        _isProcessingQuestion = true;
+      });
+    }
     await _ttsProvider.stop();
     await _ttsProvider.speak(L10n.current.pleaseWait);
     await _vqaUsecase
@@ -68,6 +76,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
           await _ttsProvider.stop();
           if (mounted) {
             setState(() {
+              _isProcessingQuestion = false;
               _lastSpokenText = value;
               _ttsProvider.speak(_lastSpokenText);
               _historyItems = _vqaUsecase.historyItems;
@@ -79,9 +88,11 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: readyFuture,
+      future: _readyFuture,
       builder: (context, snapshot) {
-        final isDone = snapshot.connectionState == ConnectionState.done;
+        final isDone =
+            (snapshot.connectionState == ConnectionState.done) &
+            (!_isProcessingQuestion);
 
         return WidgetScaffold(
           title: L10n.current.imageMode,
