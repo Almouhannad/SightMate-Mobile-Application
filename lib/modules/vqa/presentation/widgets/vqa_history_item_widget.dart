@@ -3,13 +3,7 @@ import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
-
-const double kTitleFontSize = 32;
-const double kContentFontSize = 24;
-const double kIconSize = 32;
-const double kCardMargin = 16;
-const double kContentPadding = 16;
-const double kSpacing = 10;
+import 'package:sight_mate/modules/vqa/presentation/vqa_presentation.dart';
 
 // Widget to display a single VQA history item
 class VqaHistoryItemWidget extends StatefulWidget {

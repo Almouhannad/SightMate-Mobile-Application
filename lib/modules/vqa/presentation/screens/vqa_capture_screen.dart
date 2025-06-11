@@ -130,7 +130,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
                         heroTag: 'ask_fab',
                         tooltip: L10n.current.askQuestion,
                         onPressed: () async {
-                          // TODO: Handle ask a question logic
+                          // TODO: Handle the asking logic
                         },
                         child: Icon(
                           Icons.question_answer,
