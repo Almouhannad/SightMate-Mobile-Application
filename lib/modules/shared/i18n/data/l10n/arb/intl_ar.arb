@@ -93,5 +93,14 @@
     "@answer": {},
 
     "askQuestion": "اطرح سؤالاً",
-    "@askQuestion": {}    
+    "@askQuestion": {},
+
+    "typeOrSpeak": "اكتب أو تحدث",
+    "@typeOrSpeak": {},
+
+    "record": "تسجيل",
+    "@record": {},
+
+    "submit": "إرسال",
+    "@submit": {}    
 }

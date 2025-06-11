@@ -59,10 +59,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "preview": MessageLookupByLibrary.simpleMessage("Preview"),
     "question": MessageLookupByLibrary.simpleMessage("Question"),
     "read": MessageLookupByLibrary.simpleMessage("READ"),
+    "record": MessageLookupByLibrary.simpleMessage("Record"),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+    "submit": MessageLookupByLibrary.simpleMessage("Submit"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("System"),
     "textMode": MessageLookupByLibrary.simpleMessage("Text Mode"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("Theme settings"),
+    "typeOrSpeak": MessageLookupByLibrary.simpleMessage("Type or speak"),
   };
 }

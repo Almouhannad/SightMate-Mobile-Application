@@ -59,10 +59,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
     "question": MessageLookupByLibrary.simpleMessage("السؤال"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
+    "record": MessageLookupByLibrary.simpleMessage("تسجيل"),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "settings": MessageLookupByLibrary.simpleMessage("إعدادات"),
+    "submit": MessageLookupByLibrary.simpleMessage("إرسال"),
     "systemThemeMode": MessageLookupByLibrary.simpleMessage("افتراضي"),
     "textMode": MessageLookupByLibrary.simpleMessage("وضع النصوص"),
     "themeSettings": MessageLookupByLibrary.simpleMessage("إعدادات المظهر"),
+    "typeOrSpeak": MessageLookupByLibrary.simpleMessage("اكتب أو تحدث"),
   };
 }

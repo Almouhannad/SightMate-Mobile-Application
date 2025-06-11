@@ -258,6 +258,26 @@ class L10n {
       args: [],
     );
   }
+
+  /// `Type or speak`
+  String get typeOrSpeak {
+    return Intl.message(
+      'Type or speak',
+      name: 'typeOrSpeak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record`
+  String get record {
+    return Intl.message('Record', name: 'record', desc: '', args: []);
+  }
+
+  /// `Submit`
+  String get submit {
+    return Intl.message('Submit', name: 'submit', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

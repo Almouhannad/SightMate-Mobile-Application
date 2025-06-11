@@ -93,5 +93,14 @@
     "@answer": {},
 
     "askQuestion": "Ask a question",
-    "@askQuestion": {}
+    "@askQuestion": {},
+
+    "typeOrSpeak": "Type or speak",
+    "@typeOrSpeak": {},
+
+    "record": "Record",
+    "@record": {},
+
+    "submit": "Submit",
+    "@submit": {}
 }
