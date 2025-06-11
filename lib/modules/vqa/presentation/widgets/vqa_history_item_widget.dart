@@ -119,7 +119,7 @@ class VqaHistoryItemDetailDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (_isQuestion)
-              Text(
+              SelectableText(
                 widget.item.question!,
                 style: const TextStyle(
                   fontSize: kContentFontSize,
@@ -127,7 +127,7 @@ class VqaHistoryItemDetailDialog extends StatelessWidget {
                 ),
               ),
             if (_isQuestion) const SizedBox(height: kSpacing),
-            Text(
+            SelectableText(
               widget.item.text,
               style: const TextStyle(fontSize: kContentFontSize),
             ),
