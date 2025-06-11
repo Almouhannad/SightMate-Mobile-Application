@@ -8,7 +8,7 @@ import 'modules/shared/theme/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'modules/shared/i18n/i18n.dart';
 import 'modules/shared/widgets/shared_widgets.dart';
-import 'modules/shared/home/presentation/home_page.dart';
+import 'modules/shared/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
