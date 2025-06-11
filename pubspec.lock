@@ -902,11 +902,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "fix/YOLOView-camera-disposal-android"
-      resolved-ref: ab29428eb983d8cb54d2106fcaefb8cad159ea80
-      url: "https://github.com/Almouhannad/yolo-flutter-app.git"
+      ref: main
+      resolved-ref: c416346a46d8a8f849ae31fbc2d9ff2298c78947
+      url: "https://github.com/ultralytics/yolo-flutter-app.git"
     source: git
-    version: "0.1.21"
+    version: "0.1.25"
   vector_math:
     dependency: transitive
     description:

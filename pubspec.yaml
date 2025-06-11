@@ -51,8 +51,8 @@ dependencies:
   http: ^1.4.0
   ultralytics_yolo:
     git:
-      url: https://github.com/Almouhannad/yolo-flutter-app.git
-      ref: fix/YOLOView-camera-disposal-android
+      url: https://github.com/ultralytics/yolo-flutter-app.git
+      ref: main
   speech_to_text: ^7.0.0
 
 dev_dependencies:
