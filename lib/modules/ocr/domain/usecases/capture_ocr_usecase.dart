@@ -17,14 +17,12 @@ class CaptureOcrUsecase {
 
   Future<String> processCapture(Uint8List bytes) async {
     List<OcrResult> recognized = [];
-
-    try {
-      await _ocrProvider
-          .processImage(OcrInput(bytes: bytes))
-          .then((value) => recognized = value.texts);
-    } catch (e) {
-      return L10n.current.errorOccurred;
-    }
+    await _ocrProvider.processImage(OcrInput(bytes: bytes)).then((result) {
+      if (!result.isSuccess) {
+        return L10n.current.errorOccurred;
+      }
+      recognized = result.value!.texts;
+    });
 
     String textToSpeak = '';
     for (var ocrResult in recognized) {
