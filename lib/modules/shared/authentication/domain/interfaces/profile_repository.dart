@@ -4,4 +4,5 @@ import 'package:sight_mate/modules/shared/authentication/domain/authentication_d
 abstract class ProfileRepository {
   Future<Result<Profile>> loadProfile();
   Future<Result> updateProfile(Profile newProfile);
+  Future<Result> clearProfile();
 }
