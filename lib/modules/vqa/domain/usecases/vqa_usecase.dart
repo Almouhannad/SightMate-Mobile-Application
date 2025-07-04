@@ -8,6 +8,7 @@ import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 class VqaUsecase {
   final _vqaProvider = DI.get<VqaProvider>();
   final List<VqaHistoryItem> _historyItems = [];
+  String? _conversationId;
 
   /// Get a read-only view of the VQA history items
   List<VqaHistoryItem> get historyItems =>
@@ -28,6 +29,7 @@ class VqaUsecase {
         text: vqaResult.value!.text,
       ),
     );
+    _conversationId = vqaResult.value!.conversationId!;
     return vqaResult.value!.text;
   }
 
@@ -38,10 +40,7 @@ class VqaUsecase {
     String question,
   ) async {
     final vqaResult = await _vqaProvider.processQuestion(
-      VqaQuestionInput(
-        imageInput: VqaImageInput(bytes: imageBytes),
-        question: question,
-      ),
+      VqaQuestionInput(conversationId: _conversationId!, question: question),
     );
     if (!vqaResult.isSuccess) {
       return L10n.current.errorOccurred;
