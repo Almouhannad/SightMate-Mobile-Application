@@ -54,6 +54,9 @@ dependencies:
       url: https://github.com/ultralytics/yolo-flutter-app.git
       ref: main
   speech_to_text: ^7.0.0
+  dio: ^5.8.0+1
+  flutter_secure_storage: ^9.2.4
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:
