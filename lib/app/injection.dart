@@ -7,6 +7,7 @@ import 'package:sight_mate/modules/shared/asr/domain/asr_domin.dart';
 import 'package:sight_mate/modules/shared/authentication/data/authentication_data.dart';
 import 'package:sight_mate/modules/shared/authentication/domain/interfaces/authentication_provider.dart';
 import 'package:sight_mate/modules/shared/authentication/domain/interfaces/profile_repository.dart';
+import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
@@ -93,4 +94,13 @@ Future<void> configureDependencies() async {
     () => AuthenticationProviderImpl(),
   );
   DI.registerLazySingleton<ProfileRepository>(() => ProfileRepositoryImpl());
+  DI.registerSingletonAsync<AuthenticationNotifier>(() async {
+    final notifier = AuthenticationNotifier(
+      DI<AuthenticationProvider>(),
+      DI<ProfileRepository>(),
+    );
+    await notifier.initialize();
+    return notifier;
+  });
+  await DI.isReady<AuthenticationNotifier>();
 }
