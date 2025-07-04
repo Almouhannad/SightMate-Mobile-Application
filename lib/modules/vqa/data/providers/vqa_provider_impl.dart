@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sight_mate/app/config.dart';
+import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 
 /// Implementation of VQA provider using HTTP REST API (Microservice)
@@ -15,7 +16,7 @@ class VqaProviderImpl extends VqaProvider {
   @override
   /// Process an image to generate a caption using the VQA service
   /// Sends image data and options to the captioning endpoint
-  Future<VqaResult> processCaptioning(
+  Future<Result<VqaResult>> processCaptioning(
     VqaCaptioningInput captioningInput,
   ) async {
     final response = await http.post(
@@ -31,13 +32,18 @@ class VqaProviderImpl extends VqaProvider {
     );
 
     final data = jsonDecode(response.body);
-    return VqaResult(text: data['output'], details: data['details']);
+    return Result(
+      isSuccess: true,
+      value: VqaResult(text: data['output'], details: data['details']),
+    );
   }
 
   @override
   /// Process an image and question using the VQA service
   /// Sends image data question and options to the question endpoint
-  Future<VqaResult> processQuestion(VqaQuestionInput questionInput) async {
+  Future<Result<VqaResult>> processQuestion(
+    VqaQuestionInput questionInput,
+  ) async {
     final response = await http.post(
       _questionUri,
       headers: _headers,
@@ -52,6 +58,9 @@ class VqaProviderImpl extends VqaProvider {
     );
 
     final data = jsonDecode(response.body);
-    return VqaResult(text: data['output'], details: data['details']);
+    return Result(
+      isSuccess: true,
+      value: VqaResult(text: data['output'], details: data['details']),
+    );
   }
 }

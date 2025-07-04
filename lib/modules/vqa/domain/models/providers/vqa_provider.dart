@@ -1,3 +1,4 @@
+import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 
 /// Provides visual question answering capabilities
@@ -5,9 +6,11 @@ import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 abstract class VqaProvider {
   /// Process an image to generate a natural language caption
   /// Returns a VqaResult containing the generated caption
-  Future<VqaResult> processCaptioning(VqaCaptioningInput captioningInput);
+  Future<Result<VqaResult>> processCaptioning(
+    VqaCaptioningInput captioningInput,
+  );
 
   /// Process an image and question to generate an answer
   /// Returns a VqaResult containing the answer to the question about the image
-  Future<VqaResult> processQuestion(VqaQuestionInput questionInput);
+  Future<Result<VqaResult>> processQuestion(VqaQuestionInput questionInput);
 }
