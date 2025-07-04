@@ -4,6 +4,7 @@ import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/shared/api_client/api_client.dart';
 import 'package:sight_mate/modules/shared/api_client/secure_storage.dart';
 import 'package:sight_mate/modules/shared/authentication/domain/authentication_domain.dart';
+import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 
 class AuthenticationProviderImpl extends AuthenticationProvider {
   final ApiClient _client = ApiClient();
@@ -97,11 +98,7 @@ class AuthenticationProviderImpl extends AuthenticationProvider {
   }
 
   Result<Profile> _getNetworkError() {
-    return Result(
-      isSuccess: false,
-      error:
-          "An error occurred. Please check your internet connection and try again.",
-    );
+    return Result(isSuccess: false, error: L10n.current.errorOccurred);
   }
 
   Result<Profile> _getServerErrorResult(Response response) {
