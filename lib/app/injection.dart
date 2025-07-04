@@ -26,7 +26,7 @@ Future<void> configureDependencies() async {
   // I18nNotifier: depends on I18nRepository
   DI.registerSingletonAsync<I18nNotifier>(() async {
     final notifier = I18nNotifier(DI<I18nRepository>());
-    await notifier.initilize();
+    await notifier.initialize();
     return notifier;
   });
   await DI.isReady<I18nNotifier>();
@@ -37,7 +37,7 @@ Future<void> configureDependencies() async {
   // ThemeNotifier: depends on ThemeRepository
   DI.registerSingletonAsync<ThemeNotifier>(() async {
     final notifier = ThemeNotifier(DI<ThemeRepository>());
-    await notifier.initilize();
+    await notifier.initialize();
     return notifier;
   });
   await DI.isReady<ThemeNotifier>();

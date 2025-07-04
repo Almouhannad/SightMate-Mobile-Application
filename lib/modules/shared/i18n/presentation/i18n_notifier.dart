@@ -11,7 +11,7 @@ class I18nNotifier extends ChangeNotifier {
 
   I18nNotifier(this._repository);
 
-  Future<void> initilize() async {
+  Future<void> initialize() async {
     await _loadInitialLocale();
   }
 
