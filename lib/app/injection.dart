@@ -4,6 +4,8 @@ import 'package:sight_mate/modules/ocr/data/ocr_data.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 import 'package:sight_mate/modules/shared/asr/data/asr_data.dart';
 import 'package:sight_mate/modules/shared/asr/domain/asr_domin.dart';
+import 'package:sight_mate/modules/shared/authentication/data/authentication_provider_impl.dart';
+import 'package:sight_mate/modules/shared/authentication/domain/interfaces/authentication_provider.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
@@ -83,5 +85,10 @@ Future<void> configureDependencies() async {
   DI.registerLazySingleton<VqaProvider>(() => VqaProviderImpl());
   DI.registerLazySingleton<VqaConnectivityProvider>(
     () => VqaConnectivityProviderImpl(),
+  );
+
+  // Authentication
+  DI.registerLazySingleton<AuthenticationProvider>(
+    () => AuthenticationProviderImpl(),
   );
 }
