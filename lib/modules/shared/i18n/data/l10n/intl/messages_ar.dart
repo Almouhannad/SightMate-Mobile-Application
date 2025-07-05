@@ -35,7 +35,13 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "acceptTerms": MessageLookupByLibrary.simpleMessage(
+      "أنا أوافق على تخزين بياناتي واستخدامها لأغراض بحثية",
+    ),
     "activated": m0,
+    "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
+      "لديك حساب بالفعل ؟ قم بتسجيل الدخول",
+    ),
     "answer": MessageLookupByLibrary.simpleMessage("الجواب"),
     "appMenu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
@@ -86,9 +92,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "question": MessageLookupByLibrary.simpleMessage("السؤال"),
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "record": MessageLookupByLibrary.simpleMessage("تسجيل"),
-    "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
+    "register": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "registerMessage": MessageLookupByLibrary.simpleMessage(
-      "لا تمتلك حساباً ؟ قم بالتسجيل الآن",
+      "لا تمتلك حساباً ؟ قم بإنشاء حساب الآن",
     ),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "selectMode": MessageLookupByLibrary.simpleMessage(

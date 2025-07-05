@@ -189,6 +189,12 @@
     },
 
     "registerMessage": "Don't have an account ? Register now",
-    "@registerMessage": {}
+    "@registerMessage": {},
+
+    "alreadyHaveAccount": "Already have an account ? Login now",
+    "@alreadyHaveAccount": {},
+
+    "acceptTerms": "I accept that my data will be stored and used for research",
+    "@acceptTerms": {}
 
 }

@@ -428,6 +428,26 @@ class L10n {
       args: [],
     );
   }
+
+  /// `Already have an account ? Login now`
+  String get alreadyHaveAccount {
+    return Intl.message(
+      'Already have an account ? Login now',
+      name: 'alreadyHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I accept that my data will be stored and used for research`
+  String get acceptTerms {
+    return Intl.message(
+      'I accept that my data will be stored and used for research',
+      name: 'acceptTerms',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

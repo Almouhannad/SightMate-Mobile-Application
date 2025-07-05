@@ -152,7 +152,7 @@
     "login": "تسجيل الدخول",
     "@login": {},
 
-    "register": "تسجيل",
+    "register": "إنشاء حساب",
     "@register": {},
 
     "firstName": "الاسم الأول",
@@ -188,6 +188,12 @@
         }        
     },
 
-    "registerMessage": "لا تمتلك حساباً ؟ قم بالتسجيل الآن",
-    "@registerMessage": {}    
+    "registerMessage": "لا تمتلك حساباً ؟ قم بإنشاء حساب الآن",
+    "@registerMessage": {},
+
+    "alreadyHaveAccount": "لديك حساب بالفعل ؟ قم بتسجيل الدخول",
+    "@alreadyHaveAccount": {},
+    
+    "acceptTerms": "أنا أوافق على تخزين بياناتي واستخدامها لأغراض بحثية",
+    "@acceptTerms": {}    
 }
