@@ -111,5 +111,59 @@
     "@unrecognizedMode": {},
 
     "unavailableMode": "Selected mode is not available now. Please try again later",
-    "@unavailableMode": {}
+    "@unavailableMode": {},
+
+    "logout": "Logout",
+    "@logout": {},
+
+    "confirmAction": "Confirm {action}",
+    "@confirmAction": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "areYouSure": "Are you sure you want to {action}",
+    "@areYouSure": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "cancel": "Cancel",
+    "@cancel": {},
+
+    "helloUser": "Hello {user} !",
+    "@helloUser": {
+        "placeholders": {
+            "user": {
+                "type": "String"
+            }
+        }
+    },
+
+    "loginMessage": "Login to access all features",
+    "@loginMessage": {},
+
+    "login": "Login",
+    "@login": {},
+
+    "register": "Register",
+    "@register": {},
+
+    "firstName": "First Name",
+    "@firstName": {},
+    
+    "lastName": "Last Name",
+    "@lastName": {},
+
+    "email": "Email",
+    "@email": {},
+    
+    "password": "Password",
+    "@password": {}
 }

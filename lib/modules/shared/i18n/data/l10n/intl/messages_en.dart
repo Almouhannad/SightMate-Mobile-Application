@@ -22,20 +22,32 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(mode) => "${mode} activated";
 
+  static String m1(action) => "Are you sure you want to ${action}";
+
+  static String m2(action) => "Confirm ${action}";
+
+  static String m3(user) => "Hello ${user} !";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
     "answer": MessageLookupByLibrary.simpleMessage("Answer"),
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
+    "areYouSure": m1,
     "askQuestion": MessageLookupByLibrary.simpleMessage("Ask a question"),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
+    "confirmAction": m2,
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
     "describe": MessageLookupByLibrary.simpleMessage("Describe"),
+    "email": MessageLookupByLibrary.simpleMessage("Email"),
     "errorOccurred": MessageLookupByLibrary.simpleMessage(
       "An error occurred!\nPlease try again",
     ),
+    "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
+    "helloUser": m3,
     "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -47,12 +59,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "languageSettings": MessageLookupByLibrary.simpleMessage(
       "Language settings",
     ),
+    "lastName": MessageLookupByLibrary.simpleMessage("Last Name"),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
     "liveMode": MessageLookupByLibrary.simpleMessage("Live Mode"),
+    "login": MessageLookupByLibrary.simpleMessage("Login"),
+    "loginMessage": MessageLookupByLibrary.simpleMessage(
+      "Login to access all features",
+    ),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
       "No text detected in selection",
     ),
     "objectMode": MessageLookupByLibrary.simpleMessage("Object Mode"),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "Processing, please wait",
     ),
@@ -60,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "question": MessageLookupByLibrary.simpleMessage("Question"),
     "read": MessageLookupByLibrary.simpleMessage("READ"),
     "record": MessageLookupByLibrary.simpleMessage("Record"),
+    "register": MessageLookupByLibrary.simpleMessage("Register"),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "selectMode": MessageLookupByLibrary.simpleMessage(
       "Select a mode from app menu or speak to select mode",

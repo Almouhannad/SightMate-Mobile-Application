@@ -20,7 +20,7 @@
     "appMenu": "القائمة",
     "@appMenu": {},
 
-    "helloWorld": "أهلاً بكم في\nSight Mate",
+    "helloWorld": "أهلاً بكم في Sight Mate",
     "@helloWorld": {},
 
     "preview": "معاينة",
@@ -111,5 +111,59 @@
     "@unrecognizedMode": {},
 
     "unavailableMode": "الوضع المطلوب غير متوفر حالياً. يرجى المحاولة لاحقاً",
-    "@unavailableMode": {}    
+    "@unavailableMode": {},
+    
+    "logout": "تسجيل الخروج",
+    "@logout": {},
+
+    "confirmAction": "تأكيد {action}",
+    "@confirmAction": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "areYouSure": "هل أنت متأكد من رغبتك في {action}",
+    "@areYouSure": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "cancel": "إلغاء",
+    "@cancel": {},
+
+    "helloUser": "مرحباً {user} !",
+    "@helloUser": {
+        "placeholders": {
+            "user": {
+                "type": "String"
+            }
+        }
+    },
+
+    "loginMessage": "قم بتسجيل الدخول للوصول إلى كافة الميزات",
+    "@loginMessage": {},
+
+    "login": "تسجيل الدخول",
+    "@login": {},
+
+    "register": "تسجيل",
+    "@register": {},
+
+    "firstName": "الاسم الأول",
+    "@firstName": {},
+    
+    "lastName": "الاسم الأخير",
+    "@lastName": {},
+
+    "email": "البريد الإلكتروني",
+    "@email": {},
+    
+    "password": "كلمة السر",
+    "@password": {}
 }

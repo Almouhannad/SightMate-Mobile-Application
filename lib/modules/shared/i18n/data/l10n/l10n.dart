@@ -308,6 +308,86 @@ class L10n {
       args: [],
     );
   }
+
+  /// `Logout`
+  String get logout {
+    return Intl.message('Logout', name: 'logout', desc: '', args: []);
+  }
+
+  /// `Confirm {action}`
+  String confirmAction(String action) {
+    return Intl.message(
+      'Confirm $action',
+      name: 'confirmAction',
+      desc: '',
+      args: [action],
+    );
+  }
+
+  /// `Are you sure you want to {action}`
+  String areYouSure(String action) {
+    return Intl.message(
+      'Are you sure you want to $action',
+      name: 'areYouSure',
+      desc: '',
+      args: [action],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+  }
+
+  /// `Hello {user} !`
+  String helloUser(String user) {
+    return Intl.message(
+      'Hello $user !',
+      name: 'helloUser',
+      desc: '',
+      args: [user],
+    );
+  }
+
+  /// `Login to access all features`
+  String get loginMessage {
+    return Intl.message(
+      'Login to access all features',
+      name: 'loginMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get login {
+    return Intl.message('Login', name: 'login', desc: '', args: []);
+  }
+
+  /// `Register`
+  String get register {
+    return Intl.message('Register', name: 'register', desc: '', args: []);
+  }
+
+  /// `First Name`
+  String get firstName {
+    return Intl.message('First Name', name: 'firstName', desc: '', args: []);
+  }
+
+  /// `Last Name`
+  String get lastName {
+    return Intl.message('Last Name', name: 'lastName', desc: '', args: []);
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message('Email', name: 'email', desc: '', args: []);
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {
