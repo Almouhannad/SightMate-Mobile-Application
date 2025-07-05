@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
+import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
 
-class LogoutListTile extends StatelessWidget {
+class LogoutListTile extends StatefulWidget {
   const LogoutListTile({
     super.key,
     required this.textStyle,
@@ -13,13 +15,20 @@ class LogoutListTile extends StatelessWidget {
   final AuthenticationNotifier authenticationNotifier;
 
   @override
+  State<LogoutListTile> createState() => _LogoutListTileState();
+}
+
+class _LogoutListTileState extends State<LogoutListTile> {
+  final _ttsProvider = DI.get<TtsProvider>();
+
+  @override
   Widget build(BuildContext context) {
     final errorColor = Theme.of(context).colorScheme.error;
     return ListTile(
       leading: Icon(Icons.logout, color: errorColor),
       title: Text(
         L10n.current.logout,
-        style: textStyle.copyWith(color: errorColor),
+        style: widget.textStyle.copyWith(color: errorColor),
       ),
       onTap: () async {
         // Ask for confirmation
@@ -33,15 +42,30 @@ class LogoutListTile extends StatelessWidget {
 
         if (shouldLogout == true) {
           Navigator.of(context).pop(); // close drawer
-          await authenticationNotifier.logout();
+          await widget.authenticationNotifier.logout();
+          _ttsProvider.stopAndSpeak(
+            L10n.current.actionDoneSuccessfully(L10n.current.logout),
+          );
         }
       },
     );
   }
 }
 
-class LogoutWarningDialog extends StatelessWidget {
+class LogoutWarningDialog extends StatefulWidget {
   const LogoutWarningDialog({super.key});
+
+  @override
+  State<LogoutWarningDialog> createState() => _LogoutWarningDialogState();
+}
+
+class _LogoutWarningDialogState extends State<LogoutWarningDialog> {
+  final _ttsProvider = DI.get<TtsProvider>();
+  @override
+  void initState() {
+    super.initState();
+    _ttsProvider.stopAndSpeak(L10n.current.areYouSure(L10n.current.logout));
+  }
 
   @override
   Widget build(BuildContext context) {
