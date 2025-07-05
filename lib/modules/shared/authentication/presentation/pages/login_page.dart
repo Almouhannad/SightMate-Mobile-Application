@@ -119,6 +119,7 @@ class LoginPageState extends State<LoginPage> {
 
                       // Email field
                       TextFormField(
+                        textDirection: TextDirection.ltr,
                         controller: _emailController,
                         decoration: InputDecoration(
                           labelText: L10n.current.email,
@@ -145,6 +146,7 @@ class LoginPageState extends State<LoginPage> {
 
                       // Password field
                       TextFormField(
+                        textDirection: TextDirection.ltr,
                         controller: _passwordController,
                         decoration: InputDecoration(
                           labelText: L10n.current.password,
