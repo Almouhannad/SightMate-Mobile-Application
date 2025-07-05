@@ -146,7 +146,7 @@
         }
     },
 
-    "loginMessage": "Login to access all features",
+    "loginMessage": "Login to access all features!",
     "@loginMessage": {},
 
     "login": "Login",
@@ -165,5 +165,30 @@
     "@email": {},
     
     "password": "Password",
-    "@password": {}
+    "@password": {},
+
+    "pleaseEnterYour": "Please Enter your {item}",
+    "@pleaseEnterYour": {
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+
+    "validEmailValidationMessage": "Please enter a valid email",
+    "@validEmailValidationMessage": {},
+
+    "passwordLengthValidationMessage": "Password must be at least {length} characters",
+    "@passwordLengthValidationMessage": {
+        "placeholders": {
+            "length": {
+                "type": "int"
+            }
+        }        
+    },
+
+    "registerMessage": "Don't have an account ? Register now",
+    "@registerMessage": {}
+
 }

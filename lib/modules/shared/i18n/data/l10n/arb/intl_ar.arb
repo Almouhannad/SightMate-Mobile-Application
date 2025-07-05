@@ -146,7 +146,7 @@
         }
     },
 
-    "loginMessage": "قم بتسجيل الدخول للوصول إلى كافة الميزات",
+    "loginMessage": "قم بتسجيل الدخول للوصول إلى كافة الميزات!",
     "@loginMessage": {},
 
     "login": "تسجيل الدخول",
@@ -165,5 +165,29 @@
     "@email": {},
     
     "password": "كلمة السر",
-    "@password": {}
+    "@password": {},
+
+    "pleaseEnterYour": "يرجى إدخال {item}",
+    "@pleaseEnterYour": {
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+
+    "validEmailValidationMessage": "يرحى إدخال بريد إلكتروني صالح",
+    "@validEmailValidationMessage": {},
+
+    "passwordLengthValidationMessage": "يجب أن تتكون كلمة المرور من {length} رموز على الأقل",
+    "@passwordLengthValidationMessage": {
+        "placeholders": {
+            "length": {
+                "type": "int"
+            }
+        }        
+    },
+
+    "registerMessage": "لا تمتلك حساباً ؟ قم بالتسجيل الآن",
+    "@registerMessage": {}    
 }

@@ -28,6 +28,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(user) => "مرحباً ${user} !";
 
+  static String m4(length) =>
+      "يجب أن تتكون كلمة المرور من ${length} رموز على الأقل";
+
+  static String m5(item) => "يرجى إدخال ${item}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
@@ -64,7 +69,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "liveMode": MessageLookupByLibrary.simpleMessage("الوضع الحي"),
     "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "loginMessage": MessageLookupByLibrary.simpleMessage(
-      "قم بتسجيل الدخول للوصول إلى كافة الميزات",
+      "قم بتسجيل الدخول للوصول إلى كافة الميزات!",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
@@ -72,6 +77,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "objectMode": MessageLookupByLibrary.simpleMessage("وضع الأغراض"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
+    "passwordLengthValidationMessage": m4,
+    "pleaseEnterYour": m5,
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "جاري المعالجة، يرجى الانتظار",
     ),
@@ -80,6 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
     "record": MessageLookupByLibrary.simpleMessage("تسجيل"),
     "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
+    "registerMessage": MessageLookupByLibrary.simpleMessage(
+      "لا تمتلك حساباً ؟ قم بالتسجيل الآن",
+    ),
     "replay": MessageLookupByLibrary.simpleMessage("إعادة التشغيل"),
     "selectMode": MessageLookupByLibrary.simpleMessage(
       "اختر الوضع من قائمة التطبيق، أو قم بالتحدث لاختيار الوضع",
@@ -95,6 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unrecognizedMode": MessageLookupByLibrary.simpleMessage(
       "لم يتم التعرف على الوضع المطلوب. يرجى إعادة المحاولة",
+    ),
+    "validEmailValidationMessage": MessageLookupByLibrary.simpleMessage(
+      "يرحى إدخال بريد إلكتروني صالح",
     ),
   };
 }

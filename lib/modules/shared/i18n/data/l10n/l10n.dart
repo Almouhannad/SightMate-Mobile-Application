@@ -349,10 +349,10 @@ class L10n {
     );
   }
 
-  /// `Login to access all features`
+  /// `Login to access all features!`
   String get loginMessage {
     return Intl.message(
-      'Login to access all features',
+      'Login to access all features!',
       name: 'loginMessage',
       desc: '',
       args: [],
@@ -387,6 +387,46 @@ class L10n {
   /// `Password`
   String get password {
     return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Please Enter your {item}`
+  String pleaseEnterYour(String item) {
+    return Intl.message(
+      'Please Enter your $item',
+      name: 'pleaseEnterYour',
+      desc: '',
+      args: [item],
+    );
+  }
+
+  /// `Please enter a valid email`
+  String get validEmailValidationMessage {
+    return Intl.message(
+      'Please enter a valid email',
+      name: 'validEmailValidationMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least {length} characters`
+  String passwordLengthValidationMessage(int length) {
+    return Intl.message(
+      'Password must be at least $length characters',
+      name: 'passwordLengthValidationMessage',
+      desc: '',
+      args: [length],
+    );
+  }
+
+  /// `Don't have an account ? Register now`
+  String get registerMessage {
+    return Intl.message(
+      'Don\'t have an account ? Register now',
+      name: 'registerMessage',
+      desc: '',
+      args: [],
+    );
   }
 }
 

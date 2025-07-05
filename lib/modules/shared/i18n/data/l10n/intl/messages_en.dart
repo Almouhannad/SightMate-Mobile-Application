@@ -28,6 +28,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m3(user) => "Hello ${user} !";
 
+  static String m4(length) => "Password must be at least ${length} characters";
+
+  static String m5(item) => "Please Enter your ${item}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "activated": m0,
@@ -64,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "liveMode": MessageLookupByLibrary.simpleMessage("Live Mode"),
     "login": MessageLookupByLibrary.simpleMessage("Login"),
     "loginMessage": MessageLookupByLibrary.simpleMessage(
-      "Login to access all features",
+      "Login to access all features!",
     ),
     "logout": MessageLookupByLibrary.simpleMessage("Logout"),
     "noTextDetected": MessageLookupByLibrary.simpleMessage(
@@ -72,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "objectMode": MessageLookupByLibrary.simpleMessage("Object Mode"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "passwordLengthValidationMessage": m4,
+    "pleaseEnterYour": m5,
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "Processing, please wait",
     ),
@@ -80,6 +86,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "read": MessageLookupByLibrary.simpleMessage("READ"),
     "record": MessageLookupByLibrary.simpleMessage("Record"),
     "register": MessageLookupByLibrary.simpleMessage("Register"),
+    "registerMessage": MessageLookupByLibrary.simpleMessage(
+      "Don\'t have an account ? Register now",
+    ),
     "replay": MessageLookupByLibrary.simpleMessage("Replay"),
     "selectMode": MessageLookupByLibrary.simpleMessage(
       "Select a mode from app menu or speak to select mode",
@@ -95,6 +104,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "unrecognizedMode": MessageLookupByLibrary.simpleMessage(
       "Unrecognized mode. Plaese try again",
+    ),
+    "validEmailValidationMessage": MessageLookupByLibrary.simpleMessage(
+      "Please enter a valid email",
     ),
   };
 }
