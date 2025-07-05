@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/core/page_route_settings.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
+import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
@@ -10,7 +12,7 @@ import 'package:sight_mate/modules/vqa/presentation/vqa_presentation.dart';
 import 'package:sight_mate/modules/yolo_object_recognition/yolo_object_recognition.dart';
 
 class AppDrawer extends StatefulWidget {
-  AppDrawer({super.key});
+  const AppDrawer({super.key});
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
@@ -28,6 +30,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final authenticationNotifier = context.watch<AuthenticationNotifier>();
     final textStyle = Theme.of(
       context,
     ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold);
@@ -102,6 +105,11 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             buildRouteListTile(ThemeSettingsRoute(), Icons.color_lens),
             buildRouteListTile(LanguageSettingsRoute(), Icons.language),
+            if (authenticationNotifier.isLoggedIn)
+              LogoutListTile(
+                textStyle: textStyle,
+                authenticationNotifier: authenticationNotifier,
+              ),
           ],
         ),
       ),

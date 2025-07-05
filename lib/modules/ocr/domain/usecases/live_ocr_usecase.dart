@@ -20,7 +20,7 @@ class LiveOcrUsecase {
     List<OcrResult> results = [];
     await _ocrProvider
         .processImage(OcrInput(bytes: bytes))
-        .then((value) => results = value.texts);
+        .then((result) => results = result.value!.texts);
 
     String textToSpeak = '';
     final DateTime now = DateTime.now();
@@ -40,8 +40,7 @@ class LiveOcrUsecase {
     final lastSpokenTime = _lastDetectedIn[ocrResult.text.toLowerCase()];
     result &=
         (lastSpokenTime == null ||
-            now.difference(lastSpokenTime) >=
-                LiveOcrUsecaseConfig.repeatInterval);
+        now.difference(lastSpokenTime) >= LiveOcrUsecaseConfig.repeatInterval);
 
     final confidence = ocrResult.confidence ?? 0.0;
     result &= confidence >= LiveOcrUsecaseConfig.confidenceThreshold;

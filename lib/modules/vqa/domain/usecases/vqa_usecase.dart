@@ -8,6 +8,7 @@ import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
 class VqaUsecase {
   final _vqaProvider = DI.get<VqaProvider>();
   final List<VqaHistoryItem> _historyItems = [];
+  String? _conversationId;
 
   /// Get a read-only view of the VQA history items
   List<VqaHistoryItem> get historyItems =>
@@ -16,17 +17,20 @@ class VqaUsecase {
   /// Generate a caption for an image provided as bytes
   /// Stores the result in history and returns the caption text
   Future<String> captionImageBytes(List<int> imageBytes) async {
-    try {
-      final vqaResult = await _vqaProvider.processCaptioning(
-        VqaCaptioningInput(imageInput: VqaImageInput(bytes: imageBytes)),
-      );
-      _historyItems.add(
-        VqaHistoryItem(title: L10n.current.imageCaption, text: vqaResult.text),
-      );
-      return vqaResult.text;
-    } catch (e) {
+    final vqaResult = await _vqaProvider.processCaptioning(
+      VqaCaptioningInput(imageInput: VqaImageInput(bytes: imageBytes)),
+    );
+    if (!vqaResult.isSuccess) {
       return L10n.current.errorOccurred;
     }
+    _historyItems.add(
+      VqaHistoryItem(
+        title: L10n.current.imageCaption,
+        text: vqaResult.value!.text,
+      ),
+    );
+    _conversationId = vqaResult.value!.conversationId!;
+    return vqaResult.value!.text;
   }
 
   /// Answer a question about an image provided as bytes
@@ -35,24 +39,20 @@ class VqaUsecase {
     List<int> imageBytes,
     String question,
   ) async {
-    try {
-      final vqaResult = await _vqaProvider.processQuestion(
-        VqaQuestionInput(
-          imageInput: VqaImageInput(bytes: imageBytes),
-          question: question,
-        ),
-      );
-      final lastIndex = _historyItems.length;
-      _historyItems.add(
-        VqaHistoryItem(
-          title: '${L10n.current.question} $lastIndex',
-          text: vqaResult.text,
-          question: question,
-        ),
-      );
-      return vqaResult.text;
-    } catch (e) {
+    final vqaResult = await _vqaProvider.processQuestion(
+      VqaQuestionInput(conversationId: _conversationId!, question: question),
+    );
+    if (!vqaResult.isSuccess) {
       return L10n.current.errorOccurred;
     }
+    final lastIndex = _historyItems.length;
+    _historyItems.add(
+      VqaHistoryItem(
+        title: '${L10n.current.question} $lastIndex',
+        text: vqaResult.value!.text,
+        question: question,
+      ),
+    );
+    return vqaResult.value!.text;
   }
 }

@@ -11,13 +11,12 @@ class DescribeOcrUsecase {
 
   Future<String> processCapture(Uint8List bytes) async {
     String description = '';
-    try {
-      await _ocrProvider
-          .processImage(OcrInput(bytes: bytes))
-          .then((value) => description = value.description!['sentence'] ?? '');
-    } catch (e) {
-      return L10n.current.errorOccurred;
-    }
+    await _ocrProvider.processImage(OcrInput(bytes: bytes)).then((result) {
+      if (!result.isSuccess) {
+        return L10n.current.errorOccurred;
+      }
+      description = result.value!.description!['sentence'];
+    });
     return description.toLowerCase();
   }
 }

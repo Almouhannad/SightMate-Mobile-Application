@@ -2,13 +2,14 @@ import 'dart:io';
 
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/ocr/domain/ocr_domain.dart';
 
 class OcrProviderOfflineImpl extends OcrProvider {
   final _textRecognizer = TextRecognizer();
 
   @override
-  Future<OcrOutput> processImage(OcrInput input) async {
+  Future<Result<OcrOutput>> processImage(OcrInput input) async {
     // Create tmp. directory to store image before processing
     final dir = await getTemporaryDirectory();
     final outFile = File('${dir.path}/temp_for_ocr.png');
@@ -31,7 +32,7 @@ class OcrProviderOfflineImpl extends OcrProvider {
         ),
       );
     });
-    return OcrOutput(texts: results);
+    return Result(isSuccess: true, value: OcrOutput(texts: results));
   }
 
   @override

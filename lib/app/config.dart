@@ -22,4 +22,22 @@ class Config {
     }
     return value;
   }
+
+  static String get backendApiBaseUri {
+    final value = dotenv.env['BACKEND_BASE_URI'];
+    if (value == null || value.isEmpty) {
+      throw Exception('BACKEND_BASE_URI is not set in .env');
+    }
+    return value;
+  }
+
+  static String get identityApi => '/identity-api';
+  static String get ocrApi => '/ocr-api';
+  static String get vqaApi => '/vqa-api';
+  static String get serverErrorDetailPropertyName => 'detail';
+  static String get serverValidationErrorsPropertyName => 'errors';
+  static String get serverValidationErrorDescriptionPropertyName =>
+      'description';
+  static String get clientValidationErrorsPropertyName => 'validation_errors';
+  static String get clientErrorDetailPropertyName => 'error';
 }

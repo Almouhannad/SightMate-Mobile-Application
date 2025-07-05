@@ -20,7 +20,7 @@
     "appMenu": "القائمة",
     "@appMenu": {},
 
-    "helloWorld": "أهلاً بكم في\nSight Mate",
+    "helloWorld": "أهلاً بكم في Sight Mate",
     "@helloWorld": {},
 
     "preview": "معاينة",
@@ -111,5 +111,99 @@
     "@unrecognizedMode": {},
 
     "unavailableMode": "الوضع المطلوب غير متوفر حالياً. يرجى المحاولة لاحقاً",
-    "@unavailableMode": {}    
+    "@unavailableMode": {},
+    
+    "logout": "تسجيل الخروج",
+    "@logout": {},
+
+    "confirmAction": "تأكيد {action}",
+    "@confirmAction": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "areYouSure": "هل أنت متأكد من رغبتك في {action}",
+    "@areYouSure": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }
+    },
+
+    "cancel": "إلغاء",
+    "@cancel": {},
+
+    "helloUser": "مرحباً {user} !",
+    "@helloUser": {
+        "placeholders": {
+            "user": {
+                "type": "String"
+            }
+        }
+    },
+
+    "loginMessage": "قم بتسجيل الدخول للوصول إلى كافة الميزات!",
+    "@loginMessage": {},
+
+    "login": "تسجيل الدخول",
+    "@login": {},
+
+    "register": "إنشاء حساب",
+    "@register": {},
+
+    "firstName": "الاسم الأول",
+    "@firstName": {},
+    
+    "lastName": "الاسم الأخير",
+    "@lastName": {},
+
+    "email": "البريد الإلكتروني",
+    "@email": {},
+    
+    "password": "كلمة السر",
+    "@password": {},
+
+    "pleaseEnterYour": "يرجى إدخال {item}",
+    "@pleaseEnterYour": {
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+
+    "validEmailValidationMessage": "يرحى إدخال بريد إلكتروني صالح",
+    "@validEmailValidationMessage": {},
+
+    "passwordLengthValidationMessage": "يجب أن تتكون كلمة المرور من {length} رموز على الأقل",
+    "@passwordLengthValidationMessage": {
+        "placeholders": {
+            "length": {
+                "type": "int"
+            }
+        }        
+    },
+
+    "registerMessage": "لا تمتلك حساباً ؟ قم بإنشاء حساب الآن",
+    "@registerMessage": {},
+
+    "alreadyHaveAccount": "لديك حساب بالفعل ؟ قم بتسجيل الدخول",
+    "@alreadyHaveAccount": {},
+    
+    "acceptTerms": "أنا أوافق على تخزين بياناتي واستخدامها لأغراض بحثية",
+    "@acceptTerms": {},
+    
+
+    "actionDoneSuccessfully": "تم {action} بنجاح",
+    "@actionDoneSuccessfully": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }            
+    }    
 }

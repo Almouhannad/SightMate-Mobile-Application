@@ -10,7 +10,7 @@ class ThemeNotifier extends ChangeNotifier {
 
   ThemeNotifier(this._repository);
 
-  Future<void> initilize() async {
+  Future<void> initialize() async {
     await _loadInitialMode();
   }
 

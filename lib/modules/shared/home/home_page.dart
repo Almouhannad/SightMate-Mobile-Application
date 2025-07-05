@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/modules/shared/asr/domain/asr_domin.dart';
+import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/home/navigation_cmomands_handler.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
 import 'package:sight_mate/modules/shared/tts/domain/tts_domain.dart';
@@ -68,6 +70,7 @@ class _HelloWorldWidgetState extends State<HelloWorldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final authentication = context.watch<AuthenticationNotifier>();
     final theme = Theme.of(context);
 
     // Larger and bold for welcome heading
@@ -83,16 +86,25 @@ class _HelloWorldWidgetState extends State<HelloWorldWidget> {
 
     final primaryColor = theme.colorScheme.primary;
     final onPrimaryColor = theme.colorScheme.onPrimary;
-
     return Column(
       children: [
         kTopSpacing,
         Padding(
           padding: kTextHorizontalPadding,
-          child: Text(
-            L10n.current.helloWorld,
-            textAlign: kTextAlign,
-            style: welcomeStyle,
+          child: Column(
+            children: [
+              if (authentication.isLoggedIn) ...[
+                WelcomeUserWidget(
+                  authentication: authentication,
+                  welcomeStyle: welcomeStyle,
+                ),
+              ],
+              Text(
+                L10n.current.helloWorld,
+                textAlign: kTextAlign,
+                style: welcomeStyle,
+              ),
+            ],
           ),
         ),
         const Spacer(),
@@ -132,6 +144,15 @@ class _HelloWorldWidgetState extends State<HelloWorldWidget> {
           ],
         ),
         const Spacer(),
+        if (!authentication.isLoggedIn) ...[
+          LoginMessageWidget(
+            commandStyle: commandStyle,
+            primaryColor: primaryColor,
+            authentication: authentication,
+            onPrimaryColor: onPrimaryColor,
+          ),
+          const Spacer(),
+        ],
       ],
     );
   }

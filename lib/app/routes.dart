@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sight_mate/modules/ocr/presentation/ocr_presentation.dart';
+import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 import 'package:sight_mate/modules/shared/theme/theme.dart';
 import 'package:sight_mate/modules/vqa/presentation/vqa_presentation.dart';
@@ -13,6 +14,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   routes[ObjectRecognitionHomeScreenRoute().link] =
       ObjectRecognitionHomeScreen();
   routes[VqaHomeScreenRoute().link] = VqaHomeScreen();
+  routes[LoginPageRoute().link] = LoginPage();
+  routes[RegisterPageRoute().link] = RegisterPage();
 
   if (routes.keys.contains(settings.name)) {
     return MaterialPageRoute(
