@@ -20,37 +20,40 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(mode) => "تم تفعيل ${mode}";
+  static String m0(action) => "تم ${action} بنجاح";
 
-  static String m1(action) => "هل أنت متأكد من رغبتك في ${action}";
+  static String m1(mode) => "تم تفعيل ${mode}";
 
-  static String m2(action) => "تأكيد ${action}";
+  static String m2(action) => "هل أنت متأكد من رغبتك في ${action}";
 
-  static String m3(user) => "مرحباً ${user} !";
+  static String m3(action) => "تأكيد ${action}";
 
-  static String m4(length) =>
+  static String m4(user) => "مرحباً ${user} !";
+
+  static String m5(length) =>
       "يجب أن تتكون كلمة المرور من ${length} رموز على الأقل";
 
-  static String m5(item) => "يرجى إدخال ${item}";
+  static String m6(item) => "يرجى إدخال ${item}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
       "أنا أوافق على تخزين بياناتي واستخدامها لأغراض بحثية",
     ),
-    "activated": m0,
+    "actionDoneSuccessfully": m0,
+    "activated": m1,
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "لديك حساب بالفعل ؟ قم بتسجيل الدخول",
     ),
     "answer": MessageLookupByLibrary.simpleMessage("الجواب"),
     "appMenu": MessageLookupByLibrary.simpleMessage("القائمة"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
-    "areYouSure": m1,
+    "areYouSure": m2,
     "askQuestion": MessageLookupByLibrary.simpleMessage("اطرح سؤالاً"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
     "captureMode": MessageLookupByLibrary.simpleMessage("وضع الالتقاط"),
     "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
-    "confirmAction": m2,
+    "confirmAction": m3,
     "darkMode": MessageLookupByLibrary.simpleMessage("مظلم"),
     "describe": MessageLookupByLibrary.simpleMessage("توصيف"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
@@ -58,7 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "حدث خطأ!\nيرجى المحاولة مرة أخرى",
     ),
     "firstName": MessageLookupByLibrary.simpleMessage("الاسم الأول"),
-    "helloUser": m3,
+    "helloUser": m4,
     "helloWorld": MessageLookupByLibrary.simpleMessage(
       "أهلاً بكم في Sight Mate",
     ),
@@ -83,8 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "objectMode": MessageLookupByLibrary.simpleMessage("وضع الأغراض"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة السر"),
-    "passwordLengthValidationMessage": m4,
-    "pleaseEnterYour": m5,
+    "passwordLengthValidationMessage": m5,
+    "pleaseEnterYour": m6,
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "جاري المعالجة، يرجى الانتظار",
     ),

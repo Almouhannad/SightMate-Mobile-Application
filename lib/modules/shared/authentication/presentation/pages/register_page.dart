@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/shared/authentication/domain/entities/profile.dart';
 import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
+import 'package:sight_mate/modules/shared/tts/domain/tts_provider.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,6 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isLoading = false;
   bool _acceptedTerms = false;
   String? errorMessage;
+  final _ttsProvider = DI.get<TtsProvider>();
 
   @override
   void dispose() {
@@ -30,6 +33,12 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _ttsProvider.stopAndSpeak(L10n.current.register);
   }
 
   Future<void> _submit(
@@ -58,6 +67,11 @@ class _RegisterPageState extends State<RegisterPage> {
     if (regResult.isSuccess) {
       if (!context.mounted) return;
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      _ttsProvider.stop();
+      _ttsProvider.speak(
+        L10n.current.actionDoneSuccessfully(L10n.current.register),
+      );
+      return;
     } else if (regResult.hasValidationErrors != null) {
       setState(() {
         errorMessage = regResult.validationErrors![0];
@@ -71,6 +85,8 @@ class _RegisterPageState extends State<RegisterPage> {
         errorMessage = L10n.current.errorOccurred;
       });
     }
+    _ttsProvider.stopAndSpeak(L10n.current.errorOccurred);
+    return;
   }
 
   void _onLogin(BuildContext context) {

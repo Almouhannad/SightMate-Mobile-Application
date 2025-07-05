@@ -195,6 +195,15 @@
     "@alreadyHaveAccount": {},
 
     "acceptTerms": "I accept that my data will be stored and used for research",
-    "@acceptTerms": {}
+    "@acceptTerms": {},
+
+    "actionDoneSuccessfully": "{action} done successfully",
+    "@actionDoneSuccessfully": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }            
+    }
 
 }

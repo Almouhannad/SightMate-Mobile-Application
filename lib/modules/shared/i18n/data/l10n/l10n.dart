@@ -448,6 +448,16 @@ class L10n {
       args: [],
     );
   }
+
+  /// `{action} done successfully`
+  String actionDoneSuccessfully(String action) {
+    return Intl.message(
+      '$action done successfully',
+      name: 'actionDoneSuccessfully',
+      desc: '',
+      args: [action],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

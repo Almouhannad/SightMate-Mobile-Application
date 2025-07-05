@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sight_mate/app/injection.dart';
 import 'package:sight_mate/core/result.dart';
 import 'package:sight_mate/modules/shared/authentication/domain/entities/profile.dart';
 import 'package:sight_mate/modules/shared/authentication/presentation/authentication_presentation.dart';
 import 'package:sight_mate/modules/shared/i18n/data/l10n/l10n.dart';
+import 'package:sight_mate/modules/shared/tts/domain/tts_provider.dart';
 import 'package:sight_mate/modules/shared/widgets/shared_widgets.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,8 +19,15 @@ class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _ttsProvider = DI.get<TtsProvider>();
   bool _isLoading = false;
   String? errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _ttsProvider.stopAndSpeak(L10n.current.login);
+  }
 
   @override
   void dispose() {
@@ -49,6 +58,10 @@ class LoginPageState extends State<LoginPage> {
         // Guard against using context after async gap
         if (!context.mounted) return;
         Navigator.of(context).popUntil(ModalRoute.withName('/'));
+        _ttsProvider.stopAndSpeak(
+          L10n.current.actionDoneSuccessfully(L10n.current.login),
+        );
+        return;
       } else if (loginResult.hasValidationErrors != null) {
         setState(() {
           errorMessage = loginResult.validationErrors![0];
@@ -60,6 +73,8 @@ class LoginPageState extends State<LoginPage> {
           errorMessage = L10n.current.errorOccurred;
         });
       }
+      _ttsProvider.stopAndSpeak(L10n.current.errorOccurred);
+      return;
     }
   }
 

@@ -195,5 +195,15 @@
     "@alreadyHaveAccount": {},
     
     "acceptTerms": "أنا أوافق على تخزين بياناتي واستخدامها لأغراض بحثية",
-    "@acceptTerms": {}    
+    "@acceptTerms": {},
+    
+
+    "actionDoneSuccessfully": "تم {action} بنجاح",
+    "@actionDoneSuccessfully": {
+        "placeholders": {
+            "action": {
+                "type": "String"
+            }
+        }            
+    }    
 }

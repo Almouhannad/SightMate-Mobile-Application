@@ -20,36 +20,39 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(mode) => "${mode} activated";
+  static String m0(action) => "${action} done successfully";
 
-  static String m1(action) => "Are you sure you want to ${action}";
+  static String m1(mode) => "${mode} activated";
 
-  static String m2(action) => "Confirm ${action}";
+  static String m2(action) => "Are you sure you want to ${action}";
 
-  static String m3(user) => "Hello ${user} !";
+  static String m3(action) => "Confirm ${action}";
 
-  static String m4(length) => "Password must be at least ${length} characters";
+  static String m4(user) => "Hello ${user} !";
 
-  static String m5(item) => "Please Enter your ${item}";
+  static String m5(length) => "Password must be at least ${length} characters";
+
+  static String m6(item) => "Please Enter your ${item}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "acceptTerms": MessageLookupByLibrary.simpleMessage(
       "I accept that my data will be stored and used for research",
     ),
-    "activated": m0,
+    "actionDoneSuccessfully": m0,
+    "activated": m1,
     "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account ? Login now",
     ),
     "answer": MessageLookupByLibrary.simpleMessage("Answer"),
     "appMenu": MessageLookupByLibrary.simpleMessage("App menu"),
     "appName": MessageLookupByLibrary.simpleMessage("Sight Mate"),
-    "areYouSure": m1,
+    "areYouSure": m2,
     "askQuestion": MessageLookupByLibrary.simpleMessage("Ask a question"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
     "captureMode": MessageLookupByLibrary.simpleMessage("Capture Mode"),
     "close": MessageLookupByLibrary.simpleMessage("Close"),
-    "confirmAction": m2,
+    "confirmAction": m3,
     "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
     "describe": MessageLookupByLibrary.simpleMessage("Describe"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
@@ -57,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "An error occurred!\nPlease try again",
     ),
     "firstName": MessageLookupByLibrary.simpleMessage("First Name"),
-    "helloUser": m3,
+    "helloUser": m4,
     "helloWorld": MessageLookupByLibrary.simpleMessage("Welcome to Sight Mate"),
     "history": MessageLookupByLibrary.simpleMessage("History"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -82,8 +85,8 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "objectMode": MessageLookupByLibrary.simpleMessage("Object Mode"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
-    "passwordLengthValidationMessage": m4,
-    "pleaseEnterYour": m5,
+    "passwordLengthValidationMessage": m5,
+    "pleaseEnterYour": m6,
     "pleaseWait": MessageLookupByLibrary.simpleMessage(
       "Processing, please wait",
     ),
