@@ -8,7 +8,14 @@ class ApiClient {
   factory ApiClient() => _instance;
 
   ApiClient._internal() {
-    dio = Dio(BaseOptions(baseUrl: Config.backendApiBaseUri));
+    dio = Dio(
+      BaseOptions(
+        baseUrl: Config.backendApiBaseUri,
+        validateStatus: (status) {
+          return status != null && status < 600;
+        },
+      ),
+    );
 
     // 1) attach auth interceptor
     dio.interceptors.add(AuthInterceptor());
