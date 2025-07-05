@@ -8,20 +8,16 @@ class ApiClient {
   factory ApiClient() => _instance;
 
   ApiClient._internal() {
-    dio = Dio(
-      BaseOptions(
-        baseUrl: Config.backendApiBaseUri,
-        validateStatus: (status) {
-          return status != null && status < 600;
-        },
-      ),
-    );
+    dio = Dio(BaseOptions(baseUrl: Config.backendApiBaseUri));
 
     // 1) attach auth interceptor
     dio.interceptors.add(AuthInterceptor());
 
-    // 2) attach bad-request filter interceptor
+    // 2) attach bad-request filter interceptor (will be manually refactored)
     dio.interceptors.add(BadRequestInterceptor());
+
+    // 3) attach global error filter interceptor
+    dio.interceptors.add(ErrorInterceptor());
   }
 
   Future<Response> get(String path, {Map<String, dynamic>? query}) {
@@ -75,6 +71,29 @@ class BadRequestInterceptor extends Interceptor {
       );
     } else {
       // Not 400, let it go
+      handler.next(err);
+    }
+  }
+}
+
+class ErrorInterceptor extends Interceptor {
+  final _serverErrorDetailProperty = Config.serverErrorDetailPropertyName;
+  final _clientErrorDetailsProperty = Config.clientErrorDetailPropertyName;
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final response = err.response;
+    if (response != null) {
+      handler.resolve(
+        Response(
+          requestOptions: err.requestOptions,
+          statusCode: response.statusCode,
+          data: {
+            _clientErrorDetailsProperty:
+                response.data[_serverErrorDetailProperty],
+          },
+        ),
+      );
+    } else {
       handler.next(err);
     }
   }

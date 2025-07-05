@@ -9,8 +9,8 @@ import 'package:sight_mate/modules/shared/i18n/i18n.dart';
 class AuthenticationProviderImpl extends AuthenticationProvider {
   final ApiClient _client = ApiClient();
   final String _identityApi = Config.identityApi;
-  final String _serverErrorDetailProperty =
-      Config.serverErrorDetailPropertyName;
+  final String _clientErrorDetailProperty =
+      Config.clientErrorDetailPropertyName;
   final String _clientValidationErrorsProperty =
       Config.clientValidationErrorsPropertyName;
   final SecureStorage _keyStorage = SecureStorage.instance;
@@ -104,7 +104,7 @@ class AuthenticationProviderImpl extends AuthenticationProvider {
   Result<Profile> _getServerErrorResult(Response response) {
     return Result(
       isSuccess: false,
-      error: response.data[_serverErrorDetailProperty],
+      error: response.data[_clientErrorDetailProperty],
     );
   }
 

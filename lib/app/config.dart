@@ -39,4 +39,5 @@ class Config {
   static String get serverValidationErrorDescriptionPropertyName =>
       'description';
   static String get clientValidationErrorsPropertyName => 'validation_errors';
+  static String get clientErrorDetailPropertyName => 'error';
 }
