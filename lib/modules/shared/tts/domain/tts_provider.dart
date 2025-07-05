@@ -25,4 +25,7 @@ abstract class TtsProvider {
   /// Should be called when the TTS functionality is no longer needed
   /// to prevent memory leaks.
   Future<void> dispose();
+
+  /// Stops any ongoing text-to-speech playback immediately and speaks new text.
+  Future<void> stopAndSpeak(String textToSpeak);
 }

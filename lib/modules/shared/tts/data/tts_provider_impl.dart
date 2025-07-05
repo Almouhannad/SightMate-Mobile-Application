@@ -50,4 +50,10 @@ class TtsProviderImpl extends TtsProvider {
   Future<void> waitToEnd() async {
     await _tts.awaitSpeakCompletion(true);
   }
+
+  @override
+  Future<void> stopAndSpeak(String textToSpeak) async {
+    await stop();
+    await speak(textToSpeak);
+  }
 }
