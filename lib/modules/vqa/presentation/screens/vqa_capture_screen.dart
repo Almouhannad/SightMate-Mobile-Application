@@ -49,7 +49,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
         setState(() {
           _isProcessingQuestion = false;
           _lastSpokenText = value;
-          _ttsProvider.speak(_lastSpokenText);
+          // _ttsProvider.speak(_lastSpokenText);
           _historyItems = _vqaUsecase.historyItems;
         });
       }
