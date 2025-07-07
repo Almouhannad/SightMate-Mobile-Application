@@ -31,12 +31,21 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
   Timer? _frameTimer;
   bool _isProcessingFrame = false, _isLiveMode = true;
 
+  // ocr mode repo
+  final _ocrModeRepositroy = DI.get<OcrModeRepository>();
+
   // Capture mode
   bool _isCameraLoading = false;
 
   @override
   void initState() {
     super.initState();
+    final mode = _ocrModeRepositroy.getMode();
+    if (mode == 1) {
+      setState(() {
+        _isLiveMode = false;
+      });
+    }
     _isCameraReady = _cameraHelper.isCameraReady.then((value) {
       if (_isLiveMode) {
         _startPeriodicFrameCapture();
@@ -127,6 +136,7 @@ class OcrHomeScreenState extends State<OcrHomeScreen> {
                       setState(() {
                         _isLiveMode = !_isLiveMode;
                       });
+                      _ocrModeRepositroy.updateMode(_isLiveMode ? 0 : 1);
                     }
 
                     if (_isLiveMode) {

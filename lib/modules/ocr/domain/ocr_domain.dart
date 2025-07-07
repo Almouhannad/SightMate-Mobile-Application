@@ -11,3 +11,4 @@ export 'errors/ocr_exception.dart';
 export 'usecases/capture_ocr_usecase.dart';
 export 'usecases/describe_ocr_usecase.dart';
 export 'usecases/live_ocr_usecase.dart';
+export 'repositories/ocr_mode_repository.dart';

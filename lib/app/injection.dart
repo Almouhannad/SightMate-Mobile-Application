@@ -67,6 +67,9 @@ Future<void> configureDependencies() async {
     () => OcrConnectivityProviderImpl(),
   );
 
+  // Mode repository
+  DI.registerLazySingleton<OcrModeRepository>(() => OcrModeRepositoryImpl());
+
   // TTS
   DI.registerSingletonAsync<TtsProvider>(() async {
     final provider = TtsProviderImpl();
