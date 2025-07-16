@@ -29,6 +29,9 @@ class CaptureOcrUsecase {
       if (shouldSpeak(ocrResult)) {
         textToSpeak += '${ocrResult.text.toLowerCase()}\n';
       }
+      if (textToSpeak.endsWith("\n")) {
+        textToSpeak = textToSpeak.substring(0, textToSpeak.length - 1);
+      }
     }
 
     if (textToSpeak.isEmpty) {

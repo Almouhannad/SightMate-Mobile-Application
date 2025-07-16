@@ -37,9 +37,26 @@ class _ResultDialogState extends State<ResultDialog> {
 
   @override
   Widget build(BuildContext context) {
+    var textStyle = Theme.of(
+      context,
+    ).textTheme.bodyLarge!.copyWith(fontSize: 24, fontWeight: FontWeight.bold);
     return AlertDialog(
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      content: Image.memory(widget.captureBytes),
+      content: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.memory(widget.captureBytes),
+              Text(widget.text, style: textStyle),
+              if (descriptionText != '')
+                Text(descriptionText, style: textStyle),
+            ],
+          ),
+        ),
+      ),
+
       actions: [
         // Close button
         Semantics(
