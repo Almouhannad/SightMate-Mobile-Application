@@ -27,33 +27,31 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   final _vqaUsecase = VqaUsecase();
   final _ttsProvider = DI.get<TtsProvider>();
 
-  bool _isProcessingQuestion = false;
+  bool _isProcessing = false;
 
-  late String _lastSpokenText;
+  String _lastSpokenText = "";
   late TabController _tabController;
   final _numberOfTabs = 2;
   late Future<void> _readyFuture;
 
-  late List<VqaHistoryItem> _historyItems;
+  late List<VqaHistoryItem> _historyItems = [];
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize tabs and begin captioning task
+    // Initialize tabs and create conversation
     _tabController = TabController(length: _numberOfTabs, vsync: this);
-    _readyFuture = _vqaUsecase.captionImageBytes(widget.imageBytes).then((
-      value,
-    ) {
-      if (mounted) {
-        setState(() {
-          _isProcessingQuestion = false;
-          _lastSpokenText = value;
-          // _ttsProvider.speak(_lastSpokenText);
-          _historyItems = _vqaUsecase.historyItems;
+    _readyFuture = _vqaUsecase
+        .createConversationFromImageBytes(widget.imageBytes)
+        .then((value) {
+          if (!value.isSuccess) {
+            _ttsProvider.stopAndSpeak(L10n.current.errorOccurred);
+            if (mounted) {
+              Navigator.of(context).pop();
+            }
+          }
         });
-      }
-    });
   }
 
   @override
@@ -65,24 +63,46 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
   Future<void> onQuestion(String question) async {
     if (mounted) {
       setState(() {
-        _isProcessingQuestion = true;
+        _isProcessing = true;
       });
     }
-    await _ttsProvider.stop();
-    await _ttsProvider.speak(L10n.current.pleaseWait);
-    await _vqaUsecase
-        .answerQuestionFromImageBytees(widget.imageBytes, question)
-        .then((value) async {
-          await _ttsProvider.stop();
-          if (mounted) {
-            setState(() {
-              _isProcessingQuestion = false;
-              _lastSpokenText = value;
-              _ttsProvider.speak(_lastSpokenText);
-              _historyItems = _vqaUsecase.historyItems;
-            });
-          }
+    await _ttsProvider.stopAndSpeak(L10n.current.pleaseWait);
+    await _vqaUsecase.answerQuestion(question).then((value) async {
+      await _ttsProvider.stop();
+      if (mounted) {
+        setState(() {
+          _isProcessing = false;
+          _lastSpokenText = value;
+          _ttsProvider.speak(_lastSpokenText);
+          _historyItems = _vqaUsecase.historyItems;
         });
+      }
+    });
+  }
+
+  Future<void> onReplay() async {
+    if (_lastSpokenText != "") {
+      await _ttsProvider.stop();
+      _ttsProvider.speak(_lastSpokenText);
+      return;
+    }
+    if (mounted) {
+      setState(() {
+        _isProcessing = true;
+      });
+    }
+    await _ttsProvider.stopAndSpeak(L10n.current.pleaseWait);
+    await _vqaUsecase.captionImage().then((value) async {
+      await _ttsProvider.stop();
+      if (mounted) {
+        setState(() {
+          _isProcessing = false;
+          _lastSpokenText = value;
+          _ttsProvider.speak(_lastSpokenText);
+          _historyItems = _vqaUsecase.historyItems;
+        });
+      }
+    });
   }
 
   @override
@@ -92,7 +112,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
       builder: (context, snapshot) {
         final isDone =
             (snapshot.connectionState == ConnectionState.done) &
-            (!_isProcessingQuestion);
+            (!_isProcessing);
 
         return WidgetScaffold(
           title: L10n.current.imageMode,
@@ -135,8 +155,7 @@ class _VqaCaptureScreenState extends State<VqaCaptureScreen>
                         heroTag: 'replay_fab',
                         tooltip: L10n.current.replay,
                         onPressed: () async {
-                          await _ttsProvider.stop();
-                          _ttsProvider.speak(_lastSpokenText);
+                          onReplay();
                         },
                         child: Icon(
                           Icons.replay,

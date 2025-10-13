@@ -1,8 +1,6 @@
-import 'package:sight_mate/modules/vqa/domain/vqa_domain.dart';
-
 class VqaCaptioningInput {
-  final VqaImageInput imageInput;
+  final String conversationId;
   final Map<String, dynamic>? options;
 
-  VqaCaptioningInput({required this.imageInput, this.options});
+  VqaCaptioningInput({required this.conversationId, this.options});
 }

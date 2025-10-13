@@ -13,4 +13,7 @@ abstract class VqaProvider {
   /// Process an image and question to generate an answer
   /// Returns a VqaResult containing the answer to the question about the image
   Future<Result<VqaResult>> processQuestion(VqaQuestionInput questionInput);
+
+  /// I'll document later I swear
+  Future<Result<String>> createConversation(VqaImageInput image);
 }

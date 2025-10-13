@@ -16,10 +16,7 @@ class VqaProviderImpl extends VqaProvider {
   Future<Result<VqaResult>> processCaptioning(
     VqaCaptioningInput captioningInput,
   ) async {
-    var payload = {
-      "ImageBytes": captioningInput.imageInput.bytes,
-      "ImageMetadata": captioningInput.imageInput.metadata,
-    };
+    var payload = {"conversationId": captioningInput.conversationId};
     Response captioningResponse;
     try {
       captioningResponse = await _client.post("$_vqaApi/ic", body: payload);
@@ -62,6 +59,29 @@ class VqaProviderImpl extends VqaProvider {
     return Result(
       isSuccess: true,
       value: VqaResult(text: questionValue["answer"]),
+    );
+  }
+
+  @override
+  Future<Result<String>> createConversation(VqaImageInput image) async {
+    var payload = {"imageBytes": image.bytes, "imageMetadata": image.metadata};
+    Response createConversationResponse;
+    try {
+      createConversationResponse = await _client.post(
+        "$_vqaApi/create",
+        body: payload,
+      );
+      if (!(createConversationResponse.statusCode! >= 200 &&
+          createConversationResponse.statusCode! < 300)) {
+        return Result(isSuccess: false);
+      }
+    } catch (e) {
+      return Result(isSuccess: false);
+    }
+    var createConversationValue = createConversationResponse.data;
+    return Result(
+      isSuccess: true,
+      value: createConversationValue["conversationId"],
     );
   }
 }
